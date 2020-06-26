@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackgr
 export default function App() {
   return (
 
+
     <View style={styles.regform}>
 
     <Image style={styles.logo}
@@ -17,10 +18,10 @@ export default function App() {
             <TextInput style={styles.textinput} placeholder="Email" 
             placeholderTextColor="#ffffff"/>
 
-            <TextInput style={styles.textinput} placeholder="Mot de Passe" 
+            <TextInput style={styles.textinput} secureTextEntry="true" placeholder="Mot de Passe" 
             placeholderTextColor="#ffffff"/>
 
-            <TextInput style={styles.textinput} placeholder="Confirmation de Mot de passe" 
+            <TextInput style={styles.textinput} secureTextEntry="true" placeholder="Confirmation de Mot de passe" 
             placeholderTextColor="#ffffff"/>
 
             <TouchableOpacity style={styles.button}> 
@@ -28,15 +29,19 @@ export default function App() {
             </TouchableOpacity>
       
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  regform: {
+
+
+regform: {
     alignSelf : 'stretch',
     alignItems: 'center',
   },
-    header: {
+
+header: {
     fontSize: 24,
     color: '#fff',
     paddingBottom : 10,
@@ -45,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  textinput: {
+textinput: {
     alignSelf : 'stretch',
     height :  40,
     marginBottom :30,
@@ -56,19 +61,19 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
 
-  button: {
+button: {
       alignSelf:'stretch',
       alignItems: 'center',
       padding : 20,
       backgroundColor: '#ffffff',
       marginTop:3,
   },
-  btntext:{
+btntext:{
       color:'#000000',
       fontWeight:'bold',
   },
 
-  logo:{
+logo:{
     width : 160,
     height: 50,
     marginBottom : 20,
