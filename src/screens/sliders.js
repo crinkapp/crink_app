@@ -11,7 +11,7 @@ const slides = [
     image: require("../../assets/natural.png"),
     backgroundColor: "#FAECE3",
     titleColor: "#B96C55",
-    textColor: "#3A444C"
+    textColor: "#3A444C",
   },
   {
     key: "two",
@@ -20,7 +20,7 @@ const slides = [
     image: require("../../assets/knowledge.png"),
     backgroundColor: "#DCC8BB",
     titleColor: "#B96C55",
-    textColor: "#3A444C"
+    textColor: "#3A444C",
   },
   {
     key: "three",
@@ -30,7 +30,7 @@ const slides = [
     image: require("../../assets/community.png"),
     backgroundColor: "#FAECE3",
     titleColor: "#B96C55",
-    textColor: "#3A444C"
+    textColor: "#3A444C",
   },
 ];
 
@@ -44,7 +44,6 @@ export default class Sliders extends React.Component {
           paddingTop: 50,
           paddingHorizontal: 40,
           backgroundColor: item.backgroundColor,
-
         }}
       >
         <Text
@@ -54,7 +53,7 @@ export default class Sliders extends React.Component {
             fontSize: 22,
             fontFamily: "montserrat-medium",
             alignSelf: "center",
-            color: item.titleColor
+            color: item.titleColor,
           }}
         >
           {item.title}
@@ -75,7 +74,7 @@ export default class Sliders extends React.Component {
             alignSelf: "center",
             textAlign: "center",
             fontFamily: "montserrat-light",
-            color: item.textColor
+            color: item.textColor,
           }}
         >
           {item.text}
@@ -89,16 +88,20 @@ export default class Sliders extends React.Component {
       <View>
         <Text style={styles.btnLabel}>Suivant</Text>
       </View>
-    )
-  }
+    );
+  };
 
   _renderDoneButton = () => {
     return (
       <View>
         <Text style={styles.btnLabel}>Terminer</Text>
       </View>
-    )
-  }
+    );
+  };
+
+  _onDone = () => {
+    this.props.navigation.navigate("Home");
+  };
 
   render() {
     return (
@@ -108,6 +111,7 @@ export default class Sliders extends React.Component {
         renderNextButton={this._renderNextButton}
         renderDoneButton={this._renderDoneButton}
         activeDotStyle={{ backgroundColor: "#3A444C" }}
+        onDone={this._onDone}
       />
     );
   }
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
   nextBtn: {
     display: "flex",
     flexDirection: "column",
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   btnLabel: {
     color: "#3A444C",
