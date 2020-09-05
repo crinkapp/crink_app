@@ -44,7 +44,8 @@ export default class Sliders extends React.Component {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "space-evenly",
-          padding: 30,
+          paddingHorizontal: 30,
+          paddingVertical: 20,
           backgroundColor: item.backgroundColor,
         }}
       >
@@ -62,14 +63,13 @@ export default class Sliders extends React.Component {
           source={item.image}
           style={{
             resizeMode: "center",
-            height: 250,
+            height: 280,
             width: "100%",
           }}
         />
         <Text
           style={{
-            // paddingTop: 100,
-            fontSize: 18,
+            fontSize: 17,
             fontWeight: "bold",
             alignSelf: "center",
             textAlign: "center",
