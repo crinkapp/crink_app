@@ -41,15 +41,15 @@ export default class Sliders extends React.Component {
       <View
         style={{
           flex: 1,
-          paddingTop: 50,
-          paddingHorizontal: 40,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          padding: 30,
           backgroundColor: item.backgroundColor,
         }}
       >
         <Text
           style={{
-            paddingTop: 70,
-            paddingBottom: 80,
             fontSize: 22,
             fontFamily: "montserrat-medium",
             alignSelf: "center",
@@ -68,7 +68,7 @@ export default class Sliders extends React.Component {
         />
         <Text
           style={{
-            paddingTop: 100,
+            // paddingTop: 100,
             fontSize: 18,
             fontWeight: "bold",
             alignSelf: "center",
