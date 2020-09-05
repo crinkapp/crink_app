@@ -8,7 +8,7 @@ const slides = [
     title: "AUTHENTICITÉ",
     text:
       "Notre mission est de vous réconcilier avec l’authenticité de vos cheveux. Vous aider à les sublimer avec des produits naturels.",
-    image: require("../../assets/natural.png"),
+    image: require("../../assets/icons/natural.png"),
     backgroundColor: "#FAECE3",
     titleColor: "#B96C55",
     textColor: "#3A444C",
@@ -17,7 +17,7 @@ const slides = [
     key: "two",
     title: "INSTRUCTIF",
     text: "Les bons gestes ne sont pas innés, laissez-nous vous les apprendre.",
-    image: require("../../assets/knowledge.png"),
+    image: require("../../assets/icons/knowledge.png"),
     backgroundColor: "#DCC8BB",
     titleColor: "#B96C55",
     textColor: "#3A444C",
@@ -27,7 +27,7 @@ const slides = [
     title: "COMMUNAUTAIRE",
     text:
       "Nous réunir autour des mêmes passions pour partager nos connaissances.",
-    image: require("../../assets/community.png"),
+    image: require("../../assets/icons/community.png"),
     backgroundColor: "#FAECE3",
     titleColor: "#B96C55",
     textColor: "#3A444C",
