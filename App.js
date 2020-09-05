@@ -1,12 +1,16 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text, StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Welcome from "./components/welcome";
-import Sliders from "./src/screens/sliders";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+
+// Screens
+import SignIn from "./src/screens/sign-in";
+import SignUp from "./src/screens/sign-up";
+import Sliders from "./src/screens/sliders";
+import Home from "./src/screens/home";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -17,59 +21,45 @@ const fetchFonts = () => {
   });
 };
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      <Welcome></Welcome>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      />
-    </View>
-  );
-}
-
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push("Details")}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
-    </View>
-  );
-}
-
 const Stack = createStackNavigator();
 
 export function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  if(!dataLoaded) {
+  // Family font fetch
+  if (!dataLoaded) {
     return (
       <AppLoading
-      startAsync={fetchFonts}
-      onFinish={() => setDataLoaded(true)}/>
-    )
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+      />
+    );
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <StatusBar barStyle="dark-content" />
+      <Stack.Navigator initialRouteName="SignIn">
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{ title: "Connexion", headerLeft: null }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{ title: "Inscription", headerLeft: null }}
+        />
+        <Stack.Screen
+          name="SliderIntro"
+          component={Sliders}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Home"
-          component={Sliders}
-          options={{ title: "Overview" }}
+          component={Home}
+          options={{ title: "Accueil", headerLeft: null }}
         />
-        <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
