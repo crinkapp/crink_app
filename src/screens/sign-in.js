@@ -125,7 +125,7 @@ export default class SignIn extends React.Component {
           />
           <ActivityIndicator
             size="small"
-            color="#3A444C"
+            color="#fff"
             style={{ display: this.state.isLoading ? "flex" : "none" }}
           />
         </TouchableOpacity>
