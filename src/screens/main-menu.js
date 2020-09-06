@@ -23,7 +23,7 @@ export default class MainMenu extends React.Component {
 
   render() {
     return (
-      <View style={globalStyle.signScreen}>
+      <View style={{flex: 1, flexDirection: "column"}}>
         <ImageBackground source={bgImage} style={styles.bgImage}>
           <View style={styles.iconSection}>
             <Image source={crinkIcon} style={styles.signCrinkIcon} />
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "space-around",
-    paddingBottom: 40,
+    paddingBottom: 35,
   },
   iconSection: {
     flex: 4,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   buttons: {
-    padding: 14,
+    padding: 10,
     marginVertical: 8,
     width: "100%",
     borderRadius: 14,
