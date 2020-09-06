@@ -11,6 +11,7 @@ import SignIn from "./src/screens/sign-in";
 import SignUp from "./src/screens/sign-up";
 import Sliders from "./src/screens/sliders";
 import Home from "./src/screens/home";
+import MainMenu from "./src/screens/main-menu";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -39,7 +40,12 @@ export function App() {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Navigator initialRouteName="MainMenu">
+        <Stack.Screen
+          name="MainMenu"
+          component={MainMenu}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SignIn"
           component={SignIn}
