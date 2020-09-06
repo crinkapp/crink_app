@@ -40,9 +40,4 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  signCrinkIcon: {
-    height: 60,
-    width: 200,
-    marginBottom: 40,
-  },
 });
