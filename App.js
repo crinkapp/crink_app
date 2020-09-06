@@ -44,23 +44,17 @@ export function App() {
         <Stack.Screen
           name="MainMenu"
           component={MainMenu}
-          options={{ title: "Crink", headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignIn"
           component={SignIn}
-          options={{
-            title: "Se connecter",
-            headerStyle: {
-              backgroundColor: "#FAECE3",
-            },
-            headerTintColor: "#3A444C",
-          }}
+          options={{title: "Se connecter", headerShown: false}}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{ title: "Inscription", headerShown: false }}
+          options={{ title: "S'incrire", headerShown: false }}
         />
         <Stack.Screen
           name="SliderIntro"
