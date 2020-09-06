@@ -7,13 +7,12 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import globalStyle from "../styles";
 
 const bgImage = require("../../assets/img/pic1.png");
 const crinkIcon = require("../../assets/icons/crink-logo-white.png");
 
 export default class MainMenu extends React.Component {
-  _goSignIn = () => {
+  _goToSignIn = () => {
     this.props.navigation.navigate("SignIn");
   };
 
@@ -33,14 +32,14 @@ export default class MainMenu extends React.Component {
               <Button
                 color="#fff"
                 title="Se connecter"
-                onPress={this._goSignIn}
+                onPress={this._goToSignIn}
               />
             </TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, styles.signUpBtn]}>
               <Button
                 color="#3A444C"
                 title="S'inscrire"
-                onPress={this._goSignIn}
+                onPress={this._goToSignUp}
               />
             </TouchableOpacity>
           </View>
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 14,
+    paddingHorizontal: 20,
   },
   buttons: {
     padding: 10,
