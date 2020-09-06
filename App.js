@@ -49,12 +49,12 @@ export function App() {
         <Stack.Screen
           name="SignIn"
           component={SignIn}
-          options={{ title: "Connexion", headerShown: false }}
+          options={{title: "Se connecter", headerShown: false}}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{ title: "Inscription", headerShown: false }}
+          options={{ title: "S'incrire", headerShown: false }}
         />
         <Stack.Screen
           name="SliderIntro"
