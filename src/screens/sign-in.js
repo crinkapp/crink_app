@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
+import DismissKeyboard from "../../components/dismiss-keyboard";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -89,56 +90,59 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <View style={globalStyle.signScreen}>
-        <Text style={globalStyle.signTitle}>Se connecter</Text>
-        <TextInput
-          style={[
-            globalStyle.signInputText,
-            { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
-          ]}
-          clearButtonMode="always"
-          placeholderTextColor="#3A444C"
-          placeholder="Adresse email"
-          autoCompleteType="off"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          onChangeText={(email) => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          style={[
-            globalStyle.signInputText,
-            { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
-          ]}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          placeholderTextColor="#3A444C"
-          placeholder="Mot de passe"
-          onChangeText={(password) => this.setState({ password })}
-          value={this.state.password}
-        />
-        {this.onError()}
-        <TouchableOpacity style={globalStyle.signBtn}>
-          <Button
-            color="#fff"
-            title="Connexion"
-            onPress={this._onPress}
-            disabled={this.state.isLoading}
+      <DismissKeyboard>
+        <View style={globalStyle.signScreen}>
+          <Text style={globalStyle.signTitle}>Se connecter</Text>
+          <TextInput
+            style={[
+              globalStyle.signInputText,
+              { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+            ]}
+            clearButtonMode="always"
+            placeholderTextColor="#3A444C"
+            placeholder="Adresse email"
+            autoCompleteType="off"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            onChangeText={(email) => this.setState({ email })}
+            value={this.state.email}
           />
-          <ActivityIndicator
-            size="small"
-            color="#fff"
-            style={{ display: this.state.isLoading ? "flex" : "none" }}
+          <TextInput
+            style={[
+              globalStyle.signInputText,
+              { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+            ]}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            placeholderTextColor="#3A444C"
+            placeholder="Mot de passe"
+            onChangeText={(password) => this.setState({ password })}
+            value={this.state.password}
           />
-        </TouchableOpacity>
-        <View style={styles.separationLine}></View>
-        <Text style={[styles.smText, { marginBottom: 14 }]}>
-          Mot de passe oublié ?
-        </Text>
-        <TouchableOpacity onPress={this._goToSignUp}>
-          <Text style={styles.smText}>Pas encore inscrit ?</Text>
-        </TouchableOpacity>
-      </View>
+
+          {this.onError()}
+          <TouchableOpacity style={globalStyle.signBtn}>
+            <Button
+              color="#fff"
+              title="Connexion"
+              onPress={this._onPress}
+              disabled={this.state.isLoading}
+            />
+            <ActivityIndicator
+              size="small"
+              color="#fff"
+              style={{ display: this.state.isLoading ? "flex" : "none" }}
+            />
+          </TouchableOpacity>
+          <View style={styles.separationLine}></View>
+          <Text style={[styles.smText, { marginBottom: 14 }]}>
+            Mot de passe oublié ?
+          </Text>
+          <TouchableOpacity onPress={this._goToSignUp}>
+            <Text style={styles.smText}>Pas encore inscrit ?</Text>
+          </TouchableOpacity>
+        </View>
+      </DismissKeyboard>
     );
   }
 }
