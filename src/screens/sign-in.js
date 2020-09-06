@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import { isLoaded, isLoading } from "expo-font";
+import globalStyle from "../styles";
 
 const bgImage = require("../../assets/img/pic1.jpeg");
 const crinkIcon = require("../../assets/icons/crink-logo-white.png");
@@ -95,17 +96,17 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <View style={styles.screen}>
+      <View style={globalStyle.signScreen}>
         <ImageBackground source={bgImage} style={styles.bgImage}>
           <View style={styles.bgFilter}>
             <View style={{ alignItems: "center" }}>
-              <Image source={crinkIcon} style={styles.crinkIcon} />
+              <Image source={crinkIcon} style={globalStyle.signCrinkIcon} />
               <Text style={styles.text}>Connectez-vous</Text>
             </View>
             <View style={{ alignItems: "center" }}>
               <TextInput
                 style={
-                  this.state.error ? styles.inputTextError : styles.inputText
+                  this.state.error ? globalStyle.signInputTextError : globalStyle.signInputText
                 }
                 placeholderTextColor="#fff"
                 placeholder="Email"
@@ -117,7 +118,7 @@ export default class SignIn extends React.Component {
               />
               <TextInput
                 style={
-                  this.state.error ? styles.inputTextError : styles.inputText
+                  this.state.error ? globalStyle.signInputTextError : globalStyle.signInputText
                 }
                 secureTextEntry={true}
                 placeholderTextColor="#fff"
@@ -126,7 +127,7 @@ export default class SignIn extends React.Component {
                 value={this.state.password}
               />
               {this.onError()}
-              <TouchableOpacity style={styles.signInBtn}>
+              <TouchableOpacity style={globalStyle.signBtn}>
                 <Button
                   color="#FAECE3"
                   title="Se connecter"
@@ -169,47 +170,17 @@ export default class SignIn extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-  },
   bgImage: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "space-around",
   },
-  crinkIcon: {
-    height: 60,
-    width: 200,
-    marginBottom: 40,
-  },
   bgFilter: {
     flex: 1,
-    // backgroundColor: "rgba(188,142,165,0.3)",
     backgroundColor: "rgba(185,108,85,0.6)",
     alignItems: "center",
     justifyContent: "space-around",
     paddingVertical: 45,
-  },
-  inputTextError: {
-    width: 300,
-    padding: 14,
-    borderWidth: 1,
-    borderColor: "#DD655C",
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "300",
-    marginVertical: 10,
-  },
-  inputText: {
-    width: 300,
-    padding: 14,
-    borderWidth: 1,
-    borderColor: "#FAECE3",
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "300",
-    marginVertical: 10,
   },
   text: {
     color: "#fff",
@@ -218,20 +189,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     fontSize: 24,
   },
-  signInBtn: {
-    marginTop: 40,
-    paddingVertical: 6,
-    width: 300,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   signUpText: {
     fontSize: 12,
-  },
-  textNavigation: {
-    fontWeight: "200",
   },
 });
