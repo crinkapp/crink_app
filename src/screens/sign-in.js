@@ -96,6 +96,7 @@ export default class SignIn extends React.Component {
             globalStyle.signInputText,
             { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
           ]}
+          clearButtonMode="always"
           placeholderTextColor="#3A444C"
           placeholder="Adresse email"
           autoCompleteType="off"
@@ -109,6 +110,7 @@ export default class SignIn extends React.Component {
             globalStyle.signInputText,
             { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
           ]}
+          clearButtonMode="always"
           secureTextEntry={true}
           placeholderTextColor="#3A444C"
           placeholder="Mot de passe"
