@@ -13,6 +13,14 @@ export default StyleSheet.create({
     backgroundColor: lightColor,
     paddingVertical: 30,
     paddingHorizontal: 20,
+    justifyContent: "center",
+  },
+  signTitle: {
+    fontSize: 28,
+    color: darkColor,
+    fontWeight: "300",
+    alignSelf: "center",
+    marginBottom: 50
   },
   signInputText: {
     width: "100%",
@@ -20,6 +28,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 6,
     color: darkColor,
+    backgroundColor: "#FDFDFD",
     fontSize: 16,
     fontWeight: "300",
     marginVertical: 10,
@@ -28,7 +37,7 @@ export default StyleSheet.create({
     marginTop: 40,
     paddingVertical: 6,
     width: "100%",
-    backgroundColor: darkColor,
+    backgroundColor: mainColor,
     borderRadius: 6,
     display: "flex",
     flexDirection: "row",
