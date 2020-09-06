@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import {
   View,
-  ImageBackground,
   Button,
   Text,
   StyleSheet,
-  Image,
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
-import { isLoaded, isLoading } from "expo-font";
 import globalStyle from "../styles";
-
-const bgImage = require("../../assets/img/pic1.jpeg");
-const crinkIcon = require("../../assets/icons/crink-logo-white.png");
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -68,7 +62,7 @@ export default class SignIn extends React.Component {
       } else {
         this.setState({
           error: true,
-          errorMsg: "Oops… mauvais email ou mot de passe",
+          errorMsg: "Adresse email ou mot de passe incorrect",
         });
       }
     });
@@ -80,11 +74,10 @@ export default class SignIn extends React.Component {
         <View>
           <Text
             style={{
-              color: "#fff",
-              marginTop: 14,
+              color: "#D55E5E",
+              marginTop: 10,
               fontSize: 14,
-              fontWeight: "500",
-              padding: 10,
+              fontWeight: "300",
             }}
           >
             {this.state.errorMsg}
@@ -97,99 +90,68 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <View style={globalStyle.signScreen}>
-        <ImageBackground source={bgImage} style={styles.bgImage}>
-          <View style={styles.bgFilter}>
-            <View style={{ alignItems: "center" }}>
-              <Image source={crinkIcon} style={globalStyle.signCrinkIcon} />
-              <Text style={styles.text}>Connectez-vous</Text>
-            </View>
-            <View style={{ alignItems: "center" }}>
-              <TextInput
-                style={
-                  this.state.error ? globalStyle.signInputTextError : globalStyle.signInputText
-                }
-                placeholderTextColor="#fff"
-                placeholder="Email"
-                autoCompleteType="off"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onChangeText={(email) => this.setState({ email })}
-                value={this.state.email}
-              />
-              <TextInput
-                style={
-                  this.state.error ? globalStyle.signInputTextError : globalStyle.signInputText
-                }
-                secureTextEntry={true}
-                placeholderTextColor="#fff"
-                placeholder="Mot de passe"
-                onChangeText={(password) => this.setState({ password })}
-                value={this.state.password}
-              />
-              {this.onError()}
-              <TouchableOpacity style={globalStyle.signBtn}>
-                <Button
-                  color="#FAECE3"
-                  title="Se connecter"
-                  onPress={this._onPress}
-                  disabled={this.state.isLoading}
-                />
-                <ActivityIndicator
-                  size="small"
-                  color="#fff"
-                  style={{ display: this.state.isLoading ? "flex" : "none" }}
-                />
-              </TouchableOpacity>
-              <Text style={{ color: "#FAECE3", fontSize: 16, marginTop: 24 }}>
-                Mot de passe oublié ?
-              </Text>
-            </View>
-            <View>
-              <View
-                style={{
-                  borderBottomColor: "#FAECE3",
-                  borderBottomWidth: 1,
-                  width: 200,
-                  marginBottom: 20,
-                }}
-              />
-              <TouchableOpacity>
-                <Button
-                  titleStyle={{ fontSize: 12 }}
-                  color="#FAECE3"
-                  title="Pas encore inscrit ?"
-                  onPress={this._goToSignUp}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ImageBackground>
+        <Text style={globalStyle.signTitle}>Se connecter</Text>
+        <TextInput
+          style={[
+            globalStyle.signInputText,
+            { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+          ]}
+          placeholderTextColor="#3A444C"
+          placeholder="Adresse email"
+          autoCompleteType="off"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          onChangeText={(email) => this.setState({ email })}
+          value={this.state.email}
+        />
+        <TextInput
+          style={[
+            globalStyle.signInputText,
+            { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+          ]}
+          secureTextEntry={true}
+          placeholderTextColor="#3A444C"
+          placeholder="Mot de passe"
+          onChangeText={(password) => this.setState({ password })}
+          value={this.state.password}
+        />
+        {this.onError()}
+        <TouchableOpacity style={globalStyle.signBtn}>
+          <Button
+            color="#fff"
+            title="Connexion"
+            onPress={this._onPress}
+            disabled={this.state.isLoading}
+          />
+          <ActivityIndicator
+            size="small"
+            color="#3A444C"
+            style={{ display: this.state.isLoading ? "flex" : "none" }}
+          />
+        </TouchableOpacity>
+        <View style={styles.separationLine}></View>
+        <Text style={[styles.smText, { marginBottom: 14 }]}>
+          Mot de passe oublié ?
+        </Text>
+        <TouchableOpacity onPress={this._goToSignUp}>
+          <Text style={styles.smText}>Pas encore inscrit ?</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  bgImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "space-around",
+  separationLine: {
+    marginVertical: 40,
+    borderColor: "#3A444C",
+    borderWidth: 0.7,
+    width: "70%",
+    alignSelf: "center",
   },
-  bgFilter: {
-    flex: 1,
-    backgroundColor: "rgba(185,108,85,0.6)",
-    alignItems: "center",
-    justifyContent: "space-around",
-    paddingVertical: 45,
-  },
-  text: {
-    color: "#fff",
-    fontWeight: "300",
-    letterSpacing: 1,
-    paddingBottom: 30,
-    fontSize: 24,
-  },
-  signUpText: {
-    fontSize: 12,
+  smText: {
+    color: "#3A444C",
+    fontSize: 16,
+    alignSelf: "center",
   },
 });
