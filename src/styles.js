@@ -56,6 +56,12 @@ export default StyleSheet.create({
     color: "#3A444C",
     fontSize: 16,
     alignSelf: "center",
-    fontWeight: "300"
+    fontWeight: "300",
+  },
+  signErrorMsg: {
+    color: "#D55E5E",
+    marginVertical: 3,
+    fontSize: 12,
+    fontWeight: "300",
   },
 });
