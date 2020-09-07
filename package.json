@@ -10,6 +10,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.2",
     "@react-navigation/stack": "^5.9.0",
     "axios": "^0.20.0",
@@ -22,6 +23,7 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-intro-slider": "^3.0.1",
+    "react-native-ionicons": "^4.6.5",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
