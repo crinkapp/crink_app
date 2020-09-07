@@ -3,7 +3,6 @@ import {
   View,
   Button,
   Text,
-  StyleSheet,
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
@@ -78,8 +77,8 @@ export default class SignIn extends React.Component {
           <Text
             style={{
               color: "#D55E5E",
-              marginTop: 10,
-              fontSize: 14,
+              marginVertical: 5,
+              fontSize: 12,
               fontWeight: "300",
             }}
           >
@@ -134,7 +133,10 @@ export default class SignIn extends React.Component {
           />
 
           {this.onError()}
-          <TouchableOpacity style={globalStyle.signBtn} disabled={this.state.isLoading}>
+          <TouchableOpacity
+            style={globalStyle.signBtn}
+            disabled={this.state.isLoading}
+          >
             <Button
               color="#fff"
               title="Connexion"
@@ -148,22 +150,17 @@ export default class SignIn extends React.Component {
             />
           </TouchableOpacity>
           <View style={globalStyle.signSeparationLine}></View>
-          <Text style={[styles.smText, { marginBottom: 14 }]}>
+          <Text style={[globalStyle.signSmText, { marginBottom: 14 }]}>
             Mot de passe oublié ?
           </Text>
           <TouchableOpacity onPress={this._goToSignUp}>
-            <Text style={styles.smText}>Pas encore inscrit ? <Text style={{fontWeight: "600"}}> S'inscrire</Text></Text>
+            <Text style={globalStyle.signSmText}>
+              Pas encore inscrit ?{" "}
+              <Text style={{ fontWeight: "600" }}> S'inscrire</Text>
+            </Text>
           </TouchableOpacity>
         </View>
       </DismissKeyboard>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  smText: {
-    color: "#3A444C",
-    fontSize: 16,
-    alignSelf: "center",
-  },
-});
