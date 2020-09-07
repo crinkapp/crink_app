@@ -126,6 +126,7 @@ export default class SignIn extends React.Component {
             ]}
             clearButtonMode="always"
             secureTextEntry={true}
+            autoCompleteType="off"
             placeholderTextColor="#3A444C"
             placeholder="Mot de passe"
             onChangeText={(password) => this.setState({ password })}

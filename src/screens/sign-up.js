@@ -15,8 +15,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-
-import DismissKeyboard from '../../components/dismiss-keyboard'
+import DismissKeyboard from "../../components/dismiss-keyboard";
 
 const genders = [
   { label: "Homme", value: "Man" },
@@ -100,7 +99,7 @@ export default class SignUp extends React.Component {
               globalStyle.signInputText,
               { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
             ]}
-            clearButtonMode="always"
+            autoCompleteType="off"
             secureTextEntry={true}
             placeholderTextColor="#3A444C"
             placeholder="Mot de passe"
@@ -121,10 +120,16 @@ export default class SignUp extends React.Component {
               style={{ display: this.state.isLoading ? "flex" : "none" }}
             />
           </TouchableOpacity>
-          <View style={styles.separationLine}></View>
+          <View style={globalStyle.signSeparationLine}></View>
           <TouchableOpacity onPress={this._goToSignIn}>
-            <Text style={styles.smText}>Déjà inscrit ?</Text>
+            <Text style={styles.smText}>Vous avez déjà un compte ? <Text style={styles.textBold}> Se connecter </Text></Text>
           </TouchableOpacity>
+          <Text style={styles.cgu}>
+            En vous inscrivant, vous approuvez nos
+            <Text style={styles.textBold}> Conditions d'utilisation </Text>
+            et notre
+            <Text style={styles.textBold}> Politique de Confidentialité</Text>.
+          </Text>
         </View>
       </DismissKeyboard>
     );
@@ -132,16 +137,19 @@ export default class SignUp extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  separationLine: {
-    marginVertical: 40,
-    borderColor: "#3A444C",
-    borderWidth: 0.7,
-    width: "70%",
-    alignSelf: "center",
-  },
   smText: {
     color: "#3A444C",
     fontSize: 16,
     alignSelf: "center",
+  },
+  cgu: {
+    textAlign: "center",
+    color: "#3A444C",
+    alignSelf: "center",
+    marginTop: 24,
+    fontSize: 13,
+  },
+  textBold: {
+    fontWeight: "600",
   },
 });
