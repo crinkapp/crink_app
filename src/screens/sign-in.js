@@ -133,7 +133,7 @@ export default class SignIn extends React.Component {
           />
 
           {this.onError()}
-          <TouchableOpacity style={globalStyle.signBtn}>
+          <TouchableOpacity style={globalStyle.signBtn} disabled={this.state.isLoading}>
             <Button
               color="#fff"
               title="Connexion"
