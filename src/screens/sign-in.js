@@ -150,9 +150,11 @@ export default class SignIn extends React.Component {
             />
           </TouchableOpacity>
           <View style={globalStyle.signSeparationLine}></View>
-          <Text style={[globalStyle.signSmText, { marginBottom: 14 }]}>
-            Mot de passe oublié ?
-          </Text>
+          <TouchableOpacity onPress={this._goToHome}>
+            <Text style={[globalStyle.signSmText, { marginBottom: 14 }]}>
+              Mot de passe oublié ?
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={this._goToSignUp}>
             <Text style={globalStyle.signSmText}>
               Pas encore inscrit ?{" "}
