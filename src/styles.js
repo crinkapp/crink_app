@@ -11,16 +11,17 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: lightColor,
-    paddingVertical: 30,
+    paddingTop: 60,
+    paddingBottom: 20,
     paddingHorizontal: 20,
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   signTitle: {
     fontSize: 28,
     color: darkColor,
     fontWeight: "300",
     alignSelf: "center",
-    marginBottom: 50
+    marginBottom: 30
   },
   signInputText: {
     width: "100%",
@@ -34,7 +35,7 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   signBtn: {
-    marginTop: 40,
+    marginTop: 30,
     paddingVertical: 6,
     width: "100%",
     backgroundColor: mainColor,
@@ -43,5 +44,24 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  signSeparationLine: {
+    marginVertical: 30,
+    borderColor: "#3A444C",
+    borderWidth: 1,
+    width: "70%",
+    alignSelf: "center",
+  },
+  signSmText: {
+    color: "#3A444C",
+    fontSize: 16,
+    alignSelf: "center",
+    fontWeight: "300",
+  },
+  signErrorMsg: {
+    color: "#D55E5E",
+    marginVertical: 3,
+    fontSize: 12,
+    fontWeight: "300",
   },
 });
