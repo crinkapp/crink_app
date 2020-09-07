@@ -44,4 +44,11 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  signSeparationLine: {
+    marginVertical: 30,
+    borderColor: "#3A444C",
+    borderWidth: 1,
+    width: "70%",
+    alignSelf: "center",
+  },
 });
