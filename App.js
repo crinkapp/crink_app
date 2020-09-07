@@ -1,17 +1,24 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
+import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 // Screens
+import MainMenu from "./src/screens/main-menu";
 import SignIn from "./src/screens/sign-in";
 import SignUp from "./src/screens/sign-up";
 import Sliders from "./src/screens/sliders";
 import Home from "./src/screens/home";
-import MainMenu from "./src/screens/main-menu";
+import Search from "./src/screens/search";
+import Messages from "./src/screens/messages";
+import Favoris from "./src/screens/favoris";
+import Settings from "./src/screens/settings";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -23,6 +30,73 @@ const fetchFonts = () => {
 };
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const HomeTabs = () => {
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#B96C55" }}>
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color }) => {
+            let iconName;
+
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home";
+            } else if (route.name === "Search") {
+              iconName = focused ? "search" : "search";
+            } else if (route.name === "Messages") {
+              iconName = focused ? "comments" : "comments";
+            } else if (route.name === "Favoris") {
+              iconName = focused ? "star" : "star";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "cog" : "cog";
+            }
+            return <Icon name={iconName} size={24} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          style: {
+            backgroundColor: "#B96C55",
+          },
+          labelStyle: {
+            marginBottom: 4,
+          },
+          inactiveTintColor: "#D3917D",
+          activeTintColor: "#fff",
+          showLabel: true,
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          title="test"
+          component={Home}
+          options={{ title: "Accueil", headerLeft: null }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={Search}
+          options={{ title: "Recherche" }}
+        />
+        <Tab.Screen
+          name="Messages"
+          component={Messages}
+          options={{ title: "Messages" }}
+        />
+        <Tab.Screen
+          name="Favoris"
+          component={Favoris}
+          options={{ title: "Favoris" }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: "Paramètres" }}
+        />
+      </Tab.Navigator>
+    </SafeAreaView>
+  );
+};
 
 export function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -49,7 +123,7 @@ export function App() {
         <Stack.Screen
           name="SignIn"
           component={SignIn}
-          options={{title: "Se connecter", headerShown: false}}
+          options={{ title: "Se connecter", headerShown: false }}
         />
         <Stack.Screen
           name="SignUp"
@@ -63,8 +137,8 @@ export function App() {
         />
         <Stack.Screen
           name="Home"
-          component={Home}
-          options={{ title: "Accueil", headerLeft: null }}
+          component={HomeTabs}
+          options={{ title: false, headerLeft: null }}
         />
       </Stack.Navigator>
     </NavigationContainer>
