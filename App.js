@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Button, View, Text, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
