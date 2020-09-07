@@ -146,12 +146,12 @@ export default class SignIn extends React.Component {
               style={{ display: this.state.isLoading ? "flex" : "none" }}
             />
           </TouchableOpacity>
-          <View style={styles.separationLine}></View>
+          <View style={globalStyle.signSeparationLine}></View>
           <Text style={[styles.smText, { marginBottom: 14 }]}>
             Mot de passe oublié ?
           </Text>
           <TouchableOpacity onPress={this._goToSignUp}>
-            <Text style={styles.smText}>Pas encore inscrit ?</Text>
+            <Text style={styles.smText}>Pas encore inscrit ? <Text style={{fontWeight: "600"}}> S'inscrire</Text></Text>
           </TouchableOpacity>
         </View>
       </DismissKeyboard>
@@ -160,13 +160,6 @@ export default class SignIn extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  separationLine: {
-    marginVertical: 40,
-    borderColor: "#3A444C",
-    borderWidth: 0.7,
-    width: "70%",
-    alignSelf: "center",
-  },
   smText: {
     color: "#3A444C",
     fontSize: 16,
