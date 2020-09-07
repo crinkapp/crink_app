@@ -11,6 +11,7 @@ import {
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import DismissKeyboard from "../../components/dismiss-keyboard";
+import axios from "axios";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class SignIn extends React.Component {
       email: "",
       password: "",
       error: false,
+      errorServer: false,
       errorMsg: "",
       isLoading: false,
     };
@@ -33,40 +35,40 @@ export default class SignIn extends React.Component {
   };
 
   login = () => {
-    return fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        Accet: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email_user: this.state.email,
-        password_user: this.state.password,
-      }),
-    }).catch((err) => {
-      this.setState({
-        error: true,
-        errorMsg:
-          "Le service est momentanément indisponible. Veuillez réessayer ultérieurement.",
-      });
+    return axios.post(`${API_URL}/login`, {
+      email_user: this.state.email,
+      password_user: this.state.password,
     });
   };
 
   _onPress = () => {
     this.setState({ isLoading: true });
-    this.login().then((res) => {
-      // console.log(JSON.stringify(res.status));
-      this.setState({ isLoading: false });
-      if (res.status === 200) {
-        this.setState({ error: false });
+    this.login()
+      .then((res) => {
+        // Success login
+        this.setState({ isLoading: false, error: false, errorServer: false });
         this._goToHome();
-      } else {
-        this.setState({
-          error: true,
-          errorMsg: "Adresse email ou mot de passe incorrect",
-        });
-      }
-    });
+      })
+      .catch((err) => {
+        // If incorrect email or password
+        if (err.response) {
+          this.setState({
+            isLoading: false,
+            error: true,
+            errorServer: false,
+            errorMsg: "Adresse email ou mot de passe incorrect.",
+          });
+        } else if (err.request) {
+          // Server error handling
+          this.setState({
+            isLoading: false,
+            error: true,
+            errorServer: true,
+            errorMsg:
+              "Le service est momentanément indisponible. Veuillez réessayer ultérieurement.",
+          });
+        }
+      });
   };
 
   onError = () => {
@@ -96,7 +98,12 @@ export default class SignIn extends React.Component {
           <TextInput
             style={[
               globalStyle.signInputText,
-              { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+              {
+                borderColor:
+                  this.state.error && !this.state.errorServer
+                    ? "#D55E5E"
+                    : "#FDFDFD",
+              },
             ]}
             clearButtonMode="always"
             placeholderTextColor="#3A444C"
@@ -110,7 +117,12 @@ export default class SignIn extends React.Component {
           <TextInput
             style={[
               globalStyle.signInputText,
-              { borderColor: this.state.error ? "#D55E5E" : "#FDFDFD" },
+              {
+                borderColor:
+                  this.state.error && !this.state.errorServer
+                    ? "#D55E5E"
+                    : "#FDFDFD",
+              },
             ]}
             clearButtonMode="always"
             secureTextEntry={true}
