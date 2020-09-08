@@ -10,15 +10,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 // SCREENS
-import MainMenu from "../src/screens/main-menu";
-import SignIn from "../src/screens/sign-in";
-import SignUp from "../src/screens/sign-up";
-import Sliders from "../src/screens/sliders";
-import Home from "../src/screens/home";
-import Search from "../src/screens/search";
-import Messages from "../src/screens/messages";
-import Favoris from "../src/screens/favoris";
-import Settings from "../src/screens/settings";
+import MainMenu from "../screens/main-menu";
+import SignIn from "../screens/sign-in";
+import SignUp from "../screens/sign-up";
+import Sliders from "../screens/sliders";
+import Home from "../screens/home";
+import Search from "../screens/search";
+import Messages from "../screens/messages";
+import Favoris from "../screens/favoris";
+import Settings from "../screens/settings";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -17,7 +17,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-import DismissKeyboard from "../../components/dismiss-keyboard";
+import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
 import Constants from "expo-constants";
 

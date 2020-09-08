@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
-import DismissKeyboard from "../../components/dismiss-keyboard";
+import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
 
 export default class SignIn extends React.Component {
@@ -40,13 +40,18 @@ export default class SignIn extends React.Component {
     });
   };
 
+  getUser = () => {
+    return axios.get(`${API_URL}/user`);
+  }
+
   _onPress = () => {
     this.setState({ isLoading: true });
     this.login()
       .then((res) => {
         // Success login
         this.setState({ isLoading: false, error: false, errorServer: false });
-        this._goToHome();
+        this.getUser().then((user) => console.log(user.data))
+        // this._goToHome();
       })
       .catch((err) => {
         // If incorrect email or password
