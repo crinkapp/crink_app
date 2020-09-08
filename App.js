@@ -1,7 +1,10 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -36,7 +39,6 @@ const HomeTabs = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#B96C55" }}>
       <Tab.Navigator
-        initialRouteName="Home"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color }) => {
             let iconName;
@@ -67,35 +69,31 @@ const HomeTabs = () => {
           showLabel: true,
         }}
       >
-        <Tab.Screen
-          name="Home"
-          title="test"
-          component={Home}
-          options={{ title: "Accueil", headerLeft: null }}
-        />
-        <Tab.Screen
-          name="Search"
-          component={Search}
-          options={{ title: "Recherche" }}
-        />
-        <Tab.Screen
-          name="Messages"
-          component={Messages}
-          options={{ title: "Messages" }}
-        />
-        <Tab.Screen
-          name="Favoris"
-          component={Favoris}
-          options={{ title: "Favoris" }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={Settings}
-          options={{ title: "Paramètres" }}
-        />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Search" component={Search} />
+        <Tab.Screen name="Messages" component={Messages} />
+        <Tab.Screen name="Favoris" component={Favoris} />
+        <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
     </SafeAreaView>
   );
+};
+
+const getHeaderTitle = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+
+  switch (routeName) {
+    case "Home":
+      return "Accueil";
+    case "Search":
+      return "Rechercher";
+    case "Messages":
+      return "Messages";
+    case "Favoris":
+      return "Favoris";
+    case "Settings":
+      return "Paramètres";
+  }
 };
 
 export function App() {
@@ -114,7 +112,7 @@ export function App() {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="MainMenu">
+      <Stack.Navigator initialRouteName="MainMenu" headerMode="screen">
         <Stack.Screen
           name="MainMenu"
           component={MainMenu}
@@ -136,9 +134,12 @@ export function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Home"
+          name="HomeTabs"
           component={HomeTabs}
-          options={{ title: false, headerLeft: null }}
+          options={({ route }) => ({
+            headerTitle: getHeaderTitle(route),
+            headerLeft: false
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
