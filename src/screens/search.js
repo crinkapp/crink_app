@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 
-export default class Home extends React.Component {
+export default class Search extends React.Component {
   render() {
     return (
       <View style={styles.screen}>
-        <Text style={styles.text}>Écran d'accueil</Text>
+        <Text style={styles.text}>Écran de recherche</Text>
       </View>
     );
   }
