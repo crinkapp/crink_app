@@ -5,7 +5,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.screen}>
-        <Text style={styles.text}>Accueil</Text>
+        <Text style={styles.text}>Écran d'accueil</Text>
       </View>
     );
   }

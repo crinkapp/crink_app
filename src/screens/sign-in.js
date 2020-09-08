@@ -26,7 +26,7 @@ export default class SignIn extends React.Component {
   }
 
   _goToHome = () => {
-    this.props.navigation.navigate("Home");
+    this.props.navigation.navigate("HomeTabs");
   };
 
   _goToSignUp = () => {

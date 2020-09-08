@@ -100,7 +100,7 @@ export default class Sliders extends React.Component {
   };
 
   _onDone = () => {
-    this.props.navigation.navigate("Home");
+    this.props.navigation.navigate("HomeTabs");
   };
 
   render() {
