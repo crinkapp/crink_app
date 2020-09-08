@@ -57,11 +57,11 @@ const HomeTabs = () => {
           showLabel: true,
         }}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Search" component={Search} />
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Favoris" component={Favoris} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen name="Home" component={Home} options={{ title: "Accueil"}}/>
+        <Tab.Screen name="Search" component={Search} options={{ title: "Rechercher"}}/>
+        <Tab.Screen name="Messages" component={Messages} options={{ title: "Messages"}}/>
+        <Tab.Screen name="Favoris" component={Favoris} options={{ title: "Favoris"}}/>
+        <Tab.Screen name="Settings" component={Settings} options={{ title: "Paramètres"}}/>
       </Tab.Navigator>
     </SafeAreaView>
   );
