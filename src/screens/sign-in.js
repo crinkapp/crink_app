@@ -6,6 +6,7 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
@@ -50,8 +51,9 @@ export default class SignIn extends React.Component {
       .then((res) => {
         // Success login
         this.setState({ isLoading: false, error: false, errorServer: false });
-        this.getUser().then((user) => console.log(user.data))
-        // this._goToHome();
+        // this.getUser().then((user) => console.log(user.data))
+        // this.getUser().then((user) => AsyncStorage.setItem())
+        this._goToHome();
       })
       .catch((err) => {
         // If incorrect email or password
