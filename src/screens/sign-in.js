@@ -6,10 +6,11 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
+  AsyncStorage,
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
-import DismissKeyboard from "../../components/dismiss-keyboard";
+import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
 
 export default class SignIn extends React.Component {
@@ -18,12 +19,27 @@ export default class SignIn extends React.Component {
     this.state = {
       email: "",
       password: "",
-      error: false,
+      errorEmail: false,
+      errorPassword: false,
+      errorSignIn: false,
       errorServer: false,
       errorMsg: "",
       isLoading: false,
     };
   }
+
+  validateEmail = () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    reg.test(this.state.email) === false
+      ? this.setState({ errorEmail: true })
+      : this.setState({ errorEmail: false });
+  };
+
+  validatePassword = () => {
+    this.state.password.length < 6
+      ? this.setState({ errorPassword: true })
+      : this.setState({ errorPassword: false });
+  };
 
   _goToHome = () => {
     this.props.navigation.navigate("HomeTabs");
@@ -40,20 +56,31 @@ export default class SignIn extends React.Component {
     });
   };
 
+  getUser = () => {
+    return axios.get(`${API_URL}/user`);
+  };
+
   _onPress = () => {
     this.setState({ isLoading: true });
     this.login()
       .then((res) => {
         // Success login
-        this.setState({ isLoading: false, error: false, errorServer: false });
-        this._goToHome();
+        this.setState({
+          isLoading: false,
+          errorSignIn: false,
+          errorServer: false,
+        });
+        this.getUser().then((user) =>
+          // AsyncStorage.setItem("userId", user.data.id).then((res) => console.log(res))
+          this._goToHome()
+        );
       })
       .catch((err) => {
         // If incorrect email or password
         if (err.response) {
           this.setState({
             isLoading: false,
-            error: true,
+            errorSignIn: true,
             errorServer: false,
             errorMsg: "Adresse email ou mot de passe incorrect.",
           });
@@ -61,7 +88,7 @@ export default class SignIn extends React.Component {
           // Server error handling
           this.setState({
             isLoading: false,
-            error: true,
+            errorSignIn: true,
             errorServer: true,
             errorMsg:
               "Le service est momentanément indisponible. Veuillez réessayer ultérieurement.",
@@ -70,8 +97,30 @@ export default class SignIn extends React.Component {
       });
   };
 
-  onError = () => {
-    if (this.state.error) {
+  onErrorEmail = () => {
+    if (this.state.errorEmail) {
+      return (
+        <View>
+          <Text style={globalStyle.signErrorMsg}>Format invalide.</Text>
+        </View>
+      );
+    }
+  };
+
+  onErrorPassword = () => {
+    if (this.state.errorPassword) {
+      return (
+        <View>
+          <Text style={globalStyle.signErrorMsg}>
+            Votre mot de passe doit contenir au minimum 6 caractères.
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  onErrorSignIn = () => {
+    if (this.state.errorSignIn) {
       return (
         <View>
           <Text
@@ -99,7 +148,8 @@ export default class SignIn extends React.Component {
               globalStyle.signInputText,
               {
                 borderColor:
-                  this.state.error && !this.state.errorServer
+                  (this.state.errorEmail || this.state.errorSignIn) &&
+                  !this.state.errorServer
                     ? "#D55E5E"
                     : "#FDFDFD",
               },
@@ -110,15 +160,18 @@ export default class SignIn extends React.Component {
             autoCompleteType="off"
             keyboardType="email-address"
             autoCapitalize="none"
+            onBlur={this.validateEmail}
             onChangeText={(email) => this.setState({ email })}
             value={this.state.email}
           />
+          {this.onErrorEmail()}
           <TextInput
             style={[
               globalStyle.signInputText,
               {
                 borderColor:
-                  this.state.error && !this.state.errorServer
+                  (this.state.errorEmail || this.state.errorSignIn) &&
+                  !this.state.errorServer
                     ? "#D55E5E"
                     : "#FDFDFD",
               },
@@ -128,15 +181,13 @@ export default class SignIn extends React.Component {
             autoCompleteType="off"
             placeholderTextColor="#3A444C"
             placeholder="Mot de passe"
+            onBlur={this.validatePassword}
             onChangeText={(password) => this.setState({ password })}
             value={this.state.password}
           />
-
-          {this.onError()}
-          <TouchableOpacity
-            style={globalStyle.signBtn}
-            disabled={this.state.isLoading}
-          >
+          {this.onErrorPassword()}
+          {this.onErrorSignIn()}
+          <TouchableOpacity style={globalStyle.signBtn}>
             <Button
               color="#fff"
               title="Connexion"

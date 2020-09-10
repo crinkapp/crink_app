@@ -1,18 +1,23 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+import React, { useState, useEffect } from "react";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import Navigation from "./src/components/navigation";
+import { View, Text, AsyncStorage } from "react-native";
+import { API_URL } from "react-native-dotenv";
+import axios from "axios";
+import { SafeAreaView, StatusBar } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+// Navigation
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
-import { StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
-import Icon from "react-native-vector-icons/FontAwesome";
 
-// Screens
+// Screen
 import MainMenu from "./src/screens/main-menu";
 import SignIn from "./src/screens/sign-in";
 import SignUp from "./src/screens/sign-up";
@@ -23,19 +28,21 @@ import Messages from "./src/screens/messages";
 import Favoris from "./src/screens/favoris";
 import Settings from "./src/screens/settings";
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    "montserrat-black": require("./assets/fonts/Montserrat-Black.ttf"),
-    "montserrat-medium": require("./assets/fonts/Montserrat-Medium.ttf"),
-    "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
-    "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
-  });
-};
+// import Navigation from "./src/components/navigation";
+
+// const fetchFonts = () => {
+//   return Font.loadAsync({
+//     "montserrat-black": require("./assets/fonts/Montserrat-Black.ttf"),
+//     "montserrat-medium": require("./assets/fonts/Montserrat-Medium.ttf"),
+//     "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
+//     "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
+//   });
+// };
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HomeTabs = () => {
+const ConnectedRoute = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#B96C55" }}>
       <Tab.Navigator
@@ -69,11 +76,31 @@ const HomeTabs = () => {
           showLabel: true,
         }}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Search" component={Search} />
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Favoris" component={Favoris} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Accueil", headerShown: true }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={Search}
+          options={{ title: "Rechercher" }}
+        />
+        <Tab.Screen
+          name="Messages"
+          component={Messages}
+          options={{ title: "Messages" }}
+        />
+        <Tab.Screen
+          name="Favoris"
+          component={Favoris}
+          options={{ title: "Favoris" }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: "Paramètres" }}
+        />
       </Tab.Navigator>
     </SafeAreaView>
   );
@@ -81,7 +108,6 @@ const HomeTabs = () => {
 
 const getHeaderTitle = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-
   switch (routeName) {
     case "Home":
       return "Accueil";
@@ -96,54 +122,97 @@ const getHeaderTitle = (route) => {
   }
 };
 
-export function App() {
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-  // Family font fetch
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
+const NotConnectedRoute = () => {
+  return (
+    // <NavigationContainer>
+    // <StatusBar barStyle="dark-content" />
+    <Stack.Navigator initialRouteName="MainMenu" headerMode="screen">
+      <Stack.Screen
+        name="MainMenu"
+        component={MainMenu}
+        options={{ headerShown: false }}
       />
-    );
-  }
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ title: "Se connecter", headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{ title: "S'incrire", headerShown: false }}
+      />
+      <Stack.Screen
+        name="SliderIntro"
+        component={Sliders}
+        options={{ headerShown: false }}
+      />
+      {/* <Stack.Screen
+        name="HomeTabs"
+        component={HomeTabs}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: false,
+        })}
+      /> */}
+    </Stack.Navigator>
+    // </NavigationContainer>
+  );
+};
+
+const App = () => {
+  // const [dataLoaded, setDataLoaded] = useState(false);
+
+  // // Family font fetch
+  // if (!dataLoaded) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={fetchFonts}
+  //       onFinish={() => setDataLoaded(true)}
+  //     />
+  //   );
+  // }
+
+  const [user, setUser] = useState({});
+
+  const getUser = () => {
+    return axios
+      .get(`${API_URL}/user`)
+      .then((res) => {
+        setUser(res.data.email_user);
+      })
+      .catch((err) => {
+        // If incorrect email or password
+        if (err.request) {
+          setUser(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    // getUser();
+    // console.log(`User : ${JSON.stringify(user)}`);
+    const id = AsyncStorage.getItem("userId");
+    id.then((res) => console.log(res));
+  }, []);
+
+  // if (user) {
+  //   return <ConnectedRoute></ConnectedRoute>
+  // } else {
+  // return <NotConnectedRoute></NotConnectedRoute>
+  // }
 
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="MainMenu" headerMode="screen">
-        <Stack.Screen
-          name="MainMenu"
-          component={MainMenu}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{ title: "Se connecter", headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ title: "S'incrire", headerShown: false }}
-        />
-        <Stack.Screen
-          name="SliderIntro"
-          component={Sliders}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="HomeTabs"
-          component={HomeTabs}
-          options={({ route }) => ({
-            headerTitle: getHeaderTitle(route),
-            headerLeft: false
-          })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Navigation></Navigation>
   );
-}
+    // <NavigationContainer>
+    //   <StatusBar barStyle="dark-content" />
+    //   {user.id ? (
+    //     <ConnectedRoute></ConnectedRoute>
+    //   ) : (
+    //     <NotConnectedRoute></NotConnectedRoute>
+    //   )}
+    // </NavigationContainer>
+};
 
 export default App;

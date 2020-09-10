@@ -17,7 +17,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-import DismissKeyboard from "../../components/dismiss-keyboard";
+import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
 import Constants from "expo-constants";
 
@@ -34,7 +34,6 @@ export default class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
-      confirmPassword: "",
       errorUsername: false,
       errorEmail: false,
       errorPassword: false,
@@ -92,12 +91,26 @@ export default class SignUp extends React.Component {
       this.register()
         .then((res) => {
           // Success login
-          this.setState({ isLoading: false, error: false, errorServer: false });
+          this.setState({ isLoading: false, errorServer: false });
           this._goToSlider();
         })
         .catch((err) => {
-          // If incorrect email or password
-          console.log(err.response.data);
+          if (err.response) {
+            console.log(err.response);
+            this.setState({
+              isLoading: false,
+              errorServer: false,
+            });
+          } else if (err.request) {
+            // Server error handling
+            this.setState({
+              isLoading: false,
+              errorUsername: false,
+              errorEmail: false,
+              errorPassword: false,
+              errorServer: true,
+            });
+          }
         });
     }
     this.setState({ isLoading: false });
@@ -131,6 +144,19 @@ export default class SignUp extends React.Component {
         <View>
           <Text style={globalStyle.signErrorMsg}>
             Votre mot de passe doit contenir au minimum 6 caractères.
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  onErrorServer = () => {
+    if (this.state.errorServer) {
+      return (
+        <View>
+          <Text style={globalStyle.signErrorMsg}>
+            Le service est momentanément indisponible. Veuillez réessayer
+            ultérieurement.
           </Text>
         </View>
       );
@@ -216,6 +242,7 @@ export default class SignUp extends React.Component {
               (6 caractères minimum)
             </Text>
             {this.onErrorPassword()}
+            {this.onErrorServer()}
             <TouchableOpacity style={globalStyle.signBtn}>
               <Button
                 color="#fff"
