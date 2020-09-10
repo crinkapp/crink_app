@@ -28,6 +28,8 @@ import Messages from "./src/screens/messages";
 import Favoris from "./src/screens/favoris";
 import Settings from "./src/screens/settings";
 
+// import Navigation from "./src/components/navigation";
+
 // const fetchFonts = () => {
 //   return Font.loadAsync({
 //     "montserrat-black": require("./assets/fonts/Montserrat-Black.ttf"),
@@ -77,7 +79,7 @@ const ConnectedRoute = () => {
         <Tab.Screen
           name="Home"
           component={Home}
-          options={{ title: "Accueil" }}
+          options={{ title: "Accueil", headerShown: true }}
         />
         <Tab.Screen
           name="Search"
@@ -146,39 +148,53 @@ const NotConnectedRoute = () => {
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen
-          name="HomeTabs"
-          component={HomeTabs}
-          options={({ route }) => ({
-            headerTitle: getHeaderTitle(route),
-            headerLeft: false,
-          })}
-        /> */}
+        name="HomeTabs"
+        component={HomeTabs}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: false,
+        })}
+      /> */}
     </Stack.Navigator>
     // </NavigationContainer>
   );
 };
 
 const App = () => {
+  // const [dataLoaded, setDataLoaded] = useState(false);
+
+  // // Family font fetch
+  // if (!dataLoaded) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={fetchFonts}
+  //       onFinish={() => setDataLoaded(true)}
+  //     />
+  //   );
+  // }
+
   const [user, setUser] = useState({});
 
-  const getUser = async () => {
-    return await axios
+  const getUser = () => {
+    return axios
       .get(`${API_URL}/user`)
-      .then((res) => setUser(res))
+      .then((res) => {
+        setUser(res.data.email_user);
+      })
       .catch((err) => {
         // If incorrect email or password
-        if (err.response) {
-          setUser(false);
-        } else if (err.request) {
-          // Server error handling
+        if (err.request) {
           setUser(false);
         }
       });
   };
 
   useEffect(() => {
-    getUser();
-  });
+    // getUser();
+    // console.log(`User : ${JSON.stringify(user)}`);
+    const id = AsyncStorage.getItem("userId");
+    id.then((res) => console.log(res));
+  }, []);
 
   // if (user) {
   //   return <ConnectedRoute></ConnectedRoute>
@@ -187,11 +203,16 @@ const App = () => {
   // }
 
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
-      { user ? <ConnectedRoute></ConnectedRoute> : <NotConnectedRoute></NotConnectedRoute>}
-    </NavigationContainer>
+    <Navigation></Navigation>
   );
+    // <NavigationContainer>
+    //   <StatusBar barStyle="dark-content" />
+    //   {user.id ? (
+    //     <ConnectedRoute></ConnectedRoute>
+    //   ) : (
+    //     <NotConnectedRoute></NotConnectedRoute>
+    //   )}
+    // </NavigationContainer>
 };
 
 export default App;
