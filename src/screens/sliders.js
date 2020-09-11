@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
 
 const slides = [
   {
@@ -10,8 +12,6 @@ const slides = [
       "Notre mission est de vous réconcilier avec l’authenticité de vos cheveux. Vous aider à les sublimer avec des produits naturels.",
     image: require("../../assets/icons/natural.png"),
     backgroundColor: "#FAECE3",
-    titleColor: "#B96C55",
-    textColor: "#3A444C",
   },
   {
     key: "two",
@@ -19,8 +19,6 @@ const slides = [
     text: "Les bons gestes ne sont pas innés, laissez-nous vous les apprendre.",
     image: require("../../assets/icons/knowledge.png"),
     backgroundColor: "#DCC8BB",
-    titleColor: "#B96C55",
-    textColor: "#3A444C",
   },
   {
     key: "three",
@@ -29,95 +27,109 @@ const slides = [
       "Nous réunir autour des mêmes passions pour partager nos connaissances.",
     image: require("../../assets/icons/community.png"),
     backgroundColor: "#FAECE3",
-    titleColor: "#B96C55",
-    textColor: "#3A444C",
   },
 ];
 
-export default class Sliders extends React.Component {
-  state = { showHomePage: false };
-  _renderItem = ({ item }) => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          paddingHorizontal: 30,
-          paddingVertical: 20,
-          backgroundColor: item.backgroundColor,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 22,
-            fontFamily: "montserrat-medium",
-            alignSelf: "center",
-            color: item.titleColor,
-          }}
-        >
-          {item.title}
-        </Text>
-        <Image
-          source={item.image}
-          style={{
-            resizeMode: "center",
-            height: 280,
-            width: "100%",
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 17,
-            fontWeight: "bold",
-            alignSelf: "center",
-            textAlign: "center",
-            fontFamily: "montserrat-light",
-            color: item.textColor,
-          }}
-        >
-          {item.text}
-        </Text>
+_renderNextButton = () => {
+  return (
+    <View>
+      <Text style={styles.btnLabel}>Suivant</Text>
+    </View>
+  );
+};
+
+_renderDoneButton = () => {
+  return (
+    <View>
+      <Text style={styles.btnLabel}>Terminer</Text>
+    </View>
+  );
+};
+
+_onDone = ({ navigation }) => {
+  return navigation.navigate("HomeTabs");
+};
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "montserrat-medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
+  });
+};
+
+_renderItem = ({ item }) => {
+  return (
+    <View style={[styles.screen, { backgroundColor: item.backgroundColor }]}>
+      <View style={styles.first}>
+        <Text style={styles.title}>{item.title}</Text>
       </View>
-    );
-  };
-
-  _renderNextButton = () => {
-    return (
-      <View>
-        <Text style={styles.btnLabel}>Suivant</Text>
+      <View style={styles.second}>
+        <Image resizeMode="contain" source={item.image} style={styles.image} />
+        <Text style={styles.text}>{item.text}</Text>
       </View>
-    );
-  };
+    </View>
+  );
+};
 
-  _renderDoneButton = () => {
+const Sliders = ({ navigation }) => {
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Family font fetch
+  if (!dataLoaded) {
     return (
-      <View>
-        <Text style={styles.btnLabel}>Terminer</Text>
-      </View>
-    );
-  };
-
-  _onDone = () => {
-    this.props.navigation.navigate("HomeTabs");
-  };
-
-  render() {
-    return (
-      <AppIntroSlider
-        renderItem={this._renderItem}
-        data={slides}
-        renderNextButton={this._renderNextButton}
-        renderDoneButton={this._renderDoneButton}
-        activeDotStyle={{ backgroundColor: "#3A444C" }}
-        onDone={this._onDone}
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
       />
     );
   }
-}
+
+  return (
+    <AppIntroSlider
+      renderItem={_renderItem}
+      data={slides}
+      renderNextButton={_renderNextButton}
+      renderDoneButton={_renderDoneButton}
+      activeDotStyle={{ backgroundColor: "#3A444C" }}
+      onDone={() => navigation.navigate("HomeTabs")}
+    />
+  );
+};
+
+export default Sliders;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  first: {
+    flex: 2,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  second: {
+    flex: 7,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 30,
+    width: "100%",
+  },
+  title: {
+    fontSize: 24,
+    fontFamily: "montserrat-medium",
+    alignSelf: "center",
+    letterSpacing: 1,
+    marginTop: 40,
+    color: "#B96C55",
+  },
+  image: {
+    height: 300,
+    width: 300,
+    marginBottom: 70,
+  },
   nextBtn: {
     display: "flex",
     flexDirection: "column",
@@ -127,5 +139,13 @@ const styles = StyleSheet.create({
     color: "#3A444C",
     fontSize: 18,
     padding: 12,
+  },
+  text: {
+    fontSize: 17,
+    fontWeight: "bold",
+    alignSelf: "center",
+    textAlign: "center",
+    fontFamily: "montserrat-medium",
+    color: "#3A444C",
   },
 });
