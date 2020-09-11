@@ -46,10 +46,6 @@ _renderDoneButton = () => {
   );
 };
 
-_onDone = ({ navigation }) => {
-  return navigation.navigate("HomeTabs");
-};
-
 const fetchFonts = () => {
   return Font.loadAsync({
     "montserrat-medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
@@ -90,7 +86,15 @@ const Sliders = ({ navigation }) => {
       renderNextButton={_renderNextButton}
       renderDoneButton={_renderDoneButton}
       activeDotStyle={{ backgroundColor: "#3A444C" }}
-      onDone={() => navigation.navigate("HomeTabs")}
+      onDone={() => {
+        // navigation.navigate("HomeTabs")}
+        navigation.reset({
+          index: 0,
+          routes: [{
+            name: "HomeTabs"
+          }]
+        });
+      }}
     />
   );
 };
