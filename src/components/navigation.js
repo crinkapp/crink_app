@@ -7,7 +7,7 @@ import {
 import { SafeAreaView, StatusBar } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 // SCREENS
 import MainMenu from "../screens/main-menu";
@@ -19,9 +19,27 @@ import Search from "../screens/search";
 import Messages from "../screens/messages";
 import Favoris from "../screens/favoris";
 import Settings from "../screens/settings";
+import Publication from "../screens/publication";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const HomeScreens = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ title: "Accueil" }}
+      />
+      <Stack.Screen
+        name="Publication"
+        component={Publication}
+        options={{ title: "Publication" }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const HomeTabs = () => {
   return (
@@ -31,7 +49,7 @@ const HomeTabs = () => {
           tabBarIcon: ({ focused, color }) => {
             let iconName;
 
-            if (route.name === "Home") {
+            if (route.name === "HomeScreens") {
               iconName = focused ? "home" : "home";
             } else if (route.name === "Search") {
               iconName = focused ? "search" : "search";
@@ -42,7 +60,7 @@ const HomeTabs = () => {
             } else if (route.name === "Settings") {
               iconName = focused ? "cog" : "cog";
             }
-            return <Icon name={iconName} size={24} color={color} />;
+            return <Icon name={iconName} size={22} color={color} solid={focused} />;
           },
         })}
         tabBarOptions={{
@@ -57,11 +75,31 @@ const HomeTabs = () => {
           showLabel: true,
         }}
       >
-        <Tab.Screen name="Home" component={Home} options={{ title: "Accueil"}}/>
-        <Tab.Screen name="Search" component={Search} options={{ title: "Rechercher"}}/>
-        <Tab.Screen name="Messages" component={Messages} options={{ title: "Messages"}}/>
-        <Tab.Screen name="Favoris" component={Favoris} options={{ title: "Favoris"}}/>
-        <Tab.Screen name="Settings" component={Settings} options={{ title: "Paramètres"}}/>
+        <Tab.Screen
+          name="HomeScreens"
+          component={HomeScreens}
+          options={{ title: "Accueil" }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={Search}
+          options={{ title: "Rechercher" }}
+        />
+        <Tab.Screen
+          name="Messages"
+          component={Messages}
+          options={{ title: "Messages" }}
+        />
+        <Tab.Screen
+          name="Favoris"
+          component={Favoris}
+          options={{ title: "Favoris" }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: "Paramètres" }}
+        />
       </Tab.Navigator>
     </SafeAreaView>
   );
@@ -72,6 +110,8 @@ const getHeaderTitle = (route) => {
   switch (routeName) {
     case "Home":
       return "Accueil";
+    case "Publication":
+      return "Publication";
     case "Search":
       return "Rechercher";
     case "Messages":
