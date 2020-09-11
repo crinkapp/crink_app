@@ -3,7 +3,10 @@ import { View, Image, Text, StyleSheet, ScrollView } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
-import { LongPressGestureHandler } from "react-native-gesture-handler";
+import {
+  LongPressGestureHandler,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { log } from "react-native-reanimated";
 
 // const image1 =
@@ -65,12 +68,13 @@ export default class Home extends React.Component {
             this.state.publications.map((prop, key) => {
               return (
                 <PublicationPreview
-                  onPress={() => console.log('testing')}
                   key={key}
-                  previewImg={`${S3_URL}/${prop.path_media_publication}`}
-                  title={prop.title_publication}
-                  username="eudrey"
-                  userIcon="https://www.envolgym.org/envolgym_data/upload/images/SITE/EQUIPE/anon.png"
+                  onPress={() => this.props.navigation.navigate("Publication", {publication: prop})}
+                  path_media_publication={`${S3_URL}/${prop.path_media_publication}`}
+                  title_publication={prop.title_publication}
+                  time_to_read_publication={prop.time_to_read_publication}
+                  username_user={prop.user.username_user}
+                  userIcon={`${S3_URL}/${prop.user.path_profil_picture_user}`}
                 ></PublicationPreview>
               );
             })
