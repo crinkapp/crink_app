@@ -78,7 +78,6 @@ export default class SignIn extends React.Component {
           errorServer: false,
         });
         this.getUser().then((user) =>
-          // AsyncStorage.setItem("userId", user.data.id).then((res) => console.log(res))
           this._goToHome()
         );
       })

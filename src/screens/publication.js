@@ -8,7 +8,7 @@ const Publication = (props) => {
 
   const publication = props.route.params.publication;
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="#fff">
       <View style={styles.screen}>
         <Text style={styles.title}>{publication.title_publication}</Text>
         <View style={styles.inlineInfos}>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     padding: 20,
+    backgroundColor: "#fff"
   },
   title: {
     fontSize: 22,
