@@ -60,11 +60,11 @@ const publicationPreview = (props) => {
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={style.username}>
-            par {props.username ? props.username : <Text>…</Text>}
+            par {props.username_user ? props.username_user : <Text>…</Text>}
           </Text>
           <Image
             style={style.userIcon}
-            source={{ uri: props.userIcon ? props.userIcon : <Text>…</Text> }}
+            source={{ uri: props.path_profil_picture_user ? props.path_profil_picture_user : <Text>…</Text> }}
           ></Image>
         </View>
       </View>

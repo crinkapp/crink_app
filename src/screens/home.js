@@ -74,7 +74,7 @@ export default class Home extends React.Component {
                   title_publication={prop.title_publication}
                   time_to_read_publication={prop.time_to_read_publication}
                   username_user={prop.user.username_user}
-                  userIcon={`${S3_URL}/${prop.user.path_profil_picture_user}`}
+                  path_profil_picture_user={`${S3_URL}/${prop.user.path_profil_picture_user}`}
                 ></PublicationPreview>
               );
             })
