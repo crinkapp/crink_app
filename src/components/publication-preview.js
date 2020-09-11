@@ -1,26 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { log } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const publicationPreview = (props) => {
   return (
     <View style={style.preview}>
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableWithoutFeedback onPress={props.onPress}>
         <Image
           source={{ uri: props.path_media_publication }}
           style={style.previewImg}
         ></Image>
-      </TouchableOpacity>
-      <View style={[style.infos, { alignItems: "flex-start" }]}>
-        <Text style={style.title}>{props.title_publication}</Text>
-        <Icon
-          name="share"
-          style={{ marginLeft: "auto" }}
-          size={16}
-          color="#3A444C"
-        />
-      </View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={props.onPress}>
+        <View style={[style.infos, { alignItems: "flex-start" }]}>
+          <Text style={style.title}>{props.title_publication}</Text>
+          <Icon
+            name="share"
+            style={{ marginLeft: "auto" }}
+            size={16}
+            color="#3A444C"
+          />
+        </View>
+      </TouchableWithoutFeedback>
       <View style={style.infos}>
         <View style={style.tags}>
           {props.tags ? (
@@ -54,7 +62,12 @@ const publicationPreview = (props) => {
           <View style={style.likeComments}>
             <Icon name="clock" size={16} color="#CFCECE" />
             <Text style={style.likeComment}>
-              {props.time_to_read_publication ? props.time_to_read_publication : <Text>…</Text>} min
+              {props.time_to_read_publication ? (
+                props.time_to_read_publication
+              ) : (
+                <Text>…</Text>
+              )}{" "}
+              min
             </Text>
           </View>
         </View>
@@ -64,7 +77,13 @@ const publicationPreview = (props) => {
           </Text>
           <Image
             style={style.userIcon}
-            source={{ uri: props.path_profil_picture_user ? props.path_profil_picture_user : <Text>…</Text> }}
+            source={{
+              uri: props.path_profil_picture_user ? (
+                props.path_profil_picture_user
+              ) : (
+                <Text>…</Text>
+              ),
+            }}
           ></Image>
         </View>
       </View>
