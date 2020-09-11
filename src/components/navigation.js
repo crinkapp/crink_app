@@ -4,7 +4,13 @@ import {
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 
-import { SafeAreaView, StatusBar } from "react-native";
+import {
+  SafeAreaView,
+  StatusBar,
+  Button,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -30,12 +36,34 @@ const HomeScreens = () => {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ title: "Pour vous", headerLeft: null }}
+        options={({ navigation, route }) => ({
+          title: "Pour vous",
+          headerLeft: null,
+          headerRight: () => (
+            <TouchableWithoutFeedback>
+              {/* onPress={() => navigation.navigate("SettingsTab")} */}
+              <Image
+                source={{
+                  uri:
+                    "https://crinkdev.s3.eu-west-3.amazonaws.com/user/fav-icon.png",
+                }}
+                style={{
+                  height: 34,
+                  width: 34,
+                  borderRadius: 34 / 2,
+                  marginRight: 16,
+                }}
+              />
+            </TouchableWithoutFeedback>
+          ),
+        })}
       />
       <Stack.Screen
         name="Publication"
         component={Publication}
-        options={{ title: "Publication" }}
+        options={() => ({
+          title: "Publication",
+        })}
       />
     </Stack.Navigator>
   );
@@ -152,24 +180,6 @@ const HomeTabs = () => {
     </Tab.Navigator>
   );
 };
-
-// const getHeaderTitle = (route) => {
-//   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-//   switch (routeName) {
-//     case "Home":
-//       return "Accueil";
-//     case "Publication":
-//       return "Publication";
-//     case "Search":
-//       return "Rechercher";
-//     case "Messages":
-//       return "Messages";
-//     case "Favoris":
-//       return "Favoris";
-//     case "Settings":
-//       return "Paramètres";
-//   }
-// };
 
 const LoginNavigation = () => {
   return (
