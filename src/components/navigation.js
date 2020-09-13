@@ -14,6 +14,7 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { SearchBar } from "react-native-elements";
 
 // SCREENS
 import MainMenu from "../screens/main-menu";
@@ -63,6 +64,9 @@ const HomeScreens = () => {
         component={Publication}
         options={() => ({
           title: "Publication",
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#B96C55" },
+          headerTintColor: "white",
         })}
       />
     </Stack.Navigator>
@@ -75,7 +79,31 @@ const SearchTab = () => {
       <Stack.Screen
         name="Search"
         component={Search}
-        options={{ title: "Rechercher", headerLeft: null }}
+        options={{
+          headerTitle: (props) => (
+            <SearchBar
+              placeholder="Titre, auteur ou tag…"
+              // onChangeText={this.updateSearch}
+              conta
+              inputStyle={{ fontSize: 14 }}
+              // value={search}
+              platform="ios"
+              cancelButtonTitle="Annuler"
+              cancelButtonProps={{
+                buttonTextStyle: { fontSize: 14 },
+                color: "#B96C55",
+              }}
+            />
+          ),
+          headerStyle: {
+            shadowColor: "transparent"
+          },
+          headerTitleContainerStyle: {
+            width: "97%",
+            height: 40,
+            backgroundColor: "white",
+          },
+        }}
       />
     </Stack.Navigator>
   );
