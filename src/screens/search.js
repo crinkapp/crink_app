@@ -1,23 +1,33 @@
 import React, { Component } from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, Searc } from "react-native";
+import { SearchBar } from "react-native-elements";
+import globalStyle from "../styles";
 
 export default class Search extends React.Component {
+  state = {
+    search: "",
+  };
+
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
+
   render() {
+    const { search } = this.state;
     return (
-      <View style={styles.screen}>
-        <Text style={styles.text}>Écran de recherche</Text>
+      <View style={globalStyle.appScreen}>
+        <SearchBar
+          placeholder="Titre, auteur ou tag…"
+          onChangeText={this.updateSearch}
+          value={search}
+          platform="ios"
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 30,
-  },
   text: {
     color: "#3A444C",
     fontWeight: "300",

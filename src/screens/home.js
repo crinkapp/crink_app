@@ -1,33 +1,13 @@
 import React, { Component } from "react";
-import { View, Image, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
-import {
-  LongPressGestureHandler,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import { log } from "react-native-reanimated";
+import globalStyle from "../styles";
 
-// const image1 =
-//   "https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80";
-// const title1 = "Comment peigner vos cheveux bouclés ?";
 // const tags1 = ["bouclés", "afro", "peigne", "soins"];
 // const likes1 = 723;
 // const comments1 = 32;
-// const username1 = "Saïdou";
-// const userIcon1 =
-//   "https://www.envolgym.org/envolgym_data/upload/images/SITE/EQUIPE/anon.png";
-
-// const image2 =
-//   "https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80";
-// const title2 = "Comment voir des girafes dans la savane ?";
-// const tags2 = ["girafe", "savane", "animal"];
-// const likes2 = "63k";
-// const comments2 = "2k";
-// const username2 = "Crink";
-// const userIcon2 =
-//   "file:///Users/eudreybandelaria/Documents/ipssi/projet-annuel/icon/fav-icon.png";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -62,8 +42,8 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.screen}>
+      <ScrollView backgroundColor="#fff">
+        <View style={globalStyle.appScreen}>
           {this.state.publications.length > 0 ? (
             this.state.publications.map((prop, key) => {
               return (
@@ -88,12 +68,6 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 15,
-  },
   text: {
     color: "#3A444C",
     fontWeight: "300",
