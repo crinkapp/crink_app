@@ -101,11 +101,14 @@ const style = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     paddingBottom: 15,
+    borderRadius: 4
   },
   previewImg: {
     height: 150,
     width: "100%",
     resizeMode: "cover",
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
   infos: {
     flexDirection: "row",

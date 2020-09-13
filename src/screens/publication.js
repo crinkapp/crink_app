@@ -4,7 +4,15 @@ import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Publication = (props) => {
-  const testingTags = ["shampoing", "bouclés", "conseil", "soins", "casses", "cheveux", "crépus"];
+  const testingTags = [
+    "shampoing",
+    "bouclés",
+    "conseil",
+    "soins",
+    "casses",
+    "cheveux",
+    "crépus",
+  ];
 
   const publication = props.route.params.publication;
   return (
@@ -78,7 +86,12 @@ const Publication = (props) => {
             }}
           >
             <Text style={styles.username}>
-              par {publication.user.username_user ? publication.user.username_user : <Text>…</Text>}
+              par{" "}
+              {publication.user.username_user ? (
+                publication.user.username_user
+              ) : (
+                <Text>…</Text>
+              )}
             </Text>
             <Image
               style={styles.userIcon}
@@ -116,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     padding: 20,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 22,
@@ -142,6 +155,7 @@ const styles = StyleSheet.create({
     height: 250,
     width: "100%",
     resizeMode: "cover",
+    borderRadius: 4,
   },
   date: {
     fontStyle: "italic",
@@ -164,13 +178,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "stretch",
-    marginBottom: 15
+    marginBottom: 15,
   },
   tag: {
     marginRight: 6,
     color: "#B96C55",
   },
-  mainContent: {
-    
-  }
+  mainContent: {},
 });
