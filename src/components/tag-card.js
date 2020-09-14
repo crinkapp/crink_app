@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Dimensions
-} from "react-native";
+import { Text, StyleSheet, ImageBackground, Dimensions } from "react-native";
 
 const TagCard = (props) => {
   return (
-    <ImageBackground style={styles.card} imageStyle={{ borderRadius: 4}} source={{ uri: props.image }}>
+    <ImageBackground
+      style={styles.card}
+      imageStyle={{ borderRadius: 4 }}
+      source={{ uri: props.image }}
+    >
       <Text style={styles.text}>#{props.name}</Text>
     </ImageBackground>
   );
@@ -21,8 +17,10 @@ const rows = 4;
 const cols = 2;
 const marginHorizontal = 4;
 const marginVertical = 4;
-const width = (Dimensions.get('window').width / cols) - (marginHorizontal * (cols + 1));
-const height = (Dimensions.get('window').height / rows) - (marginVertical * (rows + 1));
+const width =
+  Dimensions.get("window").width / cols - marginHorizontal * (cols + 1);
+const height =
+  Dimensions.get("window").height / rows - marginVertical * (rows + 1);
 
 const styles = StyleSheet.create({
   card: {
@@ -32,8 +30,8 @@ const styles = StyleSheet.create({
     marginRight: marginHorizontal,
     width: width,
     height: height,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     color: "#fff",

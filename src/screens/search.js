@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Image, Text, StyleSheet, Searc } from "react-native";
-import { SearchBar } from "react-native-elements";
 import globalStyle from "../styles";
 import TagCard from "../components/tag-card";
 import { ScrollView } from "react-native-gesture-handler";
@@ -63,9 +62,5 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    // flex: 3,
-    // flexWrap: "wrap",
-    // flexDirection: "row",
-    // justifyContent: "center"
   },
 });
