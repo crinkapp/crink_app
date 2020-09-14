@@ -17,8 +17,6 @@ const searchbar = (props) => {
       }}
       onSubmitEditing={props.onSubmit}
       returnKeyType="go"
-      autoCorrect="false"
-      autoCompleteType="false"
     />
   );
 };

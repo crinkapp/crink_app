@@ -32,6 +32,7 @@ import Favoris from "../screens/favoris";
 import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
+import Profile from "../screens/profile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,8 +47,9 @@ const HomeScreens = () => {
           title: "Pour vous",
           headerLeft: null,
           headerRight: () => (
-            <TouchableWithoutFeedback>
-              {/* onPress={() => navigation.navigate("SettingsTab")} */}
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("Profile")}
+            >
               <Image
                 source={{
                   uri:
@@ -72,6 +74,28 @@ const HomeScreens = () => {
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#B96C55" },
           headerTintColor: "white",
+        })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={() => ({
+          title: "Mon compte",
+          headerTitleStyle: { color: "black" },
+          headerTintColor: "#B96C55",
+          headerRight: () => (
+            <TouchableWithoutFeedback>
+              <Icon
+                name="user-edit"
+                size={20}
+                style={{
+                  marginRight: 16,
+                }}
+                color="#3A444C"
+              />
+              {/* color={color} solid={focused} */}
+            </TouchableWithoutFeedback>
+          ),
         })}
       />
     </Stack.Navigator>
@@ -111,9 +135,17 @@ const SearchTab = () => {
         options={({ route }) => ({
           headerTitle: () => {
             if (route.params.tag.name !== "Rechercher") {
-              return <Text style={{fontWeight: "600", fontSize: 17}}>#{route.params.tag.name}</Text>
+              return (
+                <Text style={{ fontWeight: "600", fontSize: 17 }}>
+                  #{route.params.tag.name}
+                </Text>
+              );
             } else {
-              return <Text style={{fontWeight: "600", fontSize: 17}}>{route.params.tag.name}</Text>
+              return (
+                <Text style={{ fontWeight: "600", fontSize: 17 }}>
+                  {route.params.tag.name}
+                </Text>
+              );
             }
           },
           headerBackTitle: "Retour",
