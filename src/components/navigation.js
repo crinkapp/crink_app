@@ -10,11 +10,15 @@ import {
   Button,
   Image,
   TouchableWithoutFeedback,
+  View,
+  Text,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { SearchBar } from "react-native-elements";
+
+// COMPONENTS
+import SearchBar from "../components/searchbar";
 
 // SCREENS
 import MainMenu from "../screens/main-menu";
@@ -27,6 +31,7 @@ import Messages from "../screens/messages";
 import Favoris from "../screens/favoris";
 import Settings from "../screens/settings";
 import Publication from "../screens/publication";
+import SearchResults from "../screens/search-results";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -79,31 +84,42 @@ const SearchTab = () => {
       <Stack.Screen
         name="Search"
         component={Search}
-        options={{
-          headerTitle: (props) => (
+        options={({ navigation }) => ({
+          headerTitle: () => (
             <SearchBar
-              placeholder="Titre, auteur ou tag…"
-              // onChangeText={this.updateSearch}
-              conta
-              inputStyle={{ fontSize: 14 }}
-              // value={search}
-              platform="ios"
-              cancelButtonTitle="Annuler"
-              cancelButtonProps={{
-                buttonTextStyle: { fontSize: 14 },
-                color: "#B96C55",
+              value
+              onSubmit={() => {
+                navigation.navigate("SearchResults", {
+                  tag: { name: "Rechercher" },
+                });
               }}
-            />
+            ></SearchBar>
           ),
           headerStyle: {
-            shadowColor: "transparent"
+            shadowColor: "transparent",
           },
           headerTitleContainerStyle: {
             width: "97%",
             height: 40,
             backgroundColor: "white",
           },
-        }}
+        })}
+      />
+      <Stack.Screen
+        name="SearchResults"
+        component={SearchResults}
+        options={({ route }) => ({
+          headerTitle: () => {
+            if (route.params.tag.name !== "Rechercher") {
+              return <Text style={{fontWeight: "600", fontSize: 17}}>#{route.params.tag.name}</Text>
+            } else {
+              return <Text style={{fontWeight: "600", fontSize: 17}}>{route.params.tag.name}</Text>
+            }
+          },
+          headerBackTitle: "Retour",
+          headerTintColor: "#B96C55",
+          headerTitleStyle: { color: "black" },
+        })}
       />
     </Stack.Navigator>
   );
