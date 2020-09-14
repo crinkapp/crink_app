@@ -1,15 +1,25 @@
 import React from "react";
-import { Text, StyleSheet, ImageBackground, Dimensions } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 const TagCard = (props) => {
   return (
-    <ImageBackground
-      style={styles.card}
-      imageStyle={{ borderRadius: 4 }}
-      source={{ uri: props.image }}
-    >
-      <Text style={styles.text}>#{props.name}</Text>
-    </ImageBackground>
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <ImageBackground
+        style={styles.card}
+        imageStyle={{ borderRadius: 4 }}
+        source={{ uri: props.image }}
+      >
+        <Text style={styles.text} onPress={props.onPress}>
+          #{props.name}
+        </Text>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
   );
 };
 
