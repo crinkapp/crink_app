@@ -6,19 +6,39 @@ import {
   Image,
   ImageBackground,
   TouchableWithoutFeedback,
+  Dimensions
 } from "react-native";
 
-const TagCard = () => {
-  return <ImageBackground style={styles.card}></ImageBackground>;
+const TagCard = (props) => {
+  return (
+    <ImageBackground style={styles.card} imageStyle={{ borderRadius: 4}} source={{ uri: props.image }}>
+      <Text style={styles.text}>#{props.name}</Text>
+    </ImageBackground>
+  );
 };
+
+const rows = 4;
+const cols = 2;
+const marginHorizontal = 4;
+const marginVertical = 4;
+const width = (Dimensions.get('window').width / cols) - (marginHorizontal * (cols + 1));
+const height = (Dimensions.get('window').height / rows) - (marginVertical * (rows + 1));
 
 const styles = StyleSheet.create({
   card: {
-    height: 140,
-    width: "45%",
-    borderRadius: 6,
-    backgroundColor: "lightblue",
-    margin: 6
+    marginTop: marginVertical,
+    marginBottom: marginVertical,
+    marginLeft: marginHorizontal,
+    marginRight: marginHorizontal,
+    width: width,
+    height: height,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: "#fff",
+    fontWeight: "500",
+    fontSize: 18,
   },
 });
 
