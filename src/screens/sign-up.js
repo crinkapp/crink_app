@@ -62,7 +62,7 @@ export default class SignUp extends React.Component {
   };
 
   _goToSlider = () => {
-    this.props.navigation.navigate("SliderIntro");
+    this.props.navigation.navigate("IntroSlider");
   };
 
   _goToSignIn = () => {

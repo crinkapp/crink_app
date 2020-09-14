@@ -64,4 +64,13 @@ export default StyleSheet.create({
     fontSize: 12,
     fontWeight: "300",
   },
+
+  // Main App Screen
+  appScreen: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "white"
+  },
 });

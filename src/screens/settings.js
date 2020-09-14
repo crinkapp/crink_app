@@ -3,6 +3,7 @@ import { View, Image, Text, StyleSheet, Button } from "react-native";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import globalStyle from "../styles";
 
 export default class Settings extends React.Component {
   logout = () => {
@@ -31,7 +32,7 @@ export default class Settings extends React.Component {
 
   render() {
     return (
-      <View style={styles.screen}>
+      <View style={globalStyle.appScreen}>
         <Text style={styles.text}>Écran de paramètre</Text>
         <TouchableOpacity onPress={this._onLogout}>
           <Button
@@ -45,12 +46,6 @@ export default class Settings extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 30,
-  },
   text: {
     color: "#3A444C",
     fontWeight: "300",
