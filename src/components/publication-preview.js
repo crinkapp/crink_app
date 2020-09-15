@@ -1,41 +1,90 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { log } from "react-native-reanimated";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const publicationPreview = (props) => {
   return (
     <View style={style.preview}>
-      <Image source={{uri: props.previewImg}} style={style.previewImg}></Image>
-      <View style={[style.infos, {alignItems: "flex-start"}]}>
-        <Text style={style.title}>{props.title}</Text>
-        <Icon name="share" style={{marginLeft: "auto"}} size={16} color="#3A444C" />
-      </View>
+      <TouchableWithoutFeedback onPress={props.onPress}>
+        <Image
+          source={{ uri: props.path_media_publication }}
+          style={style.previewImg}
+        ></Image>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={props.onPress}>
+        <View style={[style.infos, { alignItems: "flex-start" }]}>
+          <Text style={style.title}>{props.title_publication}</Text>
+          <Icon
+            name="share"
+            style={{ marginLeft: "auto" }}
+            size={16}
+            color="#3A444C"
+          />
+        </View>
+      </TouchableWithoutFeedback>
       <View style={style.infos}>
         <View style={style.tags}>
-          {props.tags ? props.tag.map((prop, key) => {
-            return (
-              <Text style={style.tag} key={key}>
-                #{prop}
-              </Text>
-            );
-          }) : <Text>…</Text> }
+          {props.tags ? (
+            props.tag.map((prop, key) => {
+              return (
+                <Text style={style.tag} key={key}>
+                  #{prop}
+                </Text>
+              );
+            })
+          ) : (
+            <Text>…</Text>
+          )}
         </View>
         <Text style={style.date}>il y a 1 jour</Text>
       </View>
       <View style={style.infos}>
         <View style={style.tags}>
           <View style={style.likeComments}>
-            <Icon name="heart" size={16} color="#CFCECE" />
-            <Text style={style.likeComment}>{props.likes ? props.likes : <Text>…</Text>}</Text>
+            <Icon name="heart" size={16} color="#D55E5E" solid />
+            <Text style={style.likeComment}>
+              {props.likes ? props.likes : <Text>…</Text>}
+            </Text>
           </View>
           <View style={style.likeComments}>
-            <Icon name="comment" size={16} color="#CFCECE" />
-            <Text style={style.likeComment}>{props.comments ? props.comments : <Text>…</Text>}</Text>
+            <Icon name="comment" size={16} color="#CFCECE" solid />
+            <Text style={style.likeComment}>
+              {props.comments ? props.comments : <Text>…</Text>}
+            </Text>
+          </View>
+          <View style={style.likeComments}>
+            <Icon name="clock" size={16} color="#CFCECE" />
+            <Text style={style.likeComment}>
+              {props.time_to_read_publication ? (
+                props.time_to_read_publication
+              ) : (
+                <Text>…</Text>
+              )}{" "}
+              min
+            </Text>
           </View>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={style.username}>par {props.username ? props.username : <Text>…</Text>}</Text>
-          <Image style={style.userIcon} source={{uri: props.userIcon ? props.userIcon : <Text>…</Text>}}></Image>
+          <Text style={style.username}>
+            par {props.username_user ? props.username_user : <Text>…</Text>}
+          </Text>
+          <Image
+            style={style.userIcon}
+            source={{
+              uri: props.path_profil_picture_user ? (
+                props.path_profil_picture_user
+              ) : (
+                <Text>…</Text>
+              ),
+            }}
+          ></Image>
         </View>
       </View>
     </View>
@@ -52,11 +101,14 @@ const style = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     paddingBottom: 15,
+    borderRadius: 4
   },
   previewImg: {
     height: 150,
     width: "100%",
     resizeMode: "cover",
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
   infos: {
     flexDirection: "row",
@@ -68,7 +120,7 @@ const style = StyleSheet.create({
   title: {
     fontWeight: "500",
     color: "#3A444C",
-    width: "80%"
+    width: "80%",
   },
   tags: {
     flexDirection: "row",
@@ -93,16 +145,16 @@ const style = StyleSheet.create({
     color: "#3A444C",
     fontWeight: "500",
     marginLeft: 5,
-    fontSize: 13,
+    fontSize: 11,
   },
   username: {
-    fontWeight: "600",
-    fontSize: 13,
+    fontWeight: "500",
+    fontSize: 12,
     marginRight: 6,
   },
   userIcon: {
-      height: 25,
-      width: 25,
-      borderRadius: 25/2 // Round circle
-  }
+    height: 22,
+    width: 22,
+    borderRadius: 22 / 2, // Round circle
+  },
 });
