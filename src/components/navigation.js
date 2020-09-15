@@ -212,7 +212,7 @@ const HomeTabs = () => {
             iconName = focused ? "cog" : "cog";
           }
           return (
-            <Icon name={iconName} size={22} color={color} solid={focused} />
+            <Icon name={iconName} size={23} color={color} solid={focused} />
           );
         },
       })}
@@ -225,7 +225,7 @@ const HomeTabs = () => {
         },
         inactiveTintColor: "#D3917D",
         activeTintColor: "#fff",
-        showLabel: true,
+        showLabel: false,
       }}
     >
       <Tab.Screen
