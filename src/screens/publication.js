@@ -23,13 +23,11 @@ const Publication = (props) => {
           <Icon
             name="heart"
             size={15}
-            color="#D55E5E"
+            color={publication.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
             solid
             style={{ marginRight: 6 }}
           />
-          <Text style={styles.numbers}>
-            {publication.likes ? publication.likes : <Text>21k</Text>}
-          </Text>
+          <Text style={styles.numbers}>{publication.nbLikes}</Text>
           <Icon
             name="comment"
             size={15}
@@ -38,7 +36,7 @@ const Publication = (props) => {
             style={styles.iconSpace}
           />
           <Text style={styles.numbers}>
-            {publication.likes ? publication.likes : <Text>498</Text>}
+            <Text style={styles.likeComment}>{publication.nbComments}</Text>
           </Text>
           <Icon
             name="clock"
@@ -96,7 +94,9 @@ const Publication = (props) => {
             <Image
               style={styles.userIcon}
               source={{
-                uri: `${S3_URL}/${publication.user.path_profil_picture_user}`,
+                uri: publication.user.path_profil_picture_user
+                  ? `${S3_URL}/${publication.user.path_profil_picture_user}`
+                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
               }}
             ></Image>
           </View>
