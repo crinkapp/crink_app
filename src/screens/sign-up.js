@@ -243,7 +243,7 @@ export default class SignUp extends React.Component {
             </Text>
             {this.onErrorPassword()}
             {this.onErrorServer()}
-            <TouchableOpacity style={globalStyle.signBtn}>
+            <TouchableOpacity style={globalStyle.signBtn} onPress={this._onPress}>
               <Button
                 color="#fff"
                 title="Inscription"

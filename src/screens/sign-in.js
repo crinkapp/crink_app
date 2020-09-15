@@ -77,9 +77,7 @@ export default class SignIn extends React.Component {
           errorSignIn: false,
           errorServer: false,
         });
-        this.getUser().then((user) =>
-          this._goToHome()
-        );
+        this.getUser().then((user) => this._goToHome());
       })
       .catch((err) => {
         // If incorrect email or password
@@ -193,7 +191,10 @@ export default class SignIn extends React.Component {
           />
           {this.onErrorPassword()}
           {this.onErrorSignIn()}
-          <TouchableOpacity style={globalStyle.signBtn}>
+          <TouchableOpacity
+            style={globalStyle.signBtn}
+            onPress={this._onPress}
+          >
             <Button
               color="#fff"
               title="Connexion"
