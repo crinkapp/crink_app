@@ -3,8 +3,6 @@ import { View, Image, Text, StyleSheet, Button } from "react-native";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import settingPreview from "../components/setting-preview";
-//import { ListItem, Icon } from "react-native-elements";
 import SettingPreview from "../components/setting-preview";
 
 
@@ -38,7 +36,6 @@ export default class Settings extends React.Component {
   render() {
     return (
       <View style={styles.screen}>
-        <Text style={styles.text}>Écran de paramètre</Text>
         <SettingPreview></SettingPreview>
         <TouchableOpacity onPress={this._onLogout}>
           <Button title="Se déconnecter" color="#D55E5E"></Button>
@@ -53,7 +50,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    padding: 30,
   },
   text: {
     color: "#3A444C",

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { ListItem, Icon } from "react-native-elements";
 
 const list = [
@@ -26,6 +26,10 @@ const list = [
   {
     title: "Aide",
     icon: "help",
+  },
+  {
+    title: "Se déconnecter",
+    icon: "",
   },
 ];
 
