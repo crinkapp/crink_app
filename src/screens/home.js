@@ -1,29 +1,31 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
-
-// const tags1 = ["bouclés", "afro", "peigne", "soins"];
-// const likes1 = 723;
-// const comments1 = 32;
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       publications: [],
+      refreshing: false,
     };
   }
-  // pathImg: "",
-  // title: "",
-  // // tags: "",
-  // // likes: "",
-  // // comments: "",
-  // username: "Eudrey",
-  // userIcon:
-  //   "https://www.envolgym.org/envolgym_data/upload/images/SITE/EQUIPE/anon.png",
+
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.getAllPublications().then(() => {
+      this.setState({ refreshing: false });
+    });
+  }
 
   componentDidMount() {
     this.getAllPublications();
@@ -42,14 +44,26 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <ScrollView backgroundColor="#fff">
+      <ScrollView
+        backgroundColor="#fff"
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
+      >
         <View style={globalStyle.appScreen}>
           {this.state.publications.length > 0 ? (
             this.state.publications.map((prop, key) => {
               return (
                 <PublicationPreview
                   key={key}
-                  onPress={() => this.props.navigation.navigate("Publication", {publication: prop})}
+                  onPress={() =>
+                    this.props.navigation.navigate("Publication", {
+                      publication: prop,
+                    })
+                  }
                   path_media_publication={`${S3_URL}/${prop.path_media_publication}`}
                   title_publication={prop.title_publication}
                   time_to_read_publication={prop.time_to_read_publication}
