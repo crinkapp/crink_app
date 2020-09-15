@@ -37,9 +37,9 @@ export default class Settings extends React.Component {
     return (
       <View style={styles.screen}>
         <SettingPreview></SettingPreview>
-        <TouchableOpacity onPress={this._onLogout}>
+        {/* <TouchableOpacity onPress={this._onLogout}>
           <Button title="Se déconnecter" color="#D55E5E"></Button>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }
