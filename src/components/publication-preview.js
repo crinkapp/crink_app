@@ -29,9 +29,7 @@ const publicationPreview = (props) => {
 
   return (
     <View style={style.preview}>
-      <TouchableWithoutFeedback
-        onPress={() => props.onPress(publication)}
-      >
+      <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
         {publication.path_media_publication !== null ? (
           <Image
             source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
@@ -58,17 +56,15 @@ const publicationPreview = (props) => {
       </TouchableWithoutFeedback>
       <View style={style.infos}>
         <View style={style.tags}>
-          {publication.tags ? (
-            publication.tags.map((prop, key) => {
-              return (
-                <Text style={style.tag} key={key}>
-                  #{prop}
-                </Text>
-              );
-            })
-          ) : (
-            <Text>…</Text>
-          )}
+          {publication.hashtags.length > 0
+            ? publication.hashtags.map((prop, key) => {
+                return (
+                  <Text style={style.tag} key={key}>
+                    #{prop.name_tag}
+                  </Text>
+                );
+              })
+            : null}
         </View>
         <Text style={style.date}>il y a 1 jour</Text>
       </View>

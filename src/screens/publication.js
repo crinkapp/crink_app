@@ -6,16 +6,6 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const Publication = (props) => {
   const [publication, setPublication] = useState(props.route.params.publication);
 
-  const testingTags = [
-    "shampoing",
-    "bouclés",
-    "conseil",
-    "soins",
-    "casses",
-    "cheveux",
-    "crépus",
-  ];
-
   return (
     <ScrollView backgroundColor="#fff">
       <View style={styles.screen}>
@@ -109,16 +99,16 @@ const Publication = (props) => {
           </View>
         </View>
         <View style={styles.tags}>
-          {testingTags ? (
-            testingTags.map((prop, key) => {
+          {publication.hashtags.length > 0 ? (
+            publication.hashtags.map((prop, key) => {
               return (
                 <Text style={styles.tag} key={key}>
-                  #{prop}
+                  #{prop.name_tag}
                 </Text>
               );
             })
           ) : (
-            <Text>…</Text>
+            null
           )}
         </View>
         <View style={{ marginVertical: 10 }}>
