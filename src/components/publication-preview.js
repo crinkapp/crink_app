@@ -32,7 +32,7 @@ const publicationPreview = (props) => {
       <View style={style.infos}>
         <View style={style.tags}>
           {props.tags ? (
-            props.tag.map((prop, key) => {
+            props.tags.map((prop, key) => {
               return (
                 <Text style={style.tag} key={key}>
                   #{prop}
@@ -48,16 +48,22 @@ const publicationPreview = (props) => {
       <View style={style.infos}>
         <View style={style.tags}>
           <View style={style.likeComments}>
-            <Icon name="heart" size={16} color="#D55E5E" solid />
-            <Text style={style.likeComment}>
-              {props.likes ? props.likes : <Text>…</Text>}
-            </Text>
+            <Icon
+              name="heart"
+              size={16}
+              color={props.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
+              solid
+              onPress={props.onLike}
+            />
+            {props.nbLikes ? (
+              <Text style={style.likeComment}>{props.nbLikes}</Text>
+            ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="comment" size={16} color="#CFCECE" solid />
-            <Text style={style.likeComment}>
-              {props.comments ? props.comments : <Text>…</Text>}
-            </Text>
+            {props.nbComments ? (
+              <Text style={style.likeComment}>{props.nbComments}</Text>
+            ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="clock" size={16} color="#CFCECE" />
@@ -77,13 +83,7 @@ const publicationPreview = (props) => {
           </Text>
           <Image
             style={style.userIcon}
-            source={{
-              uri: props.path_profil_picture_user ? (
-                props.path_profil_picture_user
-              ) : (
-                <Text>…</Text>
-              ),
-            }}
+            source={{ uri: props.path_profil_picture_user }}
           ></Image>
         </View>
       </View>
@@ -101,11 +101,14 @@ const style = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     paddingBottom: 15,
+    borderRadius: 4,
   },
   previewImg: {
     height: 150,
     width: "100%",
     resizeMode: "cover",
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
   infos: {
     flexDirection: "row",

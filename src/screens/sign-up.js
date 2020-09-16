@@ -62,7 +62,7 @@ export default class SignUp extends React.Component {
   };
 
   _goToSlider = () => {
-    this.props.navigation.navigate("SliderIntro");
+    this.props.navigation.navigate("IntroSlider");
   };
 
   _goToSignIn = () => {
@@ -243,7 +243,7 @@ export default class SignUp extends React.Component {
             </Text>
             {this.onErrorPassword()}
             {this.onErrorServer()}
-            <TouchableOpacity style={globalStyle.signBtn}>
+            <TouchableOpacity style={globalStyle.signBtn} onPress={this._onPress}>
               <Button
                 color="#fff"
                 title="Inscription"

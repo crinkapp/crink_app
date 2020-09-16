@@ -10,10 +10,15 @@ import {
   Button,
   Image,
   TouchableWithoutFeedback,
+  View,
+  Text,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
+
+// COMPONENTS
+import SearchBar from "../components/searchbar";
 
 // SCREENS
 import MainMenu from "../screens/main-menu";
@@ -26,6 +31,8 @@ import Messages from "../screens/messages";
 import Favoris from "../screens/favoris";
 import Settings from "../screens/settings";
 import Publication from "../screens/publication";
+import SearchResults from "../screens/search-results";
+import Profile from "../screens/profile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,8 +47,9 @@ const HomeScreens = () => {
           title: "Pour vous",
           headerLeft: null,
           headerRight: () => (
-            <TouchableWithoutFeedback>
-              {/* onPress={() => navigation.navigate("SettingsTab")} */}
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("Profile")}
+            >
               <Image
                 source={{
                   uri:
@@ -63,6 +71,31 @@ const HomeScreens = () => {
         component={Publication}
         options={() => ({
           title: "Publication",
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#B96C55" },
+          headerTintColor: "white",
+        })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={() => ({
+          title: "Mon compte",
+          headerTitleStyle: { color: "black" },
+          headerTintColor: "#B96C55",
+          headerRight: () => (
+            <TouchableWithoutFeedback>
+              <Icon
+                name="user-edit"
+                size={20}
+                style={{
+                  marginRight: 16,
+                }}
+                color="#3A444C"
+              />
+              {/* color={color} solid={focused} */}
+            </TouchableWithoutFeedback>
+          ),
         })}
       />
     </Stack.Navigator>
@@ -75,7 +108,50 @@ const SearchTab = () => {
       <Stack.Screen
         name="Search"
         component={Search}
-        options={{ title: "Rechercher", headerLeft: null }}
+        options={({ navigation }) => ({
+          headerTitle: () => (
+            <SearchBar
+              value
+              onSubmit={() => {
+                navigation.navigate("SearchResults", {
+                  tag: { name: "Rechercher" },
+                });
+              }}
+            ></SearchBar>
+          ),
+          headerStyle: {
+            shadowColor: "transparent",
+          },
+          headerTitleContainerStyle: {
+            width: "97%",
+            height: 40,
+            backgroundColor: "white",
+          },
+        })}
+      />
+      <Stack.Screen
+        name="SearchResults"
+        component={SearchResults}
+        options={({ route }) => ({
+          headerTitle: () => {
+            if (route.params.tag.name !== "Rechercher") {
+              return (
+                <Text style={{ fontWeight: "600", fontSize: 17 }}>
+                  #{route.params.tag.name}
+                </Text>
+              );
+            } else {
+              return (
+                <Text style={{ fontWeight: "600", fontSize: 17 }}>
+                  {route.params.tag.name}
+                </Text>
+              );
+            }
+          },
+          headerBackTitle: "Retour",
+          headerTintColor: "#B96C55",
+          headerTitleStyle: { color: "black" },
+        })}
       />
     </Stack.Navigator>
   );
@@ -136,7 +212,7 @@ const HomeTabs = () => {
             iconName = focused ? "cog" : "cog";
           }
           return (
-            <Icon name={iconName} size={22} color={color} solid={focused} />
+            <Icon name={iconName} size={23} color={color} solid={focused} />
           );
         },
       })}
@@ -149,7 +225,7 @@ const HomeTabs = () => {
         },
         inactiveTintColor: "#D3917D",
         activeTintColor: "#fff",
-        showLabel: true,
+        showLabel: false,
       }}
     >
       <Tab.Screen

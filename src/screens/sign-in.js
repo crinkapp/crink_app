@@ -6,12 +6,12 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
-  AsyncStorage,
 } from "react-native";
 import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -77,9 +77,10 @@ export default class SignIn extends React.Component {
           errorSignIn: false,
           errorServer: false,
         });
-        this.getUser().then((user) =>
-          this._goToHome()
-        );
+        this.getUser().then((user) => {
+        AsyncStorage.setItem("user_id", user.data.id.toString())
+          this._goToHome();
+        });
       })
       .catch((err) => {
         // If incorrect email or password
@@ -193,7 +194,7 @@ export default class SignIn extends React.Component {
           />
           {this.onErrorPassword()}
           {this.onErrorSignIn()}
-          <TouchableOpacity style={globalStyle.signBtn}>
+          <TouchableOpacity style={globalStyle.signBtn} onPress={this._onPress}>
             <Button
               color="#fff"
               title="Connexion"
