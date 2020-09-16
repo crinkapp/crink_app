@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,27 @@ import { log } from "react-native-reanimated";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const publicationPreview = (props) => {
+  const [likes, setLikes] = useState(props.nbLikes);
+
+  const onHitLike = () => {
+    props.onLike().then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <View style={style.preview}>
       <TouchableWithoutFeedback onPress={props.onPress}>
-        <Image
-          source={{ uri: props.path_media_publication }}
-          style={style.previewImg}
-        ></Image>
+        {props.path_media_publication !== null ? (
+          <Image
+            source={{ uri: props.path_media_publication }}
+            style={style.previewImg}
+          ></Image>
+        ) : (
+          <View style={style.previewNoImg}>
+            <Text style={style.titleNoImg}>{props.title_publication}</Text>
+          </View>
+        )}
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={props.onPress}>
         <View style={[style.infos, { alignItems: "flex-start" }]}>
@@ -51,9 +65,9 @@ const publicationPreview = (props) => {
             <Icon
               name="heart"
               size={16}
-              color={props.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
+              color={likes > 0 ? "#D55E5E" : "#CFCECE"}
               solid
-              onPress={props.onLike}
+              onPress={() => onHitLike()}
             />
             {props.nbLikes ? (
               <Text style={style.likeComment}>{props.nbLikes}</Text>
@@ -110,6 +124,17 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
+  previewNoImg: {
+    height: 150,
+    width: "100%",
+    backgroundColor: "#FAECE3",
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+  },
   infos: {
     flexDirection: "row",
     alignItems: "center",
@@ -121,6 +146,14 @@ const style = StyleSheet.create({
     fontWeight: "500",
     color: "#3A444C",
     width: "80%",
+  },
+  titleNoImg: {
+    fontWeight: "300",
+    color: "#3A444C",
+    fontSize: 20,
+    textAlign: "center",
+    letterSpacing: 1,
+    lineHeight: 30
   },
   tags: {
     flexDirection: "row",
