@@ -4,17 +4,8 @@ import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Publication = (props) => {
-  const testingTags = [
-    "shampoing",
-    "bouclés",
-    "conseil",
-    "soins",
-    "casses",
-    "cheveux",
-    "crépus",
-  ];
+  const [publication, setPublication] = useState(props.route.params.publication);
 
-  const publication = props.route.params.publication;
   return (
     <ScrollView backgroundColor="#fff">
       <View style={styles.screen}>
@@ -23,7 +14,7 @@ const Publication = (props) => {
           <Icon
             name="heart"
             size={15}
-            color={publication.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
+            color={publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"}
             solid
             style={{ marginRight: 6 }}
           />
@@ -70,10 +61,16 @@ const Publication = (props) => {
             style={{ marginLeft: "auto" }}
           />
         </View>
-        <Image
-          source={{ uri: `${S3_URL}/${publication.path_media_publication}` }}
-          style={styles.previewImg}
-        ></Image>
+        {publication.path_media_publication !== null ? (
+          <Image
+            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
+            style={styles.previewImg}
+          ></Image>
+        ) : (
+          <View style={styles.previewNoImg}>
+            <Text style={styles.titleNoImg}>{publication.title_publication}</Text>
+          </View>
+        )}
         <View style={styles.inlineInfos}>
           <Text style={styles.date}>Il y a 1 jour</Text>
           <View
@@ -95,23 +92,23 @@ const Publication = (props) => {
               style={styles.userIcon}
               source={{
                 uri: publication.user.path_profil_picture_user
-                  ? `${S3_URL}/${publication.user.path_profil_picture_user}`
+                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
                   : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
               }}
             ></Image>
           </View>
         </View>
         <View style={styles.tags}>
-          {testingTags ? (
-            testingTags.map((prop, key) => {
+          {publication.hashtags.length > 0 ? (
+            publication.hashtags.map((prop, key) => {
               return (
                 <Text style={styles.tag} key={key}>
-                  #{prop}
+                  #{prop.name_tag}
                 </Text>
               );
             })
           ) : (
-            <Text>…</Text>
+            null
           )}
         </View>
         <View style={{ marginVertical: 10 }}>
@@ -137,6 +134,14 @@ const styles = StyleSheet.create({
     color: "#000",
     // color: "#3A444C"
   },
+  titleNoImg: {
+    fontWeight: "300",
+    color: "#3A444C",
+    fontSize: 21,
+    textAlign: "center",
+    letterSpacing: 1,
+    lineHeight: 30
+  },
   iconSpace: {
     marginLeft: 12,
     marginRight: 6,
@@ -156,6 +161,17 @@ const styles = StyleSheet.create({
     width: "100%",
     resizeMode: "cover",
     borderRadius: 4,
+  },
+  previewNoImg: {
+    height: 250,
+    width: "100%",
+    borderRadius: 4,
+    backgroundColor: "#FAECE3",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+
   },
   date: {
     fontStyle: "italic",
