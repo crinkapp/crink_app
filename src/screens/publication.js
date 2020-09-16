@@ -57,7 +57,7 @@ const Publication = (props) => {
             size={15}
             color="#F8BA00"
             solid
-            style={styles.iconSpace}
+            style={[styles.iconSpace, { marginBottom: 2 }]}
           />
           <Text style={styles.numbers}>
             {publication.time ? publication.time : <Text>favoris</Text>}

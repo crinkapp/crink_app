@@ -32,7 +32,7 @@ const publicationPreview = (props) => {
       <View style={style.infos}>
         <View style={style.tags}>
           {props.tags ? (
-            props.tag.map((prop, key) => {
+            props.tags.map((prop, key) => {
               return (
                 <Text style={style.tag} key={key}>
                   #{prop}
