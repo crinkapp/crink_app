@@ -4,6 +4,8 @@ import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Publication = (props) => {
+  const [publication, setPublication] = useState(props.route.params.publication);
+
   const testingTags = [
     "shampoing",
     "bouclés",
@@ -14,7 +16,6 @@ const Publication = (props) => {
     "crépus",
   ];
 
-  const publication = props.route.params.publication;
   return (
     <ScrollView backgroundColor="#fff">
       <View style={styles.screen}>
@@ -23,7 +24,7 @@ const Publication = (props) => {
           <Icon
             name="heart"
             size={15}
-            color={publication.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
+            color={publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"}
             solid
             style={{ marginRight: 6 }}
           />
