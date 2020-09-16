@@ -7,34 +7,47 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { log } from "react-native-reanimated";
+import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
 
 const publicationPreview = (props) => {
-  const [likes, setLikes] = useState(props.nbLikes);
+  const [publication, setPublication] = useState(props.publication);
 
-  const onHitLike = () => {
-    props.onLike().then((res) => {
-      console.log(res);
-    });
+  const onLike = () => {
+    const like = publication.likedByActualUser;
+    return axios
+      .post(`${API_URL}/add-like`, { id: publication.id })
+      .then(() => {
+        setPublication({
+          ...publication,
+          likedByActualUser: !like,
+          nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
+        });
+      });
   };
 
   return (
     <View style={style.preview}>
-      <TouchableWithoutFeedback onPress={props.onPress}>
-        {props.path_media_publication !== null ? (
+      <TouchableWithoutFeedback
+        onPress={() => props.onPress(publication)}
+      >
+        {publication.path_media_publication !== null ? (
           <Image
-            source={{ uri: props.path_media_publication }}
+            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
             style={style.previewImg}
           ></Image>
         ) : (
           <View style={style.previewNoImg}>
-            <Text style={style.titleNoImg}>{props.title_publication}</Text>
+            <Text style={style.titleNoImg}>
+              {publication.title_publication}
+            </Text>
           </View>
         )}
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={props.onPress}>
         <View style={[style.infos, { alignItems: "flex-start" }]}>
-          <Text style={style.title}>{props.title_publication}</Text>
+          <Text style={style.title}>{publication.title_publication}</Text>
           <Icon
             name="share"
             style={{ marginLeft: "auto" }}
@@ -45,8 +58,8 @@ const publicationPreview = (props) => {
       </TouchableWithoutFeedback>
       <View style={style.infos}>
         <View style={style.tags}>
-          {props.tags ? (
-            props.tags.map((prop, key) => {
+          {publication.tags ? (
+            publication.tags.map((prop, key) => {
               return (
                 <Text style={style.tag} key={key}>
                   #{prop}
@@ -65,25 +78,27 @@ const publicationPreview = (props) => {
             <Icon
               name="heart"
               size={16}
-              color={likes > 0 ? "#D55E5E" : "#CFCECE"}
+              color={
+                publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"
+              }
               solid
-              onPress={() => onHitLike()}
+              onPress={() => onLike()}
             />
-            {props.nbLikes ? (
-              <Text style={style.likeComment}>{props.nbLikes}</Text>
+            {publication.nbLikes ? (
+              <Text style={style.likeComment}>{publication.nbLikes}</Text>
             ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="comment" size={16} color="#CFCECE" solid />
-            {props.nbComments ? (
-              <Text style={style.likeComment}>{props.nbComments}</Text>
+            {publication.nbComments ? (
+              <Text style={style.likeComment}>{publication.nbComments}</Text>
             ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="clock" size={16} color="#CFCECE" />
             <Text style={style.likeComment}>
-              {props.time_to_read_publication ? (
-                props.time_to_read_publication
+              {publication.time_to_read_publication ? (
+                publication.time_to_read_publication
               ) : (
                 <Text>…</Text>
               )}{" "}
@@ -93,11 +108,20 @@ const publicationPreview = (props) => {
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={style.username}>
-            par {props.username_user ? props.username_user : <Text>…</Text>}
+            par{" "}
+            {publication.user.username_user ? (
+              publication.user.username_user
+            ) : (
+              <Text>…</Text>
+            )}
           </Text>
           <Image
             style={style.userIcon}
-            source={{ uri: props.path_profil_picture_user }}
+            source={{
+              uri: publication.user.path_profil_picture_user
+                ? `${S3_URL}${publication.user.path_profil_picture_user}`
+                : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+            }}
           ></Image>
         </View>
       </View>
@@ -153,7 +177,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     letterSpacing: 1,
-    lineHeight: 30
+    lineHeight: 30,
   },
   tags: {
     flexDirection: "row",
