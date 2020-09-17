@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
-import { API_URL } from "react-native-dotenv";
+import { API_URL, S3_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -63,6 +63,12 @@ export default class Home extends React.Component {
                   onPress={(publication) =>
                     this.props.navigation.navigate("Publication", {
                       publication,
+                    })
+                  }
+                  goToProfile={(user) =>
+                    this.props.navigation.navigate("Profile", {
+                      user,
+                      iconPath: `${S3_URL}${user.path_profil_picture_user}`,
                     })
                   }
                   publication={prop}

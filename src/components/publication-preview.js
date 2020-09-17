@@ -102,24 +102,28 @@ const publicationPreview = (props) => {
             </Text>
           </View>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={style.username}>
-            par{" "}
-            {publication.user.username_user ? (
-              publication.user.username_user
-            ) : (
-              <Text>…</Text>
-            )}
-          </Text>
-          <Image
-            style={style.userIcon}
-            source={{
-              uri: publication.user.path_profil_picture_user
-                ? `${S3_URL}${publication.user.path_profil_picture_user}`
-                : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
-            }}
-          ></Image>
-        </View>
+        <TouchableWithoutFeedback
+          onPress={() => props.goToProfile(publication.user)}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={style.username}>
+              par{" "}
+              {publication.user.username_user ? (
+                publication.user.username_user
+              ) : (
+                <Text>…</Text>
+              )}
+            </Text>
+            <Image
+              style={style.userIcon}
+              source={{
+                uri: publication.user.path_profil_picture_user
+                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
+                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+              }}
+            ></Image>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );

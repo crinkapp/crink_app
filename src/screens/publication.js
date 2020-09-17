@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { API_URL, S3_URL } from "react-native-dotenv";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Publication = (props) => {
-  const [publication, setPublication] = useState(props.route.params.publication);
+  const [publication, setPublication] = useState(
+    props.route.params.publication
+  );
 
   return (
     <ScrollView backgroundColor="#fff">
@@ -14,7 +17,9 @@ const Publication = (props) => {
           <Icon
             name="heart"
             size={15}
-            color={publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"}
+            color={
+              publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"
+            }
             solid
             style={{ marginRight: 6 }}
           />
@@ -68,48 +73,53 @@ const Publication = (props) => {
           ></Image>
         ) : (
           <View style={styles.previewNoImg}>
-            <Text style={styles.titleNoImg}>{publication.title_publication}</Text>
+            <Text style={styles.titleNoImg}>
+              {publication.title_publication}
+            </Text>
           </View>
         )}
         <View style={styles.inlineInfos}>
           <Text style={styles.date}>Il y a 1 jour</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginLeft: "auto",
-            }}
-          >
-            <Text style={styles.username}>
-              par{" "}
-              {publication.user.username_user ? (
-                publication.user.username_user
-              ) : (
-                <Text>…</Text>
-              )}
-            </Text>
-            <Image
-              style={styles.userIcon}
-              source={{
-                uri: publication.user.path_profil_picture_user
-                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
-                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
-              }}
-            ></Image>
+
+          <View style={styles.authorSection}>
+            <TouchableWithoutFeedback
+              style={styles.authorSection}
+              onPress={() =>
+                props.navigation.navigate("Profile", {
+                  user: publication.user,
+                  iconPath: `${S3_URL}${publication.user.path_profil_picture_user}`,
+                })
+              }
+            >
+              <Text style={styles.username}>
+                par{" "}
+                {publication.user.username_user ? (
+                  publication.user.username_user
+                ) : (
+                  <Text>…</Text>
+                )}
+              </Text>
+              <Image
+                style={styles.userIcon}
+                source={{
+                  uri: publication.user.path_profil_picture_user
+                    ? `${S3_URL}${publication.user.path_profil_picture_user}`
+                    : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+                }}
+              ></Image>
+            </TouchableWithoutFeedback>
           </View>
         </View>
         <View style={styles.tags}>
-          {publication.hashtags.length > 0 ? (
-            publication.hashtags.map((prop, key) => {
-              return (
-                <Text style={styles.tag} key={key}>
-                  #{prop.name_tag}
-                </Text>
-              );
-            })
-          ) : (
-            null
-          )}
+          {publication.hashtags.length > 0
+            ? publication.hashtags.map((prop, key) => {
+                return (
+                  <Text style={styles.tag} key={key}>
+                    #{prop.name_tag}
+                  </Text>
+                );
+              })
+            : null}
         </View>
         <View style={{ marginVertical: 10 }}>
           <Text>{publication.content_publication}</Text>
@@ -140,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     textAlign: "center",
     letterSpacing: 1,
-    lineHeight: 30
+    lineHeight: 30,
   },
   iconSpace: {
     marginLeft: 12,
@@ -151,6 +161,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 15,
+  },
+  authorSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: "auto",
   },
   numbers: {
     color: "#3A444C",
@@ -171,7 +186,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 12,
-
   },
   date: {
     fontStyle: "italic",
