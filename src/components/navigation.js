@@ -35,6 +35,7 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,6 +58,7 @@ const getCurrentUser = async () => {
 const HomeScreens = () => {
   const [iconPath, setIconPath] = useState({});
   const [user, setUser] = useState({});
+  const [actualUser, setActualUser] = useState({});
 
   useEffect(() => {
     userIcon().then((path) => {
@@ -66,6 +68,13 @@ const HomeScreens = () => {
       setUser(user.data);
     });
   }, []);
+
+  const isActualUser = (id) => {
+    if (id === user.id) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -107,23 +116,26 @@ const HomeScreens = () => {
       <Stack.Screen
         name="Profile"
         component={Profile}
-        options={() => ({
-          title: "Mon compte",
+        options={({ route }) => ({
+          title: isActualUser(route.params.user.id)
+            ? "Mon compte"
+            : route.params.user.username_user,
           headerTitleStyle: { color: "black" },
           headerTintColor: "#B96C55",
-          headerRight: () => (
-            <TouchableWithoutFeedback>
-              <Icon
-                name="user-edit"
-                size={20}
-                style={{
-                  marginRight: 16,
-                }}
-                color="#3A444C"
-              />
-              {/* color={color} solid={focused} */}
-            </TouchableWithoutFeedback>
-          ),
+          headerRight: isActualUser(route.params.user.id)
+            ? () => (
+                <TouchableWithoutFeedback>
+                  <Icon
+                    name="user-edit"
+                    size={20}
+                    style={{
+                      marginRight: 16,
+                    }}
+                    color="#3A444C"
+                  />
+                </TouchableWithoutFeedback>
+              )
+            : null,
         })}
       />
     </Stack.Navigator>
