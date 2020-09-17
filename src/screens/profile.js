@@ -24,16 +24,18 @@ const Profile = (prop) => {
           <Text style={styles.username}>{user.username_user}</Text>
           <Icon name="certificate" size={16} color="#379EE5" />
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={[styles.subscribeBtn, styles.btn]}>
-            <Text style={styles.subscribeLabel}>S'abonner</Text>
-          </TouchableOpacity>
+        {!isActualUser ? (
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity style={[styles.subscribeBtn, styles.btn]}>
+              <Text style={styles.subscribeLabel}>S'abonner</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.messageBtn, styles.btn]}>
-            <Icon name="paper-plane" size={12} color="#fff" solid />
-            <Text style={styles.messageLabel}>Message</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={[styles.messageBtn, styles.btn]}>
+              <Icon name="paper-plane" size={12} color="#fff" solid />
+              <Text style={styles.messageLabel}>Message</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
         <View style={styles.statsView}>
           <View style={styles.stats}>
             <Text style={styles.numbers}>12</Text>
