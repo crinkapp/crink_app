@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
-import { API_URL, S3_URL } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import AsyncStorage from "@react-native-community/async-storage";
 
