@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import globalStyle from "../styles";
@@ -11,6 +11,15 @@ const Profile = (prop) => {
   const [isActualUser, setIsActualUser] = useState(
     prop.route.params.isActualUser
   );
+
+  const getSubscribers = () => {
+    return axios.get(`${API_URL}/all-user-subscribers`);
+  };
+
+  useEffect(() => {
+    
+  });
+
   return (
     <ScrollView>
       <View style={[globalStyle.appScreen, styles.header]}>
@@ -38,17 +47,17 @@ const Profile = (prop) => {
         ) : null}
         <View style={styles.statsView}>
           <View style={styles.stats}>
-            <Text style={styles.numbers}>12</Text>
-            <Text style={styles.statsLabel}>ARTICLES</Text>
+            <Text style={styles.numbers}>{user.nbPublications}</Text>
+            <Text style={styles.statsLabel}>PUBLICATIONS</Text>
           </View>
           <View style={styles.separationBorder}></View>
           <View style={styles.stats}>
-            <Text style={styles.numbers}>8,1 M</Text>
+            <Text style={styles.numbers}>{user.nbSubscribers}</Text>
             <Text style={styles.statsLabel}>ABONNÉS</Text>
           </View>
           <View style={styles.separationBorder}></View>
           <View style={styles.stats}>
-            <Text style={styles.numbers}>34</Text>
+            <Text style={styles.numbers}>{user.nbSubscription}</Text>
             <Text style={styles.statsLabel}>ABONNEMENTS</Text>
           </View>
         </View>
@@ -86,7 +95,8 @@ const styles = StyleSheet.create({
     resizeMode: "center",
   },
   username: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: "500",
     marginRight: 6,
     color: "#3A444C",
   },
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
     borderLeftColor: "#ABABAB",
   },
   btn: {
-    marginTop: 14,
+    marginTop: 18,
     marginBottom: 8,
     borderWidth: 1,
     borderColor: "#3A444C",
@@ -139,14 +149,14 @@ const styles = StyleSheet.create({
     marginHorizontal: "auto",
   },
   subscribeLabel: {
-    fontSize: 12,
+    fontSize: 13,
     paddingHorizontal: 10,
     paddingVertical: 6,
     color: "#3A444C",
     textAlign: "center",
   },
   messageLabel: {
-    fontSize: 12,
+    fontSize: 13,
     paddingVertical: 6,
     color: "#fff",
     textAlign: "center",
