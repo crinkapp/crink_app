@@ -32,15 +32,6 @@ export default class Home extends React.Component {
     this.getAllPublications();
   }
 
-  onLike = (publication_id) => {
-    return axios
-      .post(`${API_URL}/add-like`, {
-        id: publication_id,
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   getAllPublications = async () => {
     return await axios
       .get(`${API_URL}/all-publications`)
@@ -69,23 +60,18 @@ export default class Home extends React.Component {
               return (
                 <PublicationPreview
                   key={key}
-                  onPress={() =>
+                  onPress={(publication) =>
                     this.props.navigation.navigate("Publication", {
-                      publication: prop,
+                      publication,
                     })
                   }
-                  onLike={() => this.onLike(prop.id)}
-                  path_media_publication={`${S3_URL}/${prop.path_media_publication}`}
-                  title_publication={prop.title_publication}
-                  time_to_read_publication={prop.time_to_read_publication}
-                  username_user={prop.user.username_user}
-                  path_profil_picture_user={
-                    prop.user.path_profil_picture_user
-                      ? `${S3_URL}/${prop.user.path_profil_picture_user}`
-                      : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg"
+                  goToProfile={(user) =>
+                    this.props.navigation.navigate("Profile", {
+                      user,
+                      iconPath: `${S3_URL}${user.path_profil_picture_user}`,
+                    })
                   }
-                  nbLikes={prop.nbLikes}
-                  nbComments={prop.nbComments}
+                  publication={prop}
                 ></PublicationPreview>
               );
             })

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
@@ -16,6 +16,8 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
+import { API_URL, S3_URL } from "react-native-dotenv";
 
 // COMPONENTS
 import SearchBar from "../components/searchbar";
@@ -33,11 +35,47 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const userIcon = async () => {
+  let path = "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg";
+  return await axios.get(`${API_URL}/user`).then((user) => {
+    if (user.data.path_profil_picture_user !== null) {
+      path = `${S3_URL}${user.data.path_profil_picture_user}`;
+      return path;
+    }
+    return path;
+  });
+};
+
+const getCurrentUser = async () => {
+  return await axios.get(`${API_URL}/user`);
+};
+
 const HomeScreens = () => {
+  const [iconPath, setIconPath] = useState({});
+  const [user, setUser] = useState({});
+  const [actualUser, setActualUser] = useState({});
+
+  useEffect(() => {
+    userIcon().then((path) => {
+      setIconPath(path);
+    });
+    getCurrentUser().then((user) => {
+      setUser(user.data);
+    });
+  }, []);
+
+  const isActualUser = (id) => {
+    if (id === user.id) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
@@ -48,12 +86,11 @@ const HomeScreens = () => {
           headerLeft: null,
           headerRight: () => (
             <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("Profile")}
+              onPress={() => navigation.navigate("Profile", { user, iconPath })}
             >
               <Image
                 source={{
-                  uri:
-                    "https://crinkdev.s3.eu-west-3.amazonaws.com/user/fav-icon.png",
+                  uri: `${iconPath}`,
                 }}
                 style={{
                   height: 34,
@@ -79,23 +116,26 @@ const HomeScreens = () => {
       <Stack.Screen
         name="Profile"
         component={Profile}
-        options={() => ({
-          title: "Mon compte",
+        options={({ route }) => ({
+          title: isActualUser(route.params.user.id)
+            ? "Mon compte"
+            : route.params.user.username_user,
           headerTitleStyle: { color: "black" },
           headerTintColor: "#B96C55",
-          headerRight: () => (
-            <TouchableWithoutFeedback>
-              <Icon
-                name="user-edit"
-                size={20}
-                style={{
-                  marginRight: 16,
-                }}
-                color="#3A444C"
-              />
-              {/* color={color} solid={focused} */}
-            </TouchableWithoutFeedback>
-          ),
+          headerRight: isActualUser(route.params.user.id)
+            ? () => (
+                <TouchableWithoutFeedback>
+                  <Icon
+                    name="user-edit"
+                    size={20}
+                    style={{
+                      marginRight: 16,
+                    }}
+                    color="#3A444C"
+                  />
+                </TouchableWithoutFeedback>
+              )
+            : null,
         })}
       />
     </Stack.Navigator>

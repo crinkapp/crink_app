@@ -20,6 +20,7 @@ import RadioForm, {
 import DismissKeyboard from "../components/dismiss-keyboard";
 import axios from "axios";
 import Constants from "expo-constants";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const genders = [
   { label: "Homme", value: "Man" },
@@ -78,7 +79,18 @@ export default class SignUp extends React.Component {
     });
   };
 
-  _onPress = () => {
+  login = () => {
+    return axios.post(`${API_URL}/login`, {
+      email_user: this.state.email,
+      password_user: this.state.password,
+    });
+  };
+
+  getUser = () => {
+    return axios.get(`${API_URL}/user`);
+  };
+
+  _onPress = async () => {
     this.validateUsername();
     this.validateEmail();
     this.validatePassword();
@@ -88,11 +100,16 @@ export default class SignUp extends React.Component {
       !this.state.errorPassword
     ) {
       this.setState({ isLoading: true });
-      this.register()
-        .then((res) => {
+      await this.register()
+        .then(async () => {
           // Success login
           this.setState({ isLoading: false, errorServer: false });
-          this._goToSlider();
+          await this.login().then(async () => {
+            await this.getUser().then((user) => {
+              AsyncStorage.setItem("user_id", user.data.id.toString());
+              this._goToSlider();
+            });
+          });
         })
         .catch((err) => {
           if (err.response) {
@@ -243,7 +260,10 @@ export default class SignUp extends React.Component {
             </Text>
             {this.onErrorPassword()}
             {this.onErrorServer()}
-            <TouchableOpacity style={globalStyle.signBtn} onPress={this._onPress}>
+            <TouchableOpacity
+              style={globalStyle.signBtn}
+              onPress={this._onPress}
+            >
               <Button
                 color="#fff"
                 title="Inscription"

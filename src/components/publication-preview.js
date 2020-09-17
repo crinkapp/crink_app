@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,20 +7,45 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { log } from "react-native-reanimated";
+import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
 
 const publicationPreview = (props) => {
+  const [publication, setPublication] = useState(props.publication);
+
+  const onLike = () => {
+    const like = publication.likedByActualUser;
+    return axios
+      .post(`${API_URL}/add-like`, { id: publication.id })
+      .then(() => {
+        setPublication({
+          ...publication,
+          likedByActualUser: !like,
+          nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
+        });
+      });
+  };
+
   return (
     <View style={style.preview}>
-      <TouchableWithoutFeedback onPress={props.onPress}>
-        <Image
-          source={{ uri: props.path_media_publication }}
-          style={style.previewImg}
-        ></Image>
+      <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
+        {publication.path_media_publication !== null ? (
+          <Image
+            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
+            style={style.previewImg}
+          ></Image>
+        ) : (
+          <View style={style.previewNoImg}>
+            <Text style={style.titleNoImg}>
+              {publication.title_publication}
+            </Text>
+          </View>
+        )}
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={props.onPress}>
         <View style={[style.infos, { alignItems: "flex-start" }]}>
-          <Text style={style.title}>{props.title_publication}</Text>
+          <Text style={style.title}>{publication.title_publication}</Text>
           <Icon
             name="share"
             style={{ marginLeft: "auto" }}
@@ -31,17 +56,15 @@ const publicationPreview = (props) => {
       </TouchableWithoutFeedback>
       <View style={style.infos}>
         <View style={style.tags}>
-          {props.tags ? (
-            props.tags.map((prop, key) => {
-              return (
-                <Text style={style.tag} key={key}>
-                  #{prop}
-                </Text>
-              );
-            })
-          ) : (
-            <Text>…</Text>
-          )}
+          {publication.hashtags.length > 0
+            ? publication.hashtags.map((prop, key) => {
+                return (
+                  <Text style={style.tag} key={key}>
+                    #{prop.name_tag}
+                  </Text>
+                );
+              })
+            : null}
         </View>
         <Text style={style.date}>il y a 1 jour</Text>
       </View>
@@ -51,25 +74,27 @@ const publicationPreview = (props) => {
             <Icon
               name="heart"
               size={16}
-              color={props.nbLikes > 0 ? "#D55E5E" : "#CFCECE"}
+              color={
+                publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"
+              }
               solid
-              onPress={props.onLike}
+              onPress={() => onLike()}
             />
-            {props.nbLikes ? (
-              <Text style={style.likeComment}>{props.nbLikes}</Text>
+            {publication.nbLikes ? (
+              <Text style={style.likeComment}>{publication.nbLikes}</Text>
             ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="comment" size={16} color="#CFCECE" solid />
-            {props.nbComments ? (
-              <Text style={style.likeComment}>{props.nbComments}</Text>
+            {publication.nbComments ? (
+              <Text style={style.likeComment}>{publication.nbComments}</Text>
             ) : null}
           </View>
           <View style={style.likeComments}>
             <Icon name="clock" size={16} color="#CFCECE" />
             <Text style={style.likeComment}>
-              {props.time_to_read_publication ? (
-                props.time_to_read_publication
+              {publication.time_to_read_publication ? (
+                publication.time_to_read_publication
               ) : (
                 <Text>…</Text>
               )}{" "}
@@ -77,15 +102,28 @@ const publicationPreview = (props) => {
             </Text>
           </View>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={style.username}>
-            par {props.username_user ? props.username_user : <Text>…</Text>}
-          </Text>
-          <Image
-            style={style.userIcon}
-            source={{ uri: props.path_profil_picture_user }}
-          ></Image>
-        </View>
+        <TouchableWithoutFeedback
+          onPress={() => props.goToProfile(publication.user)}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={style.username}>
+              par{" "}
+              {publication.user.username_user ? (
+                publication.user.username_user
+              ) : (
+                <Text>…</Text>
+              )}
+            </Text>
+            <Image
+              style={style.userIcon}
+              source={{
+                uri: publication.user.path_profil_picture_user
+                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
+                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+              }}
+            ></Image>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );
@@ -110,6 +148,17 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
+  previewNoImg: {
+    height: 150,
+    width: "100%",
+    backgroundColor: "#FAECE3",
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+  },
   infos: {
     flexDirection: "row",
     alignItems: "center",
@@ -121,6 +170,14 @@ const style = StyleSheet.create({
     fontWeight: "500",
     color: "#3A444C",
     width: "80%",
+  },
+  titleNoImg: {
+    fontWeight: "300",
+    color: "#3A444C",
+    fontSize: 20,
+    textAlign: "center",
+    letterSpacing: 1,
+    lineHeight: 30,
   },
   tags: {
     flexDirection: "row",
