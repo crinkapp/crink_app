@@ -9,9 +9,7 @@ import { set } from "react-native-reanimated";
 
 const Profile = (prop) => {
   const [user, setUser] = useState(prop.route.params.user);
-  const [isActualUser, setIsActualUser] = useState(
-    prop.route.params.isActualUser
-  );
+  const [isActualUser, setIsActualUser] = useState(prop.route.params.isActualUser);
 
   const onSubscribe = async () => {
     return await axios
