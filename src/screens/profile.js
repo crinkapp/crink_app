@@ -5,6 +5,7 @@ import globalStyle from "../styles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
+import { set } from "react-native-reanimated";
 
 const Profile = (prop) => {
   const [user, setUser] = useState(prop.route.params.user);
@@ -12,13 +13,23 @@ const Profile = (prop) => {
     prop.route.params.isActualUser
   );
 
-  const getSubscribers = () => {
-    return axios.get(`${API_URL}/all-user-subscribers`);
+  const onSubscribe = async () => {
+    return await axios
+      .post(`${API_URL}/add-subscribe`, { id: user.id })
+      .then(async () => await onUpdate());
+  };
+
+  const onUpdate = async () => {
+    return await axios
+      .post(`${API_URL}/user-by-id`, {
+        id_user: user.id,
+      })
+      .then((res) => setUser(res.data));
   };
 
   useEffect(() => {
-    
-  });
+    onUpdate();
+  }, []);
 
   return (
     <ScrollView>
@@ -35,7 +46,10 @@ const Profile = (prop) => {
         </View>
         {!isActualUser ? (
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={[styles.subscribeBtn, styles.btn]}>
+            <TouchableOpacity
+              style={[styles.subscribeBtn, styles.btn]}
+              onPress={() => onSubscribe()}
+            >
               <Text style={styles.subscribeLabel}>S'abonner</Text>
             </TouchableOpacity>
 
