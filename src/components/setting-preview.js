@@ -68,7 +68,6 @@ const settingPreview = (props) => {
           containerStyle={{ marginTop: item.mt }}
           underlayColor="none"
           onPress={goTo(item.goToFunction)}
-          // onPress={item.logout ? props.onLogout : null}
         >
           <Icon
             name={item.icon}
