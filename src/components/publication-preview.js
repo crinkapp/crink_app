@@ -43,7 +43,7 @@ const publicationPreview = (props) => {
           </View>
         )}
       </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={props.onPress}>
+      <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
         <View style={[style.infos, { alignItems: "flex-start" }]}>
           <Text style={style.title}>{publication.title_publication}</Text>
           <Icon

@@ -86,7 +86,13 @@ const HomeScreens = () => {
           headerLeft: null,
           headerRight: () => (
             <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("Profile", { user, iconPath })}
+              onPress={() =>
+                navigation.navigate("Profile", {
+                  user,
+                  iconPath,
+                  isActualUser: isActualUser ? true : false,
+                })
+              }
             >
               <Image
                 source={{

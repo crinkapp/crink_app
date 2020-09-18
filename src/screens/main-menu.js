@@ -28,14 +28,14 @@ export default class MainMenu extends React.Component {
             <Image source={crinkIcon} style={styles.signCrinkIcon} />
           </View>
           <View style={styles.btnSection}>
-            <TouchableOpacity style={[styles.buttons, styles.signInBtn]}>
+            <TouchableOpacity style={[styles.buttons, styles.signInBtn]} onPress={this._goToSignIn}>
               <Button
                 color="#fff"
                 title="Se connecter"
                 onPress={this._goToSignIn}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.buttons, styles.signUpBtn]}>
+            <TouchableOpacity style={[styles.buttons, styles.signUpBtn]} onPress={this._goToSignUp}>
               <Button
                 color="#3A444C"
                 title="S'inscrire"
