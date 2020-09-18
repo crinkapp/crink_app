@@ -10,8 +10,10 @@ import {
   Button,
   Image,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   Text,
+  Dimensions,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -36,7 +38,11 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
-import Diagnostic from "../screens/diagnostic";
+
+// DIAGNOSTIC
+import QuestionOne from "../screens/diagnostic.js/question-one";
+import QuestionTwo from "../screens/diagnostic.js/question-two";
+import QuestionThree from "../screens/diagnostic.js/question-three";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,6 +56,25 @@ const userIcon = async () => {
     }
     return path;
   });
+};
+
+const SmallBack = (props) => {
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={props.onBack}
+        style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+      >
+        <Icon
+          name="arrow-alt-circle-left"
+          size={20}
+          style={{ marginLeft: 20, marginRight: 6 }}
+          color="#3A444C"
+        />
+        <Text style={{ color: "#3A444C" }}>{props.label}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const getCurrentUser = async () => {
@@ -83,7 +108,16 @@ const HomeScreens = () => {
         name="Home"
         component={Home}
         options={({ navigation, route }) => ({
-          title: "Pour vous",
+          headerTitle: () => (
+            <Image
+              source={require("../../assets/icons/crink-icon-brown.png")}
+              style={{
+                height: 24,
+                width: 86
+              }}
+            />
+          ),
+          title: "Accueil",
           headerLeft: null,
           headerRight: () => (
             <TouchableWithoutFeedback
@@ -146,12 +180,42 @@ const HomeScreens = () => {
         })}
       />
       <Stack.Screen
-        name="Diagnostic"
-        component={Diagnostic}
-        options={() => ({
-          title: "",
-          headerTintColor: "#000",
-          headerBackTitle: "Retour",
+        name="QuestionOne"
+        component={QuestionOne}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 1",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()} label="Retour"></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionTwo"
+        component={QuestionTwo}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 2",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()} label="Question 1"></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionThree"
+        component={QuestionThree}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 3",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()} label="Question 2"></SmallBack>
+          ),
         })}
       />
     </Stack.Navigator>
@@ -267,12 +331,34 @@ const SettingsTab = () => {
         })}
       />
       <Stack.Screen
-        name="Diagnostic"
-        component={Diagnostic}
+        name="QuestionOne"
+        component={QuestionOne}
         options={() => ({
-          title: "",
-          headerTintColor: "#000",
+          title: "Question 1",
+          headerTintColor: "#3A444C",
           headerBackTitle: "Retour",
+        })}
+      />
+      <Stack.Screen
+        name="QuestionTwo"
+        component={QuestionTwo}
+        options={() => ({
+          title: "Question 2",
+          headerStyle: { backgroundColor: "#3A444C" },
+          headerTintColor: "#fff",
+        })}
+      />
+      <Stack.Screen
+        name="QuestionThree"
+        component={QuestionThree}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 3",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()} label="Question 2"></SmallBack>
+          ),
         })}
       />
     </Stack.Navigator>
