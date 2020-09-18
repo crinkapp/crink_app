@@ -42,20 +42,30 @@ const Profile = (prop) => {
           style={{ flexDirection: "row", alignItems: "center", marginTop: 12 }}
         >
           <Text style={styles.username}>{user.username_user}</Text>
-          <Icon name="certificate" size={16} color="#379EE5" />
+          <Icon name="certificate" size={14} color="#379EE5" style={{marginTop: 2}} />
         </View>
         {!isActualUser ? (
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              style={[styles.subscribeBtn, styles.btn]}
-              onPress={() => onSubscribe()}
-            >
-              <Text style={styles.subscribeLabel}>S'abonner</Text>
-            </TouchableOpacity>
+            {user.alreadySubscribed ? (
+              <TouchableOpacity
+                style={[styles.alreadySubscribeBtn, styles.btn, styles.outlineBtn]}
+                onPress={() => onSubscribe()}
+              >
+                <Icon name="check" size={12} color="#B96C55" solid />
+                <Text style={[styles.alreadySubscribeLabel, styles.outlineLabel]}>Abonné</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={[styles.subscribeBtn, styles.btn]}
+                onPress={() => onSubscribe()}
+              >
+                <Text style={styles.subscribeLabel}>S'abonner</Text>
+              </TouchableOpacity>
+            )}
 
-            <TouchableOpacity style={[styles.messageBtn, styles.btn]}>
+            <TouchableOpacity style={[styles.messageBtn, styles.btn, styles.outlineBtn]}>
               <Icon name="paper-plane" size={12} color="#fff" solid />
-              <Text style={styles.messageLabel}>Message</Text>
+              <Text style={[styles.messageLabel, styles.outlineLabel]}>Message</Text>
             </TouchableOpacity>
           </View>
         ) : null}
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
   numbers: {
     fontSize: 13,
     marginBottom: 4,
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#3A444C",
   },
   statsView: {
@@ -145,16 +155,12 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: "#3A444C",
     borderRadius: 6,
+    width: 100
   },
-  subscribeBtn: {
-    paddingHorizontal: 4,
-  },
-  messageBtn: {
+  outlineBtn: {
     marginBottom: 8,
-    marginLeft: 10,
-    backgroundColor: "#3A444C",
+    // marginLeft: 10,
     borderRadius: 6,
     paddingHorizontal: 10,
     flexDirection: "row",
@@ -162,20 +168,39 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: "auto",
   },
+  subscribeBtn: {
+    paddingHorizontal: 4,
+    borderColor: "#B96C55",
+    backgroundColor: "#B96C55",
+  },
+  alreadySubscribeBtn: {
+    borderColor: "#B96C55",
+  },
+  messageBtn: {
+    borderColor: "#3A444C",
+    backgroundColor: "#3A444C",
+    marginLeft: 10,
+
+  },
   subscribeLabel: {
     fontSize: 13,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    color: "#3A444C",
-    textAlign: "center",
-  },
-  messageLabel: {
-    fontSize: 13,
-    paddingVertical: 6,
     color: "#fff",
     textAlign: "center",
-    marginLeft: 6,
   },
+  alreadySubscribeLabel: {
+    color: "#B96C55",
+  },
+  messageLabel: {
+    color: "#fff",
+  },
+  outlineLabel: {
+    fontSize: 13,
+    paddingVertical: 6,
+    textAlign: "center",
+    marginLeft: 6,
+  }
 });
 
 export default Profile;
