@@ -133,16 +133,25 @@ const HomeScreens = () => {
             ? () => (
                 <TouchableWithoutFeedback>
                   <Icon
-                    name="user-edit"
+                    name="ellipsis-h"
                     size={20}
                     style={{
-                      marginRight: 16,
+                      marginRight: 20,
                     }}
                     color="#3A444C"
                   />
                 </TouchableWithoutFeedback>
               )
             : null,
+        })}
+      />
+      <Stack.Screen
+        name="Diagnostic"
+        component={Diagnostic}
+        options={() => ({
+          title: "",
+          headerTintColor: "#000",
+          headerBackTitle: "Retour",
         })}
       />
     </Stack.Navigator>
@@ -246,15 +255,24 @@ const SettingsTab = () => {
           headerRight: () => (
             <TouchableWithoutFeedback>
               <Icon
-                name="user-edit"
+                name="ellipsis-h"
                 size={20}
                 style={{
-                  marginRight: 16,
+                  marginRight: 20,
                 }}
                 color="#3A444C"
               />
             </TouchableWithoutFeedback>
           ),
+        })}
+      />
+      <Stack.Screen
+        name="Diagnostic"
+        component={Diagnostic}
+        options={() => ({
+          title: "",
+          headerTintColor: "#000",
+          headerBackTitle: "Retour",
         })}
       />
     </Stack.Navigator>
