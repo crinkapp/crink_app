@@ -247,15 +247,15 @@ const HomeTabs = () => {
           let iconName;
 
           if (route.name === "HomeScreens") {
-            iconName = focused ? "home" : "home";
+            iconName = "home";
           } else if (route.name === "SearchTab") {
-            iconName = focused ? "search" : "search";
+            iconName = "search";
           } else if (route.name === "MessagesTab") {
-            iconName = focused ? "comments" : "comments";
+            iconName = "comments";
           } else if (route.name === "FavorisTab") {
-            iconName = focused ? "star" : "star";
+            iconName = "star";
           } else if (route.name === "SettingsTab") {
-            iconName = focused ? "cog" : "cog";
+            iconName = "cog";
           }
           return (
             <Icon name={iconName} size={23} color={color} solid={focused} />
