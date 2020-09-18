@@ -127,8 +127,25 @@ const Profile = (prop) => {
             <Text style={styles.title}>Mes cheveux</Text>
           </View>
           <View style={{ marginTop: 24 }}>
-            <TouchableWithoutFeedback style={styles.diagnosticBtn} onPress={() => prop.navigation.navigate("Diagnostic")}>
-              <Text style={styles.diagnosticLabel}>Faire le questionnaire</Text>
+            <Text
+              style={{
+                fontWeight: "300",
+                color: "#3A444C",
+                marginBottom: 30,
+                lineHeight: 20,
+              }}
+            >
+              Pour bien <Text style={{ fontWeight: "600" }}>entretenir</Text>{" "}
+              son cheveu, il est primordial de le
+              <Text style={{ fontWeight: "600" }}> comprendre</Text>. Le
+              diagnostic que nous te proposons t'aidera à mieux connaître ses{" "}
+              <Text style={{ fontWeight: "600" }}>caractéristiques</Text>.
+            </Text>
+            <TouchableWithoutFeedback
+              style={styles.diagnosticBtn}
+              onPress={() => prop.navigation.navigate("QuestionOne")}
+            >
+              <Text style={styles.diagnosticLabel}>C'est parti !</Text>
               <Icon
                 name="angle-right"
                 size={20}
