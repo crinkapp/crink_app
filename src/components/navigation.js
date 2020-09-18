@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
+import AsyncStorage from "@react-native-community/async-storage";
 
 // COMPONENTS
 import SearchBar from "../components/searchbar";
@@ -35,7 +36,7 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
-import AsyncStorage from "@react-native-community/async-storage";
+import Diagnostic from "../screens/diagnostic";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -234,6 +235,27 @@ const SettingsTab = () => {
         name="Settings"
         component={Settings}
         options={{ title: "Paramètres", headerLeft: null }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={() => ({
+          title: "Mon compte",
+          headerTitleStyle: { color: "black" },
+          headerTintColor: "#B96C55",
+          headerRight: () => (
+            <TouchableWithoutFeedback>
+              <Icon
+                name="user-edit"
+                size={20}
+                style={{
+                  marginRight: 16,
+                }}
+                color="#3A444C"
+              />
+            </TouchableWithoutFeedback>
+          ),
+        })}
       />
     </Stack.Navigator>
   );
