@@ -8,6 +8,9 @@ const Publication = (props) => {
   const [publication, setPublication] = useState(
     props.route.params.publication
   );
+  const [actualUserId, setActualUserId] = useState(
+    props.route.params.actualUserId
+  );
 
   return (
     <ScrollView backgroundColor="#fff">
@@ -84,12 +87,18 @@ const Publication = (props) => {
           <View style={styles.authorSection}>
             <TouchableWithoutFeedback
               style={styles.authorSection}
-              onPress={() =>
+              onPress={() => {
                 props.navigation.navigate("Profile", {
                   user: publication.user,
-                  iconPath: `${S3_URL}${publication.user.path_profil_picture_user}`,
-                })
-              }
+                  iconPath: publication.user.path_profil_picture_user
+                    ? `${S3_URL}${publication.user.path_profil_picture_user}`
+                    : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+                  isActualUser:
+                    parseInt(actualUserId) === publication.userId
+                      ? true
+                      : false,
+                });
+              }}
             >
               <Text style={styles.username}>
                 par{" "}

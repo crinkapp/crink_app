@@ -18,6 +18,7 @@ export default class Home extends React.Component {
     this.state = {
       publications: [],
       refreshing: false,
+      actualUserId: null,
     };
   }
 
@@ -30,6 +31,9 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.getAllPublications();
+    AsyncStorage.getItem("user_id").then((actualUserId) => {
+      this.setState({ actualUserId });
+    });
   }
 
   getAllPublications = async () => {
@@ -63,14 +67,21 @@ export default class Home extends React.Component {
                   onPress={(publication) =>
                     this.props.navigation.navigate("Publication", {
                       publication,
+                      actualUserId: this.state.actualUserId,
                     })
                   }
-                  goToProfile={(user) =>
+                  goToProfile={(user) => {
                     this.props.navigation.navigate("Profile", {
                       user,
-                      iconPath: `${S3_URL}${user.path_profil_picture_user}`,
-                    })
-                  }
+                      iconPath: user.path_profil_picture_user
+                        ? `${S3_URL}${user.path_profil_picture_user}`
+                        : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+                      isActualUser:
+                        parseInt(this.state.actualUserId) === user.id
+                          ? true
+                          : false,
+                    });
+                  }}
                   publication={prop}
                 ></PublicationPreview>
               );
