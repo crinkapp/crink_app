@@ -21,7 +21,7 @@ export default StyleSheet.create({
     color: darkColor,
     fontWeight: "300",
     alignSelf: "center",
-    marginBottom: 30
+    marginBottom: 30,
   },
   signInputText: {
     width: "100%",
@@ -71,6 +71,53 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     padding: 15,
-    backgroundColor: "white"
+    backgroundColor: "white",
+  },
+
+  // Diagnostic
+  diagnostic: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "center",
+    padding: 15,
+    backgroundColor: "#fff",
+  },
+  questionSection: {
+    flex: 3,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  questionTitle: {
+    fontWeight: "500",
+    fontSize: 24,
+    color: "#3A444C",
+    textAlign: "center",
+    marginTop: 35,
+  },
+  flexFive: {
+    flex: 5,
+  },
+  answerSection: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
+  },
+  answerBtn: {
+    height: 45,
+    borderWidth: 2,
+    borderColor: "#3A444C",
+    borderRadius: 20,
+    marginBottom: 30,
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  answerLabel: {
+    color: "#3A444C",
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "600",
   },
 });
