@@ -40,9 +40,13 @@ import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
 
 // DIAGNOSTIC
-import QuestionOne from "../screens/diagnostic.js/question-one";
-import QuestionTwo from "../screens/diagnostic.js/question-two";
-import QuestionThree from "../screens/diagnostic.js/question-three";
+import QuestionOne from "../screens/diagnostic/question-one";
+import QuestionTwo from "../screens/diagnostic/question-two";
+import QuestionThree from "../screens/diagnostic/question-three";
+import QuestionFour from "../screens/diagnostic/question-four";
+import QuestionFive from "../screens/diagnostic/question-five";
+import QuestionSix from "../screens/diagnostic/question-six";
+import QuestionSeven from "../screens/diagnostic/question-seven";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,11 +71,10 @@ const SmallBack = (props) => {
       >
         <Icon
           name="arrow-alt-circle-left"
-          size={20}
+          size={25}
           style={{ marginLeft: 20, marginRight: 6 }}
           color="#3A444C"
         />
-        <Text style={{ color: "#3A444C" }}>{props.label}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -183,12 +186,12 @@ const HomeScreens = () => {
         name="QuestionOne"
         component={QuestionOne}
         options={({ navigation: { goBack } }) => ({
-          title: "Question 1",
+          title: "Question 1 sur 7",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
           headerLeft: () => (
-            <SmallBack onBack={() => goBack()} label="Retour"></SmallBack>
+            <SmallBack onBack={() => goBack()}></SmallBack>
           ),
         })}
       />
@@ -196,12 +199,12 @@ const HomeScreens = () => {
         name="QuestionTwo"
         component={QuestionTwo}
         options={({ navigation: { goBack } }) => ({
-          title: "Question 2",
+          title: "Question 2 sur 7",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
           headerLeft: () => (
-            <SmallBack onBack={() => goBack()} label="Question 1"></SmallBack>
+            <SmallBack onBack={() => goBack()}></SmallBack>
           ),
         })}
       />
@@ -209,12 +212,64 @@ const HomeScreens = () => {
         name="QuestionThree"
         component={QuestionThree}
         options={({ navigation: { goBack } }) => ({
-          title: "Question 3",
+          title: "Question 3 sur 7",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
           headerLeft: () => (
-            <SmallBack onBack={() => goBack()} label="Question 2"></SmallBack>
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFour"
+        component={QuestionFour}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 4 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFive"
+        component={QuestionFive}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 5 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSix"
+        component={QuestionSix}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 6 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSeven"
+        component={QuestionSeven}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
           ),
         })}
       />
@@ -333,31 +388,91 @@ const SettingsTab = () => {
       <Stack.Screen
         name="QuestionOne"
         component={QuestionOne}
-        options={() => ({
-          title: "Question 1",
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 1 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
-          headerBackTitle: "Retour",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
         })}
       />
       <Stack.Screen
         name="QuestionTwo"
         component={QuestionTwo}
-        options={() => ({
-          title: "Question 2",
-          headerStyle: { backgroundColor: "#3A444C" },
-          headerTintColor: "#fff",
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 2 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
         })}
       />
       <Stack.Screen
         name="QuestionThree"
         component={QuestionThree}
         options={({ navigation: { goBack } }) => ({
-          title: "Question 3",
+          title: "Question 3 sur 7",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
           headerLeft: () => (
-            <SmallBack onBack={() => goBack()} label="Question 2"></SmallBack>
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFour"
+        component={QuestionFour}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 4 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFive"
+        component={QuestionFive}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 5 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSix"
+        component={QuestionSix}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 6 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSeven"
+        component={QuestionSeven}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
           ),
         })}
       />
