@@ -47,6 +47,7 @@ import QuestionFour from "../screens/diagnostic/question-four";
 import QuestionFive from "../screens/diagnostic/question-five";
 import QuestionSix from "../screens/diagnostic/question-six";
 import QuestionSeven from "../screens/diagnostic/question-seven";
+import ResultDiagnostic from "../screens/diagnostic/result-diagnostic";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -273,6 +274,19 @@ const HomeScreens = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="ResultDiagnostic"
+        component={ResultDiagnostic}
+        options={({ navigation: { goBack } }) => ({
+          title: "",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -468,6 +482,19 @@ const SettingsTab = () => {
         component={QuestionSeven}
         options={({ navigation: { goBack } }) => ({
           title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ResultDiagnostic"
+        component={ResultDiagnostic}
+        options={({ navigation: { goBack } }) => ({
+          title: "",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
