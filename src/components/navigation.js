@@ -10,14 +10,17 @@ import {
   Button,
   Image,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   Text,
+  Dimensions,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
+import AsyncStorage from "@react-native-community/async-storage";
 
 // COMPONENTS
 import SearchBar from "../components/searchbar";
@@ -35,7 +38,16 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
-import AsyncStorage from "@react-native-community/async-storage";
+
+// DIAGNOSTIC
+import QuestionOne from "../screens/diagnostic/question-one";
+import QuestionTwo from "../screens/diagnostic/question-two";
+import QuestionThree from "../screens/diagnostic/question-three";
+import QuestionFour from "../screens/diagnostic/question-four";
+import QuestionFive from "../screens/diagnostic/question-five";
+import QuestionSix from "../screens/diagnostic/question-six";
+import QuestionSeven from "../screens/diagnostic/question-seven";
+import ResultDiagnostic from "../screens/diagnostic/result-diagnostic";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,6 +61,24 @@ const userIcon = async () => {
     }
     return path;
   });
+};
+
+const SmallBack = (props) => {
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={props.onBack}
+        style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+      >
+        <Icon
+          name="arrow-alt-circle-left"
+          size={25}
+          style={{ marginLeft: 20, marginRight: 6 }}
+          color="#3A444C"
+        />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const getCurrentUser = async () => {
@@ -82,7 +112,16 @@ const HomeScreens = () => {
         name="Home"
         component={Home}
         options={({ navigation, route }) => ({
-          title: "Pour vous",
+          headerTitle: () => (
+            <Image
+              source={require("../../assets/icons/crink-icon-brown.png")}
+              style={{
+                height: 24,
+                width: 86
+              }}
+            />
+          ),
+          title: "Accueil",
           headerLeft: null,
           headerRight: () => (
             <TouchableWithoutFeedback
@@ -132,16 +171,120 @@ const HomeScreens = () => {
             ? () => (
                 <TouchableWithoutFeedback>
                   <Icon
-                    name="user-edit"
+                    name="ellipsis-h"
                     size={20}
                     style={{
-                      marginRight: 16,
+                      marginRight: 20,
                     }}
                     color="#3A444C"
                   />
                 </TouchableWithoutFeedback>
               )
             : null,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionOne"
+        component={QuestionOne}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 1 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionTwo"
+        component={QuestionTwo}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 2 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionThree"
+        component={QuestionThree}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 3 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFour"
+        component={QuestionFour}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 4 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFive"
+        component={QuestionFive}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 5 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSix"
+        component={QuestionSix}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 6 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSeven"
+        component={QuestionSeven}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ResultDiagnostic"
+        component={ResultDiagnostic}
+        options={({ navigation: { goBack } }) => ({
+          title: "",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
         })}
       />
     </Stack.Navigator>
@@ -235,6 +378,131 @@ const SettingsTab = () => {
         component={Settings}
         options={{ title: "Paramètres", headerLeft: null }}
       />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={() => ({
+          title: "Mon compte",
+          headerTitleStyle: { color: "black" },
+          headerTintColor: "#B96C55",
+          headerRight: () => (
+            <TouchableWithoutFeedback>
+              <Icon
+                name="ellipsis-h"
+                size={20}
+                style={{
+                  marginRight: 20,
+                }}
+                color="#3A444C"
+              />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionOne"
+        component={QuestionOne}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 1 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionTwo"
+        component={QuestionTwo}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 2 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionThree"
+        component={QuestionThree}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 3 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFour"
+        component={QuestionFour}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 4 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFive"
+        component={QuestionFive}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 5 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSix"
+        component={QuestionSix}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 6 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSeven"
+        component={QuestionSeven}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ResultDiagnostic"
+        component={ResultDiagnostic}
+        options={({ navigation: { goBack } }) => ({
+          title: "",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => (
+            <SmallBack onBack={() => goBack()}></SmallBack>
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -247,15 +515,15 @@ const HomeTabs = () => {
           let iconName;
 
           if (route.name === "HomeScreens") {
-            iconName = focused ? "home" : "home";
+            iconName = "home";
           } else if (route.name === "SearchTab") {
-            iconName = focused ? "search" : "search";
+            iconName = "search";
           } else if (route.name === "MessagesTab") {
-            iconName = focused ? "comments" : "comments";
+            iconName = "comments";
           } else if (route.name === "FavorisTab") {
-            iconName = focused ? "star" : "star";
+            iconName = "star";
           } else if (route.name === "SettingsTab") {
-            iconName = focused ? "cog" : "cog";
+            iconName = "cog";
           }
           return (
             <Icon name={iconName} size={23} color={color} solid={focused} />
