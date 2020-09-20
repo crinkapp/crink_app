@@ -552,11 +552,11 @@ const HomeTabs = () => {
         component={SearchTab}
         options={{ title: "Rechercher" }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="MessagesTab"
         component={MessagesTab}
         options={{ title: "Messages" }}
-      />
+      /> */}
       <Tab.Screen
         name="FavorisTab"
         component={FavorisTab}
