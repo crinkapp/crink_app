@@ -15,7 +15,7 @@ const QuestionThree = (props) => {
     <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>
-          Combien de temps faut-il à tes cheveux pour sécher une fois mouillé ?
+          Combien de temps faut-il à tes cheveux pour sécher une fois mouillés ?
         </Text>
       </View>
       <View style={globalStyle.flexFive}>

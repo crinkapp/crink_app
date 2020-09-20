@@ -12,17 +12,14 @@ const anwsersSix = [
   { value: "curl_pattern_o", label: "En forme de O" },
   { value: "curl_pattern_s", label: "En forme de S" },
   { value: "curl_pattern_z", label: "En forme de Z" },
-  { value: "curl_pattern_l", label: "En forme de L" },
+  { value: "curl_pattern_l", label: "En forme de l" },
 ];
 
 const QuestionSix = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
 
   return (
-    <ScrollView
-      backgroundColor="#FFF"
-      contentContainerStyle={globalStyle.diagnostic}
-    >
+    <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>
           Observe un de tes cheveux : quelle forme a-t-il ?
@@ -49,7 +46,7 @@ const QuestionSix = (props) => {
           );
         })}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

@@ -18,21 +18,8 @@ const anwsersSeven = [
 const QuestionSeven = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
 
-  const onFinish = (value) => {
-    setDiagnostic({
-      diagnostic: {
-        ...diagnostic,
-        distance_between_curls_diagnostic: value,
-      },
-    });
-    console.log(diagnostic);
-  };
-
   return (
-    <ScrollView
-      backgroundColor="#FFF"
-      contentContainerStyle={globalStyle.diagnostic}
-    >
+    <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>
           Observe un de tes cheveux : quelle forme a-t-il ?
@@ -41,7 +28,17 @@ const QuestionSeven = (props) => {
       <View style={globalStyle.flexFive}>
         {anwsersSeven.map((prop, key) => {
           return (
-            <TouchableOpacity key={key} onPress={() => onFinish(prop.value)}>
+            <TouchableOpacity
+              key={key}
+              onPress={() =>
+                props.navigation.navigate("ResultDiagnostic", {
+                  diagnostic: {
+                    ...diagnostic,
+                    distance_between_curls_diagnostic: prop.value,
+                  },
+                })
+              }
+            >
               <View style={globalStyle.answerBtn}>
                 <Text style={globalStyle.answerLabel}>{prop.label}</Text>
               </View>
@@ -49,7 +46,7 @@ const QuestionSeven = (props) => {
           );
         })}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

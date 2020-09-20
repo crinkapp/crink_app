@@ -18,10 +18,7 @@ const QuestionFive = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
 
   return (
-    <ScrollView
-      backgroundColor="#FFF"
-      contentContainerStyle={globalStyle.diagnostic}
-    >
+    <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>Tu as les cheveux :</Text>
       </View>
@@ -46,7 +43,7 @@ const QuestionFive = (props) => {
           );
         })}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

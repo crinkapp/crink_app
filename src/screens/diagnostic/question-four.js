@@ -18,10 +18,7 @@ const QuestionFour = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
 
   return (
-    <ScrollView
-      backgroundColor="#FFF"
-      contentContainerStyle={globalStyle.diagnostic}
-    >
+    <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>
           En séparant tes cheveux, vois-tu ton cuir chevelu ?
@@ -48,7 +45,7 @@ const QuestionFour = (props) => {
           );
         })}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
