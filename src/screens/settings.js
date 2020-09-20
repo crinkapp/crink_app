@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { View, Image, Text, StyleSheet, Button } from "react-native";
 import axios from "axios";
-import { API_URL } from "react-native-dotenv";
+import { API_URL, S3_URL } from "react-native-dotenv";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SettingPreview from "../components/setting-preview";
 
 export default class Settings extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: {},
+    };
   }
 
   logout = () => {
@@ -34,20 +37,36 @@ export default class Settings extends React.Component {
     return axios
       .get(`${API_URL}/user`)
       .then((res) => {
-        console.log(`error server : ${err.response}`);
+        this.setState({
+          user: res.data,
+        });
       })
       .catch((err) => {
-        // If incorrect email or password
         if (err.request) {
           console.log(`error server : ${err.response}`);
         }
       });
   };
 
+  componentDidMount() {
+    this.getUser();
+  }
+
   render() {
     return (
       <View style={styles.screen}>
-        <SettingPreview onLogout={() => this._onLogout()}></SettingPreview>
+        <SettingPreview
+          onLogout={() => this._onLogout()}
+          goToProfile={() => {
+            this.props.navigation.navigate("Profile", {
+              user: this.state.user,
+              iconPath: this.state.user.path_profil_picture_user
+                ? `${S3_URL}${this.state.user.path_profil_picture_user}`
+                : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+              isActualUser: true,
+            });
+          }}
+        ></SettingPreview>
       </View>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const list = [
@@ -9,46 +10,56 @@ const list = [
     icon: "user-circle",
     color: "#3A444C",
     mt: 2,
-    logout: false,
+    goToFunction: "account",
   },
   {
     title: "Notifications",
     icon: "bell",
     color: "#3A444C",
     mt: 2,
-    logout: false,
+    goToFunction: null,
   },
   {
     title: "À propos",
     icon: "info-circle",
     color: "#3A444C",
     mt: 2,
-    logout: false,
+    goToFunction: null,
   },
   {
     title: "Thème",
     icon: "palette",
     color: "#3A444C",
     mt: 2,
-    logout: false,
+    goToFunction: null,
   },
   {
     title: "Aide",
     icon: "question-circle",
     color: "#3A444C",
     mt: 2,
-    logout: false,
+    goToFunction: null,
   },
   {
     title: "Se déconnecter",
     icon: "sign-out-alt",
     color: "#D55E5E",
     mt: 30,
-    logout: true,
+    goToFunction: "logout",
   },
 ];
 
 const settingPreview = (props) => {
+  const goTo = (route) => {
+    switch (route) {
+      case "account":
+        return props.goToProfile;
+      case "logout":
+        return props.onLogout;
+      default:
+        return null;
+    }
+  };
   return (
     <View style={styles.preview}>
       {list.map((item, i) => (
@@ -56,7 +67,7 @@ const settingPreview = (props) => {
           key={i}
           containerStyle={{ marginTop: item.mt }}
           underlayColor="none"
-          onPress={item.logout ? props.onLogout : null}
+          onPress={goTo(item.goToFunction)}
         >
           <Icon
             name={item.icon}
