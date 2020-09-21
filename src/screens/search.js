@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingHorizontal: 0,
-    paddingVertical: 30,
+    paddingTop: 30,
+    paddingBottom: 5,
     backgroundColor: "white",
   },
   input: {
