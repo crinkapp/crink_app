@@ -39,7 +39,7 @@ const Profile = (prop) => {
     <ScrollView>
       <View style={[globalStyle.appScreen, styles.header]}>
         <Image
-          source={{ uri: prop.route.params.iconPath }}
+          source={{ uri: `${S3_URL}${user.path_profil_picture_user}` }}
           style={styles.image}
         ></Image>
         <View
