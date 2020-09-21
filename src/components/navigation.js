@@ -38,6 +38,7 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
+import AddPublication from "../screens/add-publication";
 
 // DIAGNOSTIC
 import QuestionOne from "../screens/diagnostic/question-one";
@@ -342,6 +343,18 @@ const MessagesTab = () => {
   );
 };
 
+const AddPublicationTab = () => {
+  return (
+    <Stack.Navigator initialRouteName="AddPublication">
+      <Stack.Screen
+        name="AddPublication"
+        component={AddPublication}
+        options={{ title: "Publier", headerLeft: null }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const FavorisTab = () => {
   return (
     <Stack.Navigator initialRouteName="Favoris">
@@ -488,6 +501,8 @@ const HomeTabs = () => {
             iconName = "search";
           } else if (route.name === "MessagesTab") {
             iconName = "comments";
+          } else if (route.name === "AddPublicationTab") {
+            iconName = "plus-circle";
           } else if (route.name === "FavorisTab") {
             iconName = "star";
           } else if (route.name === "SettingsTab") {
@@ -525,6 +540,11 @@ const HomeTabs = () => {
         component={MessagesTab}
         options={{ title: "Messages" }}
       /> */}
+      <Tab.Screen
+        name="AddPublicationTab"
+        component={AddPublicationTab}
+        options={{ title: "Écris une publication" }}
+      />
       <Tab.Screen
         name="FavorisTab"
         component={FavorisTab}
