@@ -38,7 +38,6 @@ import Settings from "../screens/settings";
 import Publication from "../screens/publication";
 import SearchResults from "../screens/search-results";
 import Profile from "../screens/profile";
-import AddPublication from "../screens/add-publication";
 
 // DIAGNOSTIC
 import QuestionOne from "../screens/diagnostic/question-one";
@@ -49,6 +48,10 @@ import QuestionFive from "../screens/diagnostic/question-five";
 import QuestionSix from "../screens/diagnostic/question-six";
 import QuestionSeven from "../screens/diagnostic/question-seven";
 import ResultDiagnostic from "../screens/diagnostic/result-diagnostic";
+
+// ADD PUBLICATION
+import AddPublication from "../screens/add-publication";
+import TitlePublication from "../screens/add-publication/publication-title"
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -350,6 +353,17 @@ const AddPublicationTab = () => {
         name="AddPublication"
         component={AddPublication}
         options={{ title: "Publier", headerLeft: null }}
+      />
+      <Stack.Screen
+        name="TitlePublication"
+        component={TitlePublication}
+        options={({ navigation: { goBack } }) => ({
+          title: "Étape 1 sur 3",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
       />
     </Stack.Navigator>
   );
