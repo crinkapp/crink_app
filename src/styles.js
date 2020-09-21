@@ -120,4 +120,14 @@ export default StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
   },
+
+  // Add Publication
+  addPublicationScreen: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    backgroundColor: "white",
+  },
 });
