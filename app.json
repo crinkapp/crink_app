@@ -12,7 +12,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/fav-icon.png",
-      "resizeMode": "native",
+      "resizeMode": "contain",
       "backgroundColor": "#BA6B55"
     },
     "updates": {
