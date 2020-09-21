@@ -116,11 +116,7 @@ const publicationPreview = (props) => {
             </Text>
             <Image
               style={style.userIcon}
-              source={{
-                uri: publication.user.path_profil_picture_user
-                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
-                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
-              }}
+              source={{ uri: publication.user.path_profil_picture_user }}
             ></Image>
           </View>
         </TouchableWithoutFeedback>
