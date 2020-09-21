@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-
 import {
-  SafeAreaView,
   StatusBar,
-  Button,
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -54,17 +51,6 @@ import HashtagsPublication from "../screens/add-publication/publication-hashtags
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const userIcon = async () => {
-  let path = "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg";
-  return await axios.get(`${API_URL}/user`).then((user) => {
-    if (user.data.path_profil_picture_user !== null) {
-      path = `${S3_URL}${user.data.path_profil_picture_user}`;
-      return path;
-    }
-    return path;
-  });
-};
-
 const SmallBack = (props) => {
   return (
     <View>
@@ -88,14 +74,10 @@ const getCurrentUser = async () => {
 };
 
 const HomeScreens = () => {
-  const [iconPath, setIconPath] = useState({});
   const [user, setUser] = useState({});
   const [actualUser, setActualUser] = useState({});
 
   useEffect(() => {
-    userIcon().then((path) => {
-      setIconPath(path);
-    });
     getCurrentUser().then((user) => {
       setUser(user.data);
     });
@@ -130,14 +112,13 @@ const HomeScreens = () => {
               onPress={() =>
                 navigation.navigate("Profile", {
                   user,
-                  iconPath,
                   isActualUser: isActualUser ? true : false,
                 })
               }
             >
               <Image
                 source={{
-                  uri: `${iconPath}`,
+                  uri: `${S3_URL}${user.path_profil_picture_user}`,
                 }}
                 style={{
                   height: 34,
@@ -332,17 +313,17 @@ const SearchTab = () => {
   );
 };
 
-const MessagesTab = () => {
-  return (
-    <Stack.Navigator initialRouteName="Messages">
-      <Stack.Screen
-        name="Messages"
-        component={Messages}
-        options={{ title: "Messages", headerLeft: null }}
-      />
-    </Stack.Navigator>
-  );
-};
+// const MessagesTab = () => {
+//   return (
+//     <Stack.Navigator initialRouteName="Messages">
+//       <Stack.Screen
+//         name="Messages"
+//         component={Messages}
+//         options={{ title: "Messages", headerLeft: null }}
+//       />
+//     </Stack.Navigator>
+//   );
+// };
 
 const AddPublicationTab = () => {
   return (
