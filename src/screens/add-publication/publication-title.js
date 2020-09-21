@@ -23,6 +23,7 @@ const TitlePublication = (props) => {
     <DismissKeyboard>
       <View style={globalStyle.addPublicationScreen}>
         <Text style={styles.title}>Quel sera le titre de ta publication ?</Text>
+        <Text style={{marginVertical: 10, fontSize: 13, color: "#3A444C"}}>3 caractères minimum</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(text) => setTitle(text)}
@@ -31,7 +32,11 @@ const TitlePublication = (props) => {
           multiline={true}
           maxLength={255}
         />
-        <TouchableOpacity style={styles.nextBtn} onPress={() => onNext()}>
+        <TouchableOpacity
+          style={[styles.nextBtn, {backgroundColor: title.length < 3 ? "#9C9C9C" : "#3A444C"}]}
+          onPress={() => onNext()}
+          disabled={title.length < 3 ? true : false}
+        >
           <Text style={styles.nextLabel}>Suivant</Text>
           <Icon name="forward" size={14} color="#fff" />
         </TouchableOpacity>
@@ -59,7 +64,6 @@ const styles = StyleSheet.create({
   nextBtn: {
     marginTop: 45,
     width: "100%",
-    backgroundColor: "#3A444C",
     paddingVertical: 10,
     borderRadius: 8,
     flexDirection: "row",
