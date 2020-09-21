@@ -47,19 +47,19 @@ export default StyleSheet.create({
   },
   signSeparationLine: {
     marginVertical: 30,
-    borderColor: "#3A444C",
+    borderColor: darkColor,
     borderWidth: 1,
     width: "70%",
     alignSelf: "center",
   },
   signSmText: {
-    color: "#3A444C",
+    color: darkColor,
     fontSize: 16,
     alignSelf: "center",
     fontWeight: "300",
   },
   signErrorMsg: {
-    color: "#D55E5E",
+    color: redColor,
     marginVertical: 3,
     fontSize: 12,
     fontWeight: "300",
@@ -91,7 +91,7 @@ export default StyleSheet.create({
   questionTitle: {
     fontWeight: "500",
     fontSize: 24,
-    color: "#3A444C",
+    color: darkColor,
     textAlign: "center",
     marginTop: 35,
   },
@@ -107,7 +107,7 @@ export default StyleSheet.create({
   answerBtn: {
     height: 45,
     borderWidth: 2,
-    borderColor: "#3A444C",
+    borderColor: darkColor,
     borderRadius: 20,
     marginBottom: 30,
     alignItems: "center",
@@ -115,7 +115,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   answerLabel: {
-    color: "#3A444C",
+    color: darkColor,
     fontSize: 16,
     textAlign: "center",
     fontWeight: "600",
