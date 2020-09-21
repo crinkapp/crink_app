@@ -80,14 +80,14 @@ const Profile = (prop) => {
               </TouchableOpacity>
             )}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[styles.messageBtn, styles.btn, styles.outlineBtn]}
             >
               <Icon name="paper-plane" size={12} color="#fff" solid />
               <Text style={[styles.messageLabel, styles.outlineLabel]}>
                 Message
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         ) : null}
         <View style={styles.statsView}>
