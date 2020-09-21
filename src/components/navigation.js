@@ -117,7 +117,7 @@ const HomeScreens = () => {
               source={require("../../assets/icons/crink-icon-brown.png")}
               style={{
                 height: 24,
-                width: 86
+                width: 86,
               }}
             />
           ),
@@ -167,20 +167,20 @@ const HomeScreens = () => {
             : route.params.user.username_user,
           headerTitleStyle: { color: "black" },
           headerTintColor: "#B96C55",
-          headerRight: isActualUser(route.params.user.id)
-            ? () => (
-                <TouchableWithoutFeedback>
-                  <Icon
-                    name="ellipsis-h"
-                    size={20}
-                    style={{
-                      marginRight: 20,
-                    }}
-                    color="#3A444C"
-                  />
-                </TouchableWithoutFeedback>
-              )
-            : null,
+          //   headerRight: isActualUser(route.params.user.id)
+          //     ? () => (
+          //         <TouchableWithoutFeedback>
+          //           <Icon
+          //             name="ellipsis-h"
+          //             size={20}
+          //             style={{
+          //               marginRight: 20,
+          //             }}
+          //             color="#3A444C"
+          //           />
+          //         </TouchableWithoutFeedback>
+          //       )
+          //     : null,
         })}
       />
       <Stack.Screen
@@ -191,9 +191,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -204,9 +202,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -217,9 +213,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -230,9 +224,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -243,9 +235,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -256,9 +246,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -269,9 +257,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -282,9 +268,7 @@ const HomeScreens = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
     </Stack.Navigator>
@@ -385,18 +369,18 @@ const SettingsTab = () => {
           title: "Mon compte",
           headerTitleStyle: { color: "black" },
           headerTintColor: "#B96C55",
-          headerRight: () => (
-            <TouchableWithoutFeedback>
-              <Icon
-                name="ellipsis-h"
-                size={20}
-                style={{
-                  marginRight: 20,
-                }}
-                color="#3A444C"
-              />
-            </TouchableWithoutFeedback>
-          ),
+          // headerRight: () => (
+          //   <TouchableWithoutFeedback>
+          //     <Icon
+          //       name="ellipsis-h"
+          //       size={20}
+          //       style={{
+          //         marginRight: 20,
+          //       }}
+          //       color="#3A444C"
+          //     />
+          //   </TouchableWithoutFeedback>
+          // ),
         })}
       />
       <Stack.Screen
@@ -407,9 +391,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -420,9 +402,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -433,9 +413,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -446,9 +424,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -459,9 +435,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -472,9 +446,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -485,9 +457,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
       <Stack.Screen
@@ -498,9 +468,7 @@ const SettingsTab = () => {
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
-          headerLeft: () => (
-            <SmallBack onBack={() => goBack()}></SmallBack>
-          ),
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
     </Stack.Navigator>
