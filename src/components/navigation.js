@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  NavigationContainer,
-  getFocusedRouteNameFromRoute,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import {
   SafeAreaView,
@@ -51,7 +48,8 @@ import ResultDiagnostic from "../screens/diagnostic/result-diagnostic";
 
 // ADD PUBLICATION
 import AddPublication from "../screens/add-publication";
-import TitlePublication from "../screens/add-publication/publication-title"
+import TitlePublication from "../screens/add-publication/publication-title";
+import HashtagsPublication from "../screens/add-publication/publication-hashtags";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -359,6 +357,17 @@ const AddPublicationTab = () => {
         component={TitlePublication}
         options={({ navigation: { goBack } }) => ({
           title: "Étape 1 sur 3",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="HashtagsPublication"
+        component={HashtagsPublication}
+        options={({ navigation: { goBack } }) => ({
+          title: "Étape 2 sur 3",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
