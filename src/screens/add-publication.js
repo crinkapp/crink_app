@@ -10,7 +10,7 @@ const AddPublication = (props) => {
     <View style={globalStyle.appScreen}>
       <Image source={addImage} style={styles.img} />
       <Text style={styles.text}>Tu souhaites partager du contenu ?</Text>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("TitlePublication")}>
           <Text style={styles.btnLabel}>Créer une publication</Text>
       </TouchableOpacity>
     </View>
