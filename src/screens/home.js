@@ -5,12 +5,16 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import AsyncStorage from "@react-native-community/async-storage";
+
+const emptyHome = require("../../assets/icons/empty-publications.png");
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -84,7 +88,22 @@ export default class Home extends React.Component {
               );
             })
           ) : (
-            <Text style={styles.text}>Il n'y pas de publications…</Text>
+            <View style={styles.emptySection}>
+              <Image source={emptyHome} style={styles.img} />
+              <Text style={styles.title}>Bienvenue !</Text>
+              <Text style={styles.info}>
+                Pour l'instant nous ne pouvons déterminer les articles qui sont
+                fait pour toi.
+              </Text>
+              <TouchableOpacity
+                style={styles.diagnosticBtn}
+                onPress={() => this.props.navigation.navigate("QuestionOne")}
+              >
+                <Text style={styles.diagnosticLabel}>
+                  Commencer le diagnostic capillaire
+                </Text>
+              </TouchableOpacity>
+            </View>
           )}
         </View>
       </ScrollView>
@@ -98,5 +117,43 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     paddingBottom: 30,
     fontSize: 22,
+  },
+  img: {
+    height: 230,
+    width: 300,
+    alignSelf: "stretch",
+    marginVertical: 30,
+    resizeMode: "cover",
+  },
+  emptySection: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    paddingHorizontal: 16,
+  },
+  title: {
+    color: "#3A444C",
+    fontWeight: "600",
+    fontSize: 22,
+    marginBottom: 16,
+  },
+  info: {
+    color: "#3A444C",
+    fontWeight: "300",
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  diagnosticBtn: {
+    backgroundColor: "#B96C55",
+    borderRadius: 8,
+    alignSelf: "stretch",
+    paddingVertical: 12,
+  },
+  diagnosticLabel: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 14,
   },
 });
