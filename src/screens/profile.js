@@ -39,7 +39,7 @@ const Profile = (prop) => {
     <ScrollView>
       <View style={[globalStyle.appScreen, styles.header]}>
         <Image
-          source={{ uri: prop.route.params.iconPath }}
+          source={{ uri: `${S3_URL}${user.path_profil_picture_user}` }}
           style={styles.image}
         ></Image>
         <View
@@ -80,14 +80,14 @@ const Profile = (prop) => {
               </TouchableOpacity>
             )}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[styles.messageBtn, styles.btn, styles.outlineBtn]}
             >
               <Icon name="paper-plane" size={12} color="#fff" solid />
               <Text style={[styles.messageLabel, styles.outlineLabel]}>
                 Message
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         ) : null}
         <View style={styles.statsView}>
