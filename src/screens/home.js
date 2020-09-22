@@ -96,10 +96,10 @@ export default class Home extends React.Component {
                 fait pour toi.
               </Text>
               <TouchableOpacity
-                style={styles.diagnosticBtn}
+                style={[globalStyle.basicBtn, globalStyle.bgPrimary]}
                 onPress={() => this.props.navigation.navigate("QuestionOne")}
               >
-                <Text style={styles.diagnosticLabel}>
+                <Text style={globalStyle.basicBtnLabel}>
                   Commencer le diagnostic capillaire
                 </Text>
               </TouchableOpacity>
@@ -144,16 +144,5 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 20,
-  },
-  diagnosticBtn: {
-    backgroundColor: "#B96C55",
-    borderRadius: 8,
-    alignSelf: "stretch",
-    paddingVertical: 12,
-  },
-  diagnosticLabel: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 14,
   },
 });
