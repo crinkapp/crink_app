@@ -41,7 +41,7 @@ const AddPublication = (props) => {
       ) : (
         <View style={{ flexDirection: "column", alignItems: "center" }}>
           <Text style={styles.text}>
-            Tu souhaites publier un article, partages tes connaissances dès
+            Tu souhaites publier un article ? Partages tes connaissances dès
             maintenant en 3 étapes.
           </Text>
           <TouchableOpacity
