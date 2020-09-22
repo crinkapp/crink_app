@@ -111,7 +111,7 @@ const HashtagsPublication = (props) => {
           disabled={selectedKeys.length === 0 ? true : false}
         >
           <Text style={styles.nextLabel}>Suivant</Text>
-          <Icon name="forward" size={14} color="#fff" />
+          <Icon name="chevron-right" size={14} color="#fff" />
         </TouchableOpacity>
       </View>
     </ScrollView>

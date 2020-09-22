@@ -38,7 +38,7 @@ const TitlePublication = (props) => {
           disabled={title.length < 3 ? true : false}
         >
           <Text style={styles.nextLabel}>Suivant</Text>
-          <Icon name="forward" size={14} color="#fff" />
+          <Icon name="chevron-right" size={14} color="#fff" />
         </TouchableOpacity>
       </View>
     </DismissKeyboard>
