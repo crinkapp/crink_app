@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import globalStyle from "../../styles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
 import { API_URL } from "react-native-dotenv";
+
+const diagnosticImg = require("../../../assets/icons/diagnostic.png");
 
 const ResultDiagnostic = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
@@ -22,7 +24,8 @@ const ResultDiagnostic = (props) => {
   };
 
   return (
-    <View style={[globalStyle.appScreen, { justifyContent: "center" }]}>
+    <View style={{flex: 1, backgroundColor: "#fff", flexDirection: "column", alignItems: "center"}}>
+      <Image source={diagnosticImg} style={styles.img} />
       <View style={styles.titleSection}>
         <Text style={styles.title}>C'est terminé !</Text>
       </View>
@@ -43,17 +46,24 @@ const ResultDiagnostic = (props) => {
 export default ResultDiagnostic;
 
 const styles = StyleSheet.create({
+  img: {
+    marginTop: 30,
+    height: 190,
+    width: "58%",
+    marginBottom: 30,
+    resizeMode: "cover",
+  },
   title: {
     fontSize: 24,
     textAlign: "center",
     color: "#3A444C",
     fontWeight: "600",
     marginRight: 10,
-    marginBottom: 40,
+    marginBottom: 20,
   },
   text: {
     marginBottom: 20,
-    fontSize: 17,
+    fontSize: 15,
     color: "#3A444C",
     fontWeight: "300",
     lineHeight: 26,
