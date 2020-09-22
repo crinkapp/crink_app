@@ -47,6 +47,7 @@ import ResultDiagnostic from "../screens/diagnostic/result-diagnostic";
 import AddPublication from "../screens/add-publication";
 import TitlePublication from "../screens/add-publication/publication-title";
 import HashtagsPublication from "../screens/add-publication/publication-hashtags";
+import ContentPublication from "../screens/add-publication/publication-content";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -349,6 +350,17 @@ const AddPublicationTab = () => {
         component={HashtagsPublication}
         options={({ navigation: { goBack } }) => ({
           title: "Étape 2 sur 3",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="ContentPublication"
+        component={ContentPublication}
+        options={({ navigation: { goBack } }) => ({
+          title: "Étape 3 sur 3",
           headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
           headerTintColor: "#3A444C",
           headerBackTitleStyle: { fontSize: 14 },
