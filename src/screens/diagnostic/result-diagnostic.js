@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 24,
     paddingRight: 14,
-    borderRadius: 20,
+    borderRadius: 8,
   },
   btnLabel: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 14,
     marginRight: 10,
     fontWeight: "600",
   },
