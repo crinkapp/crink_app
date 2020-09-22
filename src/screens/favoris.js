@@ -20,7 +20,7 @@ export default class Favoris extends React.Component {
           </Text>
           <TouchableOpacity
             style={[globalStyle.basicBtn, globalStyle.bgInfo]}
-            onPress={() => this.props.navigation.navigate("QuestionOne")}
+            onPress={() => this.props.navigation.navigate("Search")}
           >
           <Icon name="search" size={17} style={{marginRight: 6}} color="#fff" />
             <Text style={globalStyle.basicBtnLabel}>
