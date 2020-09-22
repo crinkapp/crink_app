@@ -31,7 +31,7 @@ const AddPublication = (props) => {
             membres
             <Text style={{ fontWeight: "500" }}> certifiés</Text>
             <Text style={{ color: "#fff" }}> </Text>
-              <Icon name="certificate" color="#379EE5" size={16} />
+            <Icon name="certificate" color="#379EE5" size={16} />
           </Text>
 
           <Text style={styles.text}>
@@ -41,13 +41,14 @@ const AddPublication = (props) => {
       ) : (
         <View style={{ flexDirection: "column", alignItems: "center" }}>
           <Text style={styles.text}>
-            Tu souhaites publier un article, partages tes connaissances dès maintenant en 3 étapes.
+            Tu souhaites publier un article, partages tes connaissances dès
+            maintenant en 3 étapes.
           </Text>
           <TouchableOpacity
-            style={styles.btn}
+            style={[globalStyle.basicBtn, globalStyle.bgSuccess, {marginTop: 12}]}
             onPress={() => props.navigation.navigate("TitlePublication")}
           >
-            <Text style={styles.btnLabel}>Créer une publication</Text>
+            <Text style={globalStyle.basicBtnLabel}>Créer une publication</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -71,16 +72,5 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     textAlign: "center",
     lineHeight: 26,
-  },
-  btn: {
-    marginTop: 12,
-    backgroundColor: "#5DAF79",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  btnLabel: {
-    color: "#fff",
-    fontSize: 14,
   },
 });
