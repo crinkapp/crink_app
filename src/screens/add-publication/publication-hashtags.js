@@ -58,7 +58,7 @@ const HashtagsPublication = (props) => {
     <ScrollView backgroundColor="#fff">
       <View style={globalStyle.addPublicationScreen}>
         <Text style={{ color: "#3A444C", fontWeight: "300" }}>
-          Titre : <Text style={{fontStyle: "italic"}}>{publication.title}</Text>
+          Titre : <Text style={{fontWeight: "500"}}>{publication.title}</Text>
         </Text>
         <Text style={styles.title}>
           Choisis les tags qui concernent ta publication :
@@ -111,7 +111,7 @@ const HashtagsPublication = (props) => {
           disabled={selectedKeys.length === 0 ? true : false}
         >
           <Text style={styles.nextLabel}>Suivant</Text>
-          <Icon name="forward" size={14} color="#fff" />
+          <Icon name="chevron-right" size={14} color="#fff" />
         </TouchableOpacity>
       </View>
     </ScrollView>

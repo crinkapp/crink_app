@@ -128,7 +128,7 @@ export default StyleSheet.create({
     alignItems: "flex-start",
     paddingTop: 15,
     paddingBottom: 30,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     backgroundColor: "white",
   },
 });
