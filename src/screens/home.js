@@ -73,9 +73,6 @@ export default class Home extends React.Component {
                   goToProfile={(user) => {
                     this.props.navigation.navigate("Profile", {
                       user,
-                      iconPath: user.path_profil_picture_user
-                        ? `${S3_URL}${user.path_profil_picture_user}`
-                        : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
                       isActualUser:
                         parseInt(this.state.actualUserId) === user.id
                           ? true

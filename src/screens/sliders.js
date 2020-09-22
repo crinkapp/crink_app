@@ -30,7 +30,7 @@ const slides = [
   },
 ];
 
-_renderNextButton = () => {
+const _renderNextButton = () => {
   return (
     <View>
       <Text style={styles.btnLabel}>Suivant</Text>
@@ -38,7 +38,7 @@ _renderNextButton = () => {
   );
 };
 
-_renderDoneButton = () => {
+const _renderDoneButton = () => {
   return (
     <View>
       <Text style={styles.btnLabel}>Terminer</Text>
@@ -52,7 +52,7 @@ const fetchFonts = () => {
   });
 };
 
-_renderItem = ({ item }) => {
+const _renderItem = ({ item }) => {
   return (
     <View style={[styles.screen, { backgroundColor: item.backgroundColor }]}>
       <View style={styles.first}>
@@ -87,7 +87,6 @@ const Sliders = ({ navigation }) => {
       renderDoneButton={_renderDoneButton}
       activeDotStyle={{ backgroundColor: "#3A444C" }}
       onDone={() => {
-        // navigation.navigate("HomeTabs")}
         navigation.reset({
           index: 0,
           routes: [{

@@ -10,6 +10,8 @@ import { log } from "react-native-reanimated";
 import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
+import moment from "moment";
+import 'moment/locale/fr'
 
 const publicationPreview = (props) => {
   const [publication, setPublication] = useState(props.publication);
@@ -66,7 +68,7 @@ const publicationPreview = (props) => {
               })
             : null}
         </View>
-        <Text style={style.date}>il y a 1 jour</Text>
+        <Text style={style.date}>{moment(publication.createdAt).fromNow()}</Text>
       </View>
       <View style={style.infos}>
         <View style={style.tags}>
@@ -117,9 +119,7 @@ const publicationPreview = (props) => {
             <Image
               style={style.userIcon}
               source={{
-                uri: publication.user.path_profil_picture_user
-                  ? `${S3_URL}${publication.user.path_profil_picture_user}`
-                  : "https://crinksite.s3.eu-west-3.amazonaws.com/no-picture.jpg",
+                uri: `${S3_URL}${publication.user.path_profil_picture_user}`,
               }}
             ></Image>
           </View>
