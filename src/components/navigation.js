@@ -60,7 +60,7 @@ const SmallBack = (props) => {
         style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
       >
         <Icon
-          name="arrow-alt-circle-left"
+          name="chevron-left"
           size={25}
           style={{ marginLeft: 20, marginRight: 6 }}
           color="#3A444C"
