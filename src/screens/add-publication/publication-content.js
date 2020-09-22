@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import globalStyle from "../../styles";
@@ -15,24 +16,55 @@ const ContentPublication = (props) => {
   const [publication, setPublication] = useState(
     props.route.params.publication
   );
+  const [nameTags, setNameTags] = useState(
+    props.route.params.publication.nameTags
+  );
   const [content, setContent] = useState("");
 
   const addPublication = async (newPublication) => {
     return await axios.post(`${API_URL}/add-publication`, newPublication);
   };
 
-  const onSubmit = () => {
+  const onSave = () => {
     const newPublication = {
       title: publication.title,
       hashtags: publication.hashtags,
       content,
     };
     addPublication(newPublication)
-      .then((success) => {
-        console.log(success);
+      .then(() => {
+        props.navigation.navigate("Home");
       })
       .catch((err) => console.log(err));
   };
+
+  const ConfirmBtn = () => {
+    Alert.alert(
+      "Prêt à être publié ?",
+      "Tu pourras le modifier ultérieurement",
+      [
+        {
+          text: "Confirmer",
+          onPress: () => onSave(),
+        },
+        {
+          text: "Annuler",
+          onPress: () => console.log("Annuler"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
+  useEffect(() => {
+    props.navigation.setParams({
+      publication: {
+        title: publication.title,
+        hashtags: publication.hashtags,
+        content,
+      },
+    });
+  }, []);
 
   return (
     <ScrollView backgroundColor="#fff">
@@ -44,7 +76,7 @@ const ContentPublication = (props) => {
           <Text style={{ color: "#3A444C", fontWeight: "300", marginRight: 8 }}>
             Tags :
           </Text>
-          {publication.nameTags.map((prop, key) => {
+          {nameTags.map((prop, key) => {
             return (
               <Text
                 key={key}
@@ -66,9 +98,10 @@ const ContentPublication = (props) => {
           value={content}
           placeholder="Commences à écrire…"
           multiline={true}
+          //   onBlur={() => setContent(content)}
         />
-        <TouchableOpacity style={styles.submitBtn} onPress={() => onSubmit()}>
-          <Text style={styles.submitLabel}>Terminer et voir l'aperçu</Text>
+        <TouchableOpacity style={styles.submitBtn} onPress={() => ConfirmBtn()}>
+          <Text style={styles.submitLabel}>Enregistrer</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
