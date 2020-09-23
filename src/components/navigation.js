@@ -260,6 +260,20 @@ const HomeScreens = () => {
 };
 
 const SearchTab = () => {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getCurrentUser().then((user) => {
+      setUser(user.data);
+    });
+  }, []);
+
+  const isActualUser = (id) => {
+    if (id === user.id) {
+      return true;
+    }
+    return false;
+  };
   return (
     <Stack.Navigator initialRouteName="Search">
       <Stack.Screen
@@ -308,6 +322,131 @@ const SearchTab = () => {
           headerBackTitle: "Retour",
           headerTintColor: "#B96C55",
           headerTitleStyle: { color: "black" },
+        })}
+      />
+      <Stack.Screen
+        name="Publication"
+        component={Publication}
+        options={() => ({
+          title: "Publication",
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#B96C55" },
+          headerTintColor: "white",
+          headerBackTitle: "Retour",
+        })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={({ route }) => ({
+          title: isActualUser(route.params.user.id)
+            ? "Mon compte"
+            : route.params.user.username_user,
+          headerTitleStyle: { color: "black" },
+          headerTintColor: "#B96C55",
+          headerBackTitle: "Retour",
+          //   headerRight: isActualUser(route.params.user.id)
+          //     ? () => (
+          //         <TouchableWithoutFeedback>
+          //           <Icon
+          //             name="ellipsis-h"
+          //             size={20}
+          //             style={{
+          //               marginRight: 20,
+          //             }}
+          //             color="#3A444C"
+          //           />
+          //         </TouchableWithoutFeedback>
+          //       )
+          //     : null,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionOne"
+        component={QuestionOne}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 1 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionTwo"
+        component={QuestionTwo}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 2 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionThree"
+        component={QuestionThree}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 3 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFour"
+        component={QuestionFour}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 4 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionFive"
+        component={QuestionFive}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 5 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSix"
+        component={QuestionSix}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 6 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="QuestionSeven"
+        component={QuestionSeven}
+        options={({ navigation: { goBack } }) => ({
+          title: "Question 7 sur 7",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
+        })}
+      />
+      <Stack.Screen
+        name="ResultDiagnostic"
+        component={ResultDiagnostic}
+        options={({ navigation: { goBack } }) => ({
+          title: "",
+          headerStyle: { backgroundColor: "#fff", shadowColor: "transparent" },
+          headerTintColor: "#3A444C",
+          headerBackTitleStyle: { fontSize: 14 },
+          headerLeft: () => <SmallBack onBack={() => goBack()}></SmallBack>,
         })}
       />
     </Stack.Navigator>
