@@ -41,10 +41,11 @@ const HashtagsPublication = (props) => {
   };
 
   const onNext = () => {
+    const fixeIds = selectedKeys.map((id) => id + 1);
     props.navigation.navigate("ContentPublication", {
       publication: {
         ...publication,
-        hashtags: selectedKeys,
+        hashtags: fixeIds,
         nameTags: selectedNameTags,
       },
     });
@@ -58,7 +59,7 @@ const HashtagsPublication = (props) => {
     <ScrollView backgroundColor="#fff">
       <View style={globalStyle.addPublicationScreen}>
         <Text style={{ color: "#3A444C", fontWeight: "300" }}>
-          Titre : <Text style={{fontWeight: "500"}}>{publication.title}</Text>
+          Titre : <Text style={{ fontWeight: "500" }}>{publication.title}</Text>
         </Text>
         <Text style={styles.title}>
           Choisis les tags qui concernent ta publication :

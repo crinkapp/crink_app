@@ -26,29 +26,31 @@ export default class Home extends React.Component {
     };
   }
 
-  _onRefresh() {
+  async _onRefresh() {
     this.setState({ refreshing: true });
-    this.getAllPublications().then(() => {
-      this.setState({ refreshing: false });
+    await this.getAllPublications().then((res) => {
+      this.setState({
+        publications: res.data.reverse(),
+        refreshing: false,
+      });
     });
   }
 
   componentDidMount() {
-    this.getAllPublications();
-    AsyncStorage.getItem("user_id").then((actualUserId) => {
-      this.setState({ actualUserId });
-    });
-  }
-
-  getAllPublications = async () => {
-    return await axios
-      .get(`${API_URL}/all-publications`)
+    this.getAllPublications()
       .then((res) => {
         this.setState({
           publications: res.data.reverse(),
         });
       })
       .catch((err) => console.log(err));
+    AsyncStorage.getItem("user_id").then((actualUserId) => {
+      this.setState({ actualUserId });
+    });
+  }
+
+  getAllPublications = async () => {
+    return await axios.get(`${API_URL}/all-publications`);
   };
 
   render() {
