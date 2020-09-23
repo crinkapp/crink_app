@@ -33,7 +33,14 @@ const ContentPublication = (props) => {
     };
     await addPublication(newPublication)
       .then(() => {
-        props.navigation.navigate("Home");
+        props.navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "HomeTabs",
+            },
+          ],
+        });
       })
       .catch((err) => console.log(err));
   };

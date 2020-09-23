@@ -6,6 +6,7 @@ import {
   ScrollView,
   RefreshControl,
   Image,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
@@ -23,6 +24,7 @@ export default class Home extends React.Component {
       publications: [],
       refreshing: false,
       actualUserId: null,
+      loading: false,
     };
   }
 
@@ -37,13 +39,18 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
     this.getAllPublications()
       .then((res) => {
         this.setState({
           publications: res.data.reverse(),
+          loading: false,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+      });
     AsyncStorage.getItem("user_id").then((actualUserId) => {
       this.setState({ actualUserId });
     });
@@ -54,62 +61,77 @@ export default class Home extends React.Component {
   };
 
   render() {
-    return (
-      <ScrollView
-        backgroundColor="#fff"
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
-          />
-        }
-      >
-        <View style={globalStyle.appScreen}>
-          {this.state.publications.length > 0 ? (
-            this.state.publications.map((prop, key) => {
-              return (
-                <PublicationPreview
-                  key={key}
-                  onPress={(publication) =>
-                    this.props.navigation.navigate("Publication", {
-                      publication,
-                      actualUserId: this.state.actualUserId,
-                    })
-                  }
-                  goToProfile={(user) => {
-                    this.props.navigation.navigate("Profile", {
-                      user,
-                      isActualUser:
-                        parseInt(this.state.actualUserId) === user.id
-                          ? true
-                          : false,
-                    });
-                  }}
-                  publication={prop}
-                ></PublicationPreview>
-              );
-            })
-          ) : (
-            <View style={styles.emptySection}>
-              <Image source={emptyHome} style={styles.img} />
-              <Text style={styles.title}>Bienvenue !</Text>
-              <Text style={styles.info}>
-                Pour l'instant nous ne pouvons déterminer les articles qui sont
-                fait pour toi.
-              </Text>
-              <TouchableOpacity
-                style={[globalStyle.basicBtn, globalStyle.bgPrimary]}
-                onPress={() => this.props.navigation.navigate("QuestionOne")}
-              >
-                <Text style={globalStyle.basicBtnLabel}>
-                  Commencer le diagnostic capillaire
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
+    if (this.state.loading) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fff",
+          }}
+        >
+          <ActivityIndicator size="large" color="#B96C55"/>
         </View>
-      </ScrollView>
-    );
+      );
+    } else {
+      return (
+        <ScrollView
+          backgroundColor="#fff"
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }
+        >
+          <View style={globalStyle.appScreen}>
+            {this.state.publications.length > 0 ? (
+              this.state.publications.map((prop, key) => {
+                return (
+                  <PublicationPreview
+                    key={key}
+                    onPress={(publication) =>
+                      this.props.navigation.navigate("Publication", {
+                        publication,
+                        actualUserId: this.state.actualUserId,
+                      })
+                    }
+                    goToProfile={(user) => {
+                      this.props.navigation.navigate("Profile", {
+                        user,
+                        isActualUser:
+                          parseInt(this.state.actualUserId) === user.id
+                            ? true
+                            : false,
+                      });
+                    }}
+                    publication={prop}
+                  ></PublicationPreview>
+                );
+              })
+            ) : (
+              <View style={styles.emptySection}>
+                <Image source={emptyHome} style={styles.img} />
+                <Text style={styles.title}>Bienvenue !</Text>
+                <Text style={styles.info}>
+                  Pour l'instant nous ne pouvons déterminer les articles qui
+                  sont fait pour toi.
+                </Text>
+                <TouchableOpacity
+                  style={[globalStyle.basicBtn, globalStyle.bgPrimary]}
+                  onPress={() => this.props.navigation.navigate("QuestionOne")}
+                >
+                  <Text style={globalStyle.basicBtnLabel}>
+                    Commencer le diagnostic capillaire
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      );
+    }
   }
 }
 
