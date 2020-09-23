@@ -5,12 +5,17 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
 import { API_URL, S3_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import AsyncStorage from "@react-native-community/async-storage";
+
+const emptyHome = require("../../assets/icons/empty-publications.png");
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -19,76 +24,114 @@ export default class Home extends React.Component {
       publications: [],
       refreshing: false,
       actualUserId: null,
+      loading: false,
     };
   }
 
-  _onRefresh() {
+  async _onRefresh() {
     this.setState({ refreshing: true });
-    this.getAllPublications().then(() => {
-      this.setState({ refreshing: false });
+    await this.getAllPublications().then((res) => {
+      this.setState({
+        publications: res.data.reverse(),
+        refreshing: false,
+      });
     });
   }
 
   componentDidMount() {
-    this.getAllPublications();
+    this.setState({ loading: true });
+    this.getAllPublications()
+      .then((res) => {
+        this.setState({
+          publications: res.data.reverse(),
+          loading: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+      });
     AsyncStorage.getItem("user_id").then((actualUserId) => {
       this.setState({ actualUserId });
     });
   }
 
   getAllPublications = async () => {
-    return await axios
-      .get(`${API_URL}/all-publications`)
-      .then((res) => {
-        this.setState({
-          publications: res.data.reverse(),
-        });
-      })
-      .catch((err) => console.log(err));
+    return await axios.get(`${API_URL}/all-publications`);
   };
 
   render() {
-    return (
-      <ScrollView
-        backgroundColor="#fff"
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
-          />
-        }
-      >
-        <View style={globalStyle.appScreen}>
-          {this.state.publications.length > 0 ? (
-            this.state.publications.map((prop, key) => {
-              return (
-                <PublicationPreview
-                  key={key}
-                  onPress={(publication) =>
-                    this.props.navigation.navigate("Publication", {
-                      publication,
-                      actualUserId: this.state.actualUserId,
-                    })
-                  }
-                  goToProfile={(user) => {
-                    this.props.navigation.navigate("Profile", {
-                      user,
-                      isActualUser:
-                        parseInt(this.state.actualUserId) === user.id
-                          ? true
-                          : false,
-                    });
-                  }}
-                  publication={prop}
-                ></PublicationPreview>
-              );
-            })
-          ) : (
-            <Text style={styles.text}>Il n'y pas de publications…</Text>
-          )}
+    if (this.state.loading) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fff",
+          }}
+        >
+          <ActivityIndicator size="large" color="#B96C55"/>
         </View>
-      </ScrollView>
-    );
+      );
+    } else {
+      return (
+        <ScrollView
+          backgroundColor="#fff"
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }
+        >
+          <View style={globalStyle.appScreen}>
+            {this.state.publications.length > 0 ? (
+              this.state.publications.map((prop, key) => {
+                return (
+                  <PublicationPreview
+                    key={key}
+                    onPress={(publication) =>
+                      this.props.navigation.navigate("Publication", {
+                        publication,
+                        actualUserId: this.state.actualUserId,
+                      })
+                    }
+                    goToProfile={(user) => {
+                      this.props.navigation.navigate("Profile", {
+                        user,
+                        isActualUser:
+                          parseInt(this.state.actualUserId) === user.id
+                            ? true
+                            : false,
+                      });
+                    }}
+                    publication={prop}
+                  ></PublicationPreview>
+                );
+              })
+            ) : (
+              <View style={styles.emptySection}>
+                <Image source={emptyHome} style={styles.img} />
+                <Text style={styles.title}>Bienvenue !</Text>
+                <Text style={styles.info}>
+                  Pour l'instant nous ne pouvons déterminer les articles qui
+                  sont fait pour toi.
+                </Text>
+                <TouchableOpacity
+                  style={[globalStyle.basicBtn, globalStyle.bgPrimary]}
+                  onPress={() => this.props.navigation.navigate("QuestionOne")}
+                >
+                  <Text style={globalStyle.basicBtnLabel}>
+                    Commencer le diagnostic capillaire
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      );
+    }
   }
 }
 
@@ -98,5 +141,32 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     paddingBottom: 30,
     fontSize: 22,
+  },
+  img: {
+    height: 230,
+    width: 300,
+    alignSelf: "stretch",
+    marginVertical: 30,
+    resizeMode: "cover",
+  },
+  emptySection: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    paddingHorizontal: 16,
+  },
+  title: {
+    color: "#3A444C",
+    fontWeight: "600",
+    fontSize: 22,
+    marginBottom: 16,
+  },
+  info: {
+    color: "#3A444C",
+    fontWeight: "300",
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: "center",
+    marginBottom: 20,
   },
 });

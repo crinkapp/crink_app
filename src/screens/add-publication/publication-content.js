@@ -25,15 +25,22 @@ const ContentPublication = (props) => {
     return await axios.post(`${API_URL}/add-publication`, newPublication);
   };
 
-  const onSave = () => {
+  const onSave = async () => {
     const newPublication = {
       title: publication.title,
       hashtags: publication.hashtags,
       content,
     };
-    addPublication(newPublication)
+    await addPublication(newPublication)
       .then(() => {
-        props.navigation.navigate("Home");
+        props.navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "HomeTabs",
+            },
+          ],
+        });
       })
       .catch((err) => console.log(err));
   };

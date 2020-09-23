@@ -11,7 +11,7 @@ import { API_URL, S3_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import moment from "moment";
-import 'moment/locale/fr'
+import "moment/locale/fr";
 
 const publicationPreview = (props) => {
   const [publication, setPublication] = useState(props.publication);
@@ -25,6 +25,18 @@ const publicationPreview = (props) => {
           ...publication,
           likedByActualUser: !like,
           nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
+        });
+      });
+  };
+
+  const onFav = () => {
+    const favoris = publication.favoris;
+    return axios
+      .post(`${API_URL}/favoris`, { publication_id: publication.id })
+      .then(() => {
+        setPublication({
+          ...publication,
+          favoris: !favoris,
         });
       });
   };
@@ -48,12 +60,15 @@ const publicationPreview = (props) => {
       <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
         <View style={[style.infos, { alignItems: "flex-start" }]}>
           <Text style={style.title}>{publication.title_publication}</Text>
-          <Icon
+          {/* <Icon
             name="share"
             style={{ marginLeft: "auto" }}
             size={16}
             color="#3A444C"
-          />
+          /> */}
+          <Text style={style.date}>
+            {moment(publication.createdAt).fromNow()}
+          </Text>
         </View>
       </TouchableWithoutFeedback>
       <View style={style.infos}>
@@ -67,42 +82,6 @@ const publicationPreview = (props) => {
                 );
               })
             : null}
-        </View>
-        <Text style={style.date}>{moment(publication.createdAt).fromNow()}</Text>
-      </View>
-      <View style={style.infos}>
-        <View style={style.tags}>
-          <View style={style.likeComments}>
-            <Icon
-              name="heart"
-              size={16}
-              color={
-                publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"
-              }
-              solid
-              onPress={() => onLike()}
-            />
-            {publication.nbLikes ? (
-              <Text style={style.likeComment}>{publication.nbLikes}</Text>
-            ) : null}
-          </View>
-          <View style={style.likeComments}>
-            <Icon name="comment" size={16} color="#CFCECE" solid />
-            {publication.nbComments ? (
-              <Text style={style.likeComment}>{publication.nbComments}</Text>
-            ) : null}
-          </View>
-          <View style={style.likeComments}>
-            <Icon name="clock" size={16} color="#CFCECE" />
-            <Text style={style.likeComment}>
-              {publication.time_to_read_publication ? (
-                publication.time_to_read_publication
-              ) : (
-                <Text>…</Text>
-              )}{" "}
-              min
-            </Text>
-          </View>
         </View>
         <TouchableWithoutFeedback
           onPress={() => props.goToProfile(publication.user)}
@@ -125,6 +104,81 @@ const publicationPreview = (props) => {
           </View>
         </TouchableWithoutFeedback>
       </View>
+      <View style={style.infos}>
+        <View style={style.tags}>
+          <View style={style.likeComments}>
+            <Icon
+              name="heart"
+              size={16}
+              color={
+                publication.likedByActualUser === true ? "#D55E5E" : "#CFCECE"
+              }
+              solid
+              onPress={() => onLike()}
+            />
+            {publication.nbLikes ? (
+              <Text style={style.likeComment}>{publication.nbLikes}</Text>
+            ) : null}
+            <Text
+              style={{ fontSize: 12, color: "#3A444C", marginLeft: 4 }}
+              onPress={() => onLike()}
+            >
+              J'aime
+            </Text>
+            <Icon
+              name="star"
+              size={16}
+              color={publication.favoris ? "#F8BA00" : "#CFCECE"}
+              style={{ marginLeft: 12 }}
+              solid
+              onPress={() => onFav()}
+            />
+            <Text
+              style={{ fontSize: 12, color: "#3A444C", marginLeft: 4 }}
+              onPress={() => onFav()}
+            >
+              Favoris
+            </Text>
+          </View>
+          {/* <View style={style.likeComments}>
+            <Icon name="comment" size={16} color="#CFCECE" solid />
+            {publication.nbComments ? (
+              <Text style={style.likeComment}>{publication.nbComments}</Text>
+            ) : null}
+          </View> */}
+          {/* <View style={style.likeComments}>
+            <Icon name="clock" size={16} color="#CFCECE" />
+            <Text style={style.likeComment}>
+              {publication.time_to_read_publication ? (
+                publication.time_to_read_publication
+              ) : (
+                <Text>…</Text>
+              )}{" "}
+              min
+            </Text>
+          </View> */}
+        </View>
+        {/* <TouchableWithoutFeedback
+          onPress={() => props.goToProfile(publication.user)}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={style.username}>
+              par{" "}
+              {publication.user.username_user ? (
+                publication.user.username_user
+              ) : (
+                <Text>…</Text>
+              )}
+            </Text>
+            <Image
+              style={style.userIcon}
+              source={{
+                uri: `${S3_URL}${publication.user.path_profil_picture_user}`,
+              }}
+            ></Image>
+          </View>
+        </TouchableWithoutFeedback> */}
+      </View>
     </View>
   );
 };
@@ -133,7 +187,6 @@ export default publicationPreview;
 
 const style = StyleSheet.create({
   preview: {
-    // flex: 1,
     flexDirection: "column",
     backgroundColor: "white",
     width: "100%",
@@ -192,6 +245,8 @@ const style = StyleSheet.create({
     fontStyle: "italic",
     fontSize: 12,
     fontWeight: "300",
+    marginTop: 3,
+    marginLeft: "auto",
     color: "#3A444C",
   },
   likeComments: {

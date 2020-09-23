@@ -1,16 +1,19 @@
 import { StyleSheet } from "react-native";
 
-const mainColor = "#B96C55";
-const darkColor = "#3A444C";
-const lightColor = "#FAECE3";
-const redColor = "#D55E5E";
+const primary = "#B96C55";
+const dark = "#3A444C";
+const light = "#FAECE3";
+const danger = "#D55E5E";
+const info = "#379EE5";
+const success = "#5DAF79";
+const warning = "#F8BA00";
 
 export default StyleSheet.create({
   // Sign In & Sign Up Screens
   signScreen: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: lightColor,
+    backgroundColor: light,
     paddingTop: 60,
     paddingBottom: 20,
     paddingHorizontal: 20,
@@ -18,7 +21,7 @@ export default StyleSheet.create({
   },
   signTitle: {
     fontSize: 28,
-    color: darkColor,
+    color: dark,
     fontWeight: "300",
     alignSelf: "center",
     marginBottom: 30,
@@ -28,7 +31,7 @@ export default StyleSheet.create({
     padding: 14,
     borderWidth: 1,
     borderRadius: 6,
-    color: darkColor,
+    color: dark,
     backgroundColor: "#FDFDFD",
     fontSize: 16,
     fontWeight: "300",
@@ -38,7 +41,7 @@ export default StyleSheet.create({
     marginTop: 30,
     paddingVertical: 6,
     width: "100%",
-    backgroundColor: mainColor,
+    backgroundColor: primary,
     borderRadius: 6,
     display: "flex",
     flexDirection: "row",
@@ -47,19 +50,19 @@ export default StyleSheet.create({
   },
   signSeparationLine: {
     marginVertical: 30,
-    borderColor: darkColor,
+    borderColor: dark,
     borderWidth: 1,
     width: "70%",
     alignSelf: "center",
   },
   signSmText: {
-    color: darkColor,
+    color: dark,
     fontSize: 16,
     alignSelf: "center",
     fontWeight: "300",
   },
   signErrorMsg: {
-    color: redColor,
+    color: danger,
     marginVertical: 3,
     fontSize: 12,
     fontWeight: "300",
@@ -91,7 +94,7 @@ export default StyleSheet.create({
   questionTitle: {
     fontWeight: "500",
     fontSize: 24,
-    color: darkColor,
+    color: dark,
     textAlign: "center",
     marginTop: 35,
   },
@@ -107,7 +110,7 @@ export default StyleSheet.create({
   answerBtn: {
     height: 45,
     borderWidth: 2,
-    borderColor: darkColor,
+    borderColor: dark,
     borderRadius: 20,
     marginBottom: 30,
     alignItems: "center",
@@ -115,7 +118,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   answerLabel: {
-    color: darkColor,
+    color: dark,
     fontSize: 16,
     textAlign: "center",
     fontWeight: "600",
@@ -130,5 +133,31 @@ export default StyleSheet.create({
     paddingBottom: 30,
     paddingHorizontal: 20,
     backgroundColor: "white",
+  },
+
+  // Buttons
+  basicBtn: {
+    borderRadius: 8,
+    alignSelf: "stretch",
+    paddingVertical: 12,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  basicBtnLabel: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 14,
+  },
+
+  // Background Colors
+  bgPrimary: {
+    backgroundColor: primary,
+  },
+  bgSuccess: {
+    backgroundColor: success,
+  },
+  bgInfo: {
+    backgroundColor: info,
   },
 });
