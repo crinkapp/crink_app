@@ -6,6 +6,7 @@ const light = "#FAECE3";
 const danger = "#D55E5E";
 const info = "#379EE5";
 const success = "#5DAF79";
+const warning = "#F8BA00";
 
 export default StyleSheet.create({
   // Sign In & Sign Up Screens
@@ -159,5 +160,4 @@ export default StyleSheet.create({
   bgInfo: {
     backgroundColor: info,
   },
-
 });
