@@ -31,12 +31,14 @@ const publicationPreview = (props) => {
 
   const onFav = () => {
     const favoris = publication.favoris;
-    return axios.post(`${API_URL}/favoris`, { publication_id: publication.id }).then(() => {
-      setPublication({
-        ...publication,
-        favoris: !favoris,
+    return axios
+      .post(`${API_URL}/favoris`, { publication_id: publication.id })
+      .then(() => {
+        setPublication({
+          ...publication,
+          favoris: !favoris,
+        });
       });
-    });
   };
 
   return (
@@ -126,9 +128,7 @@ const publicationPreview = (props) => {
             <Icon
               name="star"
               size={16}
-              color={
-                publication.favoris ? "#F8BA00" : "#CFCECE"
-              }
+              color={publication.favoris ? "#F8BA00" : "#CFCECE"}
               style={{ marginLeft: 12 }}
               solid
               onPress={() => onFav()}
