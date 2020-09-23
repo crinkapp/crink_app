@@ -22,7 +22,7 @@ const QuestionSeven = (props) => {
     <View style={globalStyle.diagnostic}>
       <View style={globalStyle.questionSection}>
         <Text style={globalStyle.questionTitle}>
-          Observe un de tes cheveux : quelle forme a-t-il ?
+          Observe un de tes cheveux : quel est la distance entre deux boucles ?
         </Text>
       </View>
       <View style={globalStyle.flexFive}>
