@@ -294,7 +294,7 @@ const SearchTab = () => {
             if (route.params.tag.name !== "Rechercher") {
               return (
                 <Text style={{ fontWeight: "600", fontSize: 17 }}>
-                  #{route.params.tag.name}
+                  #{route.params.tag.name_tag}
                 </Text>
               );
             } else {
