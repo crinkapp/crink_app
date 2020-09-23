@@ -46,12 +46,14 @@ const Profile = (prop) => {
           style={{ flexDirection: "row", alignItems: "center", marginTop: 12 }}
         >
           <Text style={styles.username}>{user.username_user}</Text>
-          <Icon
-            name="certificate"
-            size={14}
-            color="#379EE5"
-            style={{ marginTop: 2 }}
-          />
+          {user.role_user === "User" ? null : (
+            <Icon
+              name="certificate"
+              size={14}
+              color="#379EE5"
+              style={{ marginTop: 2 }}
+            />
+          )}
         </View>
         {!isActualUser ? (
           <View style={{ flexDirection: "row" }}>
