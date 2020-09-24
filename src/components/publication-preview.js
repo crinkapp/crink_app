@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
-import { log } from "react-native-reanimated";
-import { API_URL, S3_URL } from "react-native-dotenv";
+import { API_URL, S3_URL, S3_USER_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import moment from "moment";
@@ -18,21 +17,19 @@ const publicationPreview = (props) => {
 
   const onLike = () => {
     const like = publication.likedByActualUser;
-    return axios
-      .post(`${API_URL}/add-like`, { id: publication.id })
-      .then(() => {
-        setPublication({
-          ...publication,
-          likedByActualUser: !like,
-          nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
-        });
+    return axios.post(`${API_URL}add-like`, { id: publication.id }).then(() => {
+      setPublication({
+        ...publication,
+        likedByActualUser: !like,
+        nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
       });
+    });
   };
 
   const onFav = () => {
     const favoris = publication.favoris;
     return axios
-      .post(`${API_URL}/favoris`, { publication_id: publication.id })
+      .post(`${API_URL}favoris`, { publication_id: publication.id })
       .then(() => {
         setPublication({
           ...publication,
@@ -46,7 +43,9 @@ const publicationPreview = (props) => {
       <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
         {publication.path_media_publication !== null ? (
           <Image
-            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
+            source={{
+              uri: `${S3_USER_URL}${publication.userId}/${publication.path_media_publication}`,
+            }}
             style={style.previewImg}
           ></Image>
         ) : (

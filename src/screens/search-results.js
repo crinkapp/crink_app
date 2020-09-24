@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   ScrollView,
   RefreshControl,
+  Text,
 } from "react-native";
 import globalStyle from "../styles";
 import axios from "axios";
@@ -25,8 +26,14 @@ const SearchResults = (props) => {
   }, []);
 
   const getPublicationsFromTag = async () => {
-    return await axios.post(`${API_URL}/search-publication-by-tag`, {
+    return await axios.post(`${API_URL}search-publication-by-tag`, {
       tag_id: props.route.params.tag.id,
+    });
+  };
+
+  const getPublicationsFromQuery = async () => {
+    return await axios.post(`${API_URL}search-publication-by-title`, {
+      research_field: props.route.params.query,
     });
   };
 
@@ -34,6 +41,18 @@ const SearchResults = (props) => {
     if (props.route.params.isTag) {
       setLoading(true);
       getPublicationsFromTag()
+        .then((res) => {
+          const sortedPublication = res.data.reverse();
+          setPublications(sortedPublication);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      getPublicationsFromQuery()
         .then((res) => {
           const sortedPublication = res.data.reverse();
           setPublications(sortedPublication);
@@ -68,31 +87,37 @@ const SearchResults = (props) => {
         }
       >
         <View style={globalStyle.appScreen}>
-          {publications.length > 0
-            ? publications.map((prop, key) => {
-                return (
-                  <PublicationPreview
-                    key={key}
-                    publication={prop}
-                    onPress={(publication) =>
-                      props.navigation.navigate("Publication", {
-                        publication,
-                        actualUserId: props.route.params.userId,
-                      })
-                    }
-                    goToProfile={(user) => {
-                      props.navigation.navigate("Profile", {
-                        user,
-                        isActualUser:
-                          parseInt(props.route.params.userId) === user.id
-                            ? true
-                            : false,
-                      });
-                    }}
-                  ></PublicationPreview>
-                );
-              })
-            : null}
+          {publications.length > 0 ? (
+            publications.map((prop, key) => {
+              return (
+                <PublicationPreview
+                  key={key}
+                  publication={prop}
+                  onPress={(publication) =>
+                    props.navigation.navigate("Publication", {
+                      publication,
+                      actualUserId: props.route.params.userId,
+                    })
+                  }
+                  goToProfile={(user) => {
+                    props.navigation.navigate("Profile", {
+                      user,
+                      isActualUser:
+                        parseInt(props.route.params.userId) === user.id
+                          ? true
+                          : false,
+                    });
+                  }}
+                ></PublicationPreview>
+              );
+            })
+          ) : (
+            <View>
+              <Text style={{ fontSize: 16, fontWeight: "300" }}>
+                Aucune publication n'a été trouvé
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     );

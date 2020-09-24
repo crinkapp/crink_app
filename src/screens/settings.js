@@ -14,7 +14,7 @@ export default class Settings extends React.Component {
   }
 
   logout = () => {
-    return axios.delete(`${API_URL}/user`);
+    return axios.delete(`${API_URL}user`);
   };
 
   _onLogout = () => {
@@ -35,7 +35,7 @@ export default class Settings extends React.Component {
 
   getUser = () => {
     return axios
-      .get(`${API_URL}/user`)
+      .get(`${API_URL}user`)
       .then((res) => {
         this.setState({
           user: res.data,

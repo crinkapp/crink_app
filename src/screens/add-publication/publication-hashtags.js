@@ -23,7 +23,7 @@ const HashtagsPublication = (props) => {
   const [selectedNameTags, setSelectedNameTags] = useState([]);
 
   const getTags = async () => {
-    return await axios.get(`${API_URL}/tags`).then((res) => {
+    return await axios.get(`${API_URL}tags`).then((res) => {
       setTags(res.data);
     });
   };

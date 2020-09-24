@@ -14,7 +14,7 @@ const Search = (props) => {
   const getAllTags = async () => {
     setLoading(true);
     return await axios
-      .get(`${API_URL}/tags`)
+      .get(`${API_URL}tags`)
       .then((res) => {
         setTags(res.data);
         setLoading(false);

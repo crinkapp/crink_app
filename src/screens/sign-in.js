@@ -57,14 +57,14 @@ export default class SignIn extends React.Component {
   };
 
   login = () => {
-    return axios.post(`${API_URL}/login`, {
+    return axios.post(`${API_URL}login`, {
       email_user: this.state.email,
       password_user: this.state.password,
     });
   };
 
   getUser = () => {
-    return axios.get(`${API_URL}/user`);
+    return axios.get(`${API_URL}user`);
   };
 
   _onPress = () => {
@@ -78,7 +78,7 @@ export default class SignIn extends React.Component {
           errorServer: false,
         });
         this.getUser().then((user) => {
-        AsyncStorage.setItem("user_id", user.data.id.toString())
+          AsyncStorage.setItem("user_id", user.data.id.toString());
           this._goToHome();
         });
       })
@@ -208,11 +208,11 @@ export default class SignIn extends React.Component {
             />
           </TouchableOpacity>
           <View style={globalStyle.signSeparationLine}></View>
-          <TouchableOpacity onPress={this._goToHome}>
+          {/* <TouchableOpacity onPress={this._goToHome}>
             <Text style={[globalStyle.signSmText, { marginBottom: 14 }]}>
               Mot de passe oublié ?
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity onPress={this._goToSignUp}>
             <Text style={globalStyle.signSmText}>
               Pas encore inscrit ?{" "}
