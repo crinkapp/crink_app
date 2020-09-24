@@ -63,13 +63,13 @@ const Publication = (props) => {
           <Text style={styles.numbers}>
             {publication.time ? publication.time : <Text>favoris</Text>}
           </Text>
-          <Icon
+          {/* <Icon
             name="share"
             size={15}
             color="#3A444C"
             solid
             style={{ marginLeft: "auto" }}
-          />
+          /> */}
         </View>
         {publication.path_media_publication !== null ? (
           <Image

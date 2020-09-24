@@ -287,9 +287,11 @@ const SearchTab = () => {
           headerTitle: () => (
             <SearchBar
               value
-              onSubmit={() => {
+              onSubmit={(query) => {
                 navigation.navigate("SearchResults", {
                   tag: { name: "Rechercher" },
+                  isTag: false,
+                  query
                 });
               }}
             ></SearchBar>

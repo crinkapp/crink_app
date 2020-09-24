@@ -5,7 +5,7 @@ const searchbar = (props) => {
   const [query, setQuery] = useState("");
   return (
     <SearchBar
-      placeholder="Titre, auteur ou tag…"
+      placeholder="Rechercher une publication"
       onChangeText={(text) => setQuery(text)}
       inputStyle={{ fontSize: 14 }}
       value={query}
@@ -15,7 +15,7 @@ const searchbar = (props) => {
         buttonTextStyle: { fontSize: 14 },
         color: "#B96C55",
       }}
-      onSubmitEditing={props.onSubmit}
+      onSubmitEditing={() => props.onSubmit(query)}
       returnKeyType="go"
     />
   );
