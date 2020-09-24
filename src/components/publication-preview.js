@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
-import { log } from "react-native-reanimated";
-import { API_URL, S3_URL } from "react-native-dotenv";
+import { API_URL, S3_URL, S3_USER_URL } from "react-native-dotenv";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 import moment from "moment";
@@ -46,7 +45,9 @@ const publicationPreview = (props) => {
       <TouchableWithoutFeedback onPress={() => props.onPress(publication)}>
         {publication.path_media_publication !== null ? (
           <Image
-            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
+            source={{
+              uri: `${S3_USER_URL}${publication.userId}/${publication.path_media_publication}`,
+            }}
             style={style.previewImg}
           ></Image>
         ) : (

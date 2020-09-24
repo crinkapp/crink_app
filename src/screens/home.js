@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import PublicationPreview from "../components/publication-preview";
 import axios from "axios";
-import { API_URL, S3_URL } from "react-native-dotenv";
+import { API_URL } from "react-native-dotenv";
 import globalStyle from "../styles";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -40,7 +40,15 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    this.getAllPublications()
+    this.getAllPublications();
+    AsyncStorage.getItem("user_id").then((actualUserId) => {
+      this.setState({ actualUserId });
+    });
+  }
+
+  getAllPublications = async () => {
+    await axios
+      .get(`${API_URL}/all-publications`)
       .then((res) => {
         this.setState({
           publications: res.data.reverse(),
@@ -51,13 +59,6 @@ export default class Home extends React.Component {
         console.log(err);
         this.setState({ loading: false });
       });
-    AsyncStorage.getItem("user_id").then((actualUserId) => {
-      this.setState({ actualUserId });
-    });
-  }
-
-  getAllPublications = async () => {
-    return await axios.get(`${API_URL}/all-publications`);
   };
 
   render() {
@@ -71,7 +72,7 @@ export default class Home extends React.Component {
             backgroundColor: "#fff",
           }}
         >
-          <ActivityIndicator size="large" color="#B96C55"/>
+          <ActivityIndicator size="large" color="#B96C55" />
         </View>
       );
     } else {
