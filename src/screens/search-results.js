@@ -31,10 +31,28 @@ const SearchResults = (props) => {
     });
   };
 
+  const getPublicationsFromQuery = async () => {
+    return await axios.post(`${API_URL}search-publication-by-title`, {
+      research_field: props.route.params.query,
+    });
+  };
+
   useEffect(() => {
     if (props.route.params.isTag) {
       setLoading(true);
       getPublicationsFromTag()
+        .then((res) => {
+          const sortedPublication = res.data.reverse();
+          setPublications(sortedPublication);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      getPublicationsFromQuery()
         .then((res) => {
           const sortedPublication = res.data.reverse();
           setPublications(sortedPublication);
