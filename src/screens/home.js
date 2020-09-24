@@ -30,11 +30,8 @@ export default class Home extends React.Component {
 
   async _onRefresh() {
     this.setState({ refreshing: true });
-    await this.getAllPublications().then((res) => {
-      this.setState({
-        publications: res.data.reverse(),
-        refreshing: false,
-      });
+    await this.getAllPublications().then(() => {
+      this.setState({ refreshing: false });
     });
   }
 
@@ -50,8 +47,9 @@ export default class Home extends React.Component {
     await axios
       .get(`${API_URL}all-publications`)
       .then((res) => {
+        const sortedPublication = res.data.reverse();
         this.setState({
-          publications: res.data.reverse(),
+          publications: sortedPublication,
           loading: false,
         });
       })
