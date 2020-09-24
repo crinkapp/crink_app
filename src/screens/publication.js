@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
-import { API_URL, S3_URL } from "react-native-dotenv";
+import { API_URL, S3_URL, S3_USER_URL } from "react-native-dotenv";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import moment from "moment";
+import "moment/locale/fr";
 
 const Publication = (props) => {
   const [publication, setPublication] = useState(
@@ -27,7 +29,7 @@ const Publication = (props) => {
             style={{ marginRight: 6 }}
           />
           <Text style={styles.numbers}>{publication.nbLikes}</Text>
-          <Icon
+          {/* <Icon
             name="comment"
             size={15}
             color="#CFCECE"
@@ -50,7 +52,7 @@ const Publication = (props) => {
               <Text>…</Text>
             )}{" "}
             min
-          </Text>
+          </Text> */}
           <Icon
             name="star"
             size={15}
@@ -71,7 +73,7 @@ const Publication = (props) => {
         </View>
         {publication.path_media_publication !== null ? (
           <Image
-            source={{ uri: `${S3_URL}${publication.path_media_publication}` }}
+            source={{ uri: `${S3_USER_URL}${publication.userId}/${publication.path_media_publication}` }}
             style={styles.previewImg}
           ></Image>
         ) : (
@@ -82,7 +84,7 @@ const Publication = (props) => {
           </View>
         )}
         <View style={styles.inlineInfos}>
-          <Text style={styles.date}>Il y a 1 jour</Text>
+          <Text style={styles.date}>{moment(publication.createdAt).fromNow()}</Text>
 
           <View style={styles.authorSection}>
             <TouchableWithoutFeedback

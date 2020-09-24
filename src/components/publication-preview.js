@@ -18,7 +18,7 @@ const publicationPreview = (props) => {
   const onLike = () => {
     const like = publication.likedByActualUser;
     return axios
-      .post(`${API_URL}/add-like`, { id: publication.id })
+      .post(`${API_URL}add-like`, { id: publication.id })
       .then(() => {
         setPublication({
           ...publication,
@@ -31,7 +31,7 @@ const publicationPreview = (props) => {
   const onFav = () => {
     const favoris = publication.favoris;
     return axios
-      .post(`${API_URL}/favoris`, { publication_id: publication.id })
+      .post(`${API_URL}favoris`, { publication_id: publication.id })
       .then(() => {
         setPublication({
           ...publication,

@@ -71,7 +71,7 @@ export default class SignUp extends React.Component {
   };
 
   register = () => {
-    return axios.post(`${API_URL}/register`, {
+    return axios.post(`${API_URL}register`, {
       gender_user: this.state.gender,
       username_user: this.state.username,
       email_user: this.state.email,
@@ -80,14 +80,14 @@ export default class SignUp extends React.Component {
   };
 
   login = () => {
-    return axios.post(`${API_URL}/login`, {
+    return axios.post(`${API_URL}login`, {
       email_user: this.state.email,
       password_user: this.state.password,
     });
   };
 
   getUser = () => {
-    return axios.get(`${API_URL}/user`);
+    return axios.get(`${API_URL}user`);
   };
 
   _onPress = async () => {

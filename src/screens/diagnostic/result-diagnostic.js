@@ -12,7 +12,7 @@ const ResultDiagnostic = (props) => {
   const [diagnostic, setDiagnostic] = useState(props.route.params.diagnostic);
 
   const sendDiagnostic = async () => {
-    return await axios.post(`${API_URL}/diagnostic`, diagnostic);
+    return await axios.post(`${API_URL}diagnostic`, diagnostic);
   };
 
   const onsubmit = () => {

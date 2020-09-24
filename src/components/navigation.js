@@ -75,7 +75,7 @@ const HomeScreens = () => {
   const [actualUser, setActualUser] = useState({});
 
   const getUser = async () => {
-    await axios.get(`${API_URL}/user`).then((user) => {
+    await axios.get(`${API_URL}user`).then((user) => {
       setUser(user.data);
     });
   };
@@ -263,7 +263,7 @@ const SearchTab = () => {
   const [user, setUser] = useState({});
 
   const getUser = async () => {
-    await axios.get(`${API_URL}/user`).then((user) => {
+    await axios.get(`${API_URL}user`).then((user) => {
       setUser(user.data);
     });
   };

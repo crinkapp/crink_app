@@ -48,7 +48,7 @@ export default class Home extends React.Component {
 
   getAllPublications = async () => {
     await axios
-      .get(`${API_URL}/all-publications`)
+      .get(`${API_URL}all-publications`)
       .then((res) => {
         this.setState({
           publications: res.data.reverse(),

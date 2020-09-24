@@ -25,7 +25,7 @@ const SearchResults = (props) => {
   }, []);
 
   const getPublicationsFromTag = async () => {
-    return await axios.post(`${API_URL}/search-publication-by-tag`, {
+    return await axios.post(`${API_URL}search-publication-by-tag`, {
       tag_id: props.route.params.tag.id,
     });
   };

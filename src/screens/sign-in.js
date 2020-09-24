@@ -57,14 +57,14 @@ export default class SignIn extends React.Component {
   };
 
   login = () => {
-    return axios.post(`${API_URL}/login`, {
+    return axios.post(`${API_URL}login`, {
       email_user: this.state.email,
       password_user: this.state.password,
     });
   };
 
   getUser = () => {
-    return axios.get(`${API_URL}/user`);
+    return axios.get(`${API_URL}user`);
   };
 
   _onPress = () => {

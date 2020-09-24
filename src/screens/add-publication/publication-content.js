@@ -22,7 +22,7 @@ const ContentPublication = (props) => {
   const [content, setContent] = useState("");
 
   const addPublication = async (newPublication) => {
-    return await axios.post(`${API_URL}/add-publication`, newPublication);
+    return await axios.post(`${API_URL}add-publication`, newPublication);
   };
 
   const onSave = async () => {

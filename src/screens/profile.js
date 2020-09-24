@@ -19,13 +19,13 @@ const Profile = (prop) => {
 
   const onSubscribe = async () => {
     return await axios
-      .post(`${API_URL}/add-subscribe`, { id: user.id })
+      .post(`${API_URL}add-subscribe`, { id: user.id })
       .then(async () => await onUpdate());
   };
 
   const onUpdate = async () => {
     return await axios
-      .post(`${API_URL}/user-by-id`, {
+      .post(`${API_URL}user-by-id`, {
         id_user: user.id,
       })
       .then((res) => setUser(res.data));

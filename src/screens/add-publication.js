@@ -12,7 +12,7 @@ const AddPublication = (props) => {
   const [roleUser, setRoleUser] = useState("");
 
   const getCurrentUser = async () => {
-    return await axios.get(`${API_URL}/user`);
+    return await axios.get(`${API_URL}user`);
   };
 
   useEffect(() => {
