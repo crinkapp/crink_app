@@ -70,18 +70,18 @@ const SmallBack = (props) => {
   );
 };
 
-const getCurrentUser = async () => {
-  return await axios.get(`${API_URL}/user`);
-};
-
 const HomeScreens = () => {
   const [user, setUser] = useState({});
   const [actualUser, setActualUser] = useState({});
 
-  useEffect(() => {
-    getCurrentUser().then((user) => {
+  const getUser = async () => {
+    await axios.get(`${API_URL}/user`).then((user) => {
       setUser(user.data);
     });
+  };
+
+  useEffect(() => {
+    getUser();
   }, []);
 
   const isActualUser = (id) => {
@@ -262,10 +262,14 @@ const HomeScreens = () => {
 const SearchTab = () => {
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    getCurrentUser().then((user) => {
+  const getUser = async () => {
+    await axios.get(`${API_URL}/user`).then((user) => {
       setUser(user.data);
     });
+  };
+
+  useEffect(() => {
+    getUser();
   }, []);
 
   const isActualUser = (id) => {
