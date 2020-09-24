@@ -17,15 +17,13 @@ const publicationPreview = (props) => {
 
   const onLike = () => {
     const like = publication.likedByActualUser;
-    return axios
-      .post(`${API_URL}add-like`, { id: publication.id })
-      .then(() => {
-        setPublication({
-          ...publication,
-          likedByActualUser: !like,
-          nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
-        });
+    return axios.post(`${API_URL}add-like`, { id: publication.id }).then(() => {
+      setPublication({
+        ...publication,
+        likedByActualUser: !like,
+        nbLikes: like ? publication.nbLikes - 1 : publication.nbLikes + 1,
       });
+    });
   };
 
   const onFav = () => {
